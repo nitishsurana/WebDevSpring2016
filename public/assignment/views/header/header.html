@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title>Login</title>
+    <title>Form Maker</title>
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
@@ -29,7 +29,6 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -41,12 +40,12 @@
             </button>
             <a class="navbar-brand" href="#">Form Maker</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse" ng-controller="HeaderController">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/assignment/register.html">Register</a></li>
-                <li class="active"><a href="/assignment/login.html">Login</a></li>
+                <li><a href="#/register">Register</a></li>
+                <li><a href="#/login">Login</a></li>
                 <li><a href="#">Username</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#/home">Logout</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -54,40 +53,6 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="/assignment/home.html">Home</a></li>
-                <li><a href="/assignment/profile.html">Profile</a></li>
-                <li><a href="/assignment/admin.html">Admin</a></li>
-                <li><a href="/assignment/forms.html">Forms</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Login</h1>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Username">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <a href = "./profile.html" role="button" class="btn btn-default btn-lg">Sign in</a>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 </body>
 
 </html>
