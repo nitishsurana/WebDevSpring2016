@@ -31,6 +31,7 @@ app.factory('UserService', function userService() {
     userService.createUser = function (user, callback) {
         var temp = ('{"_id":' + (new Date()).getTime() + ', "firstName":' + user.firstName + ', "lastName":' + user.lastName + ', "username":' + user.username + ', "password":' + user.password + '}');
         fakeData.push(temp);
+        console.log(temp);
         callback(user);
     }
 

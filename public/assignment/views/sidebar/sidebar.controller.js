@@ -4,6 +4,6 @@
 var app = angular.module("FormBuilderApp", []);
 app.controller("SidebarController", SidebarController);
 
-function SidebarController($scope){
+function SidebarController(){
 
 }

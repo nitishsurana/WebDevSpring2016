@@ -1,251 +1,79 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns:white-space="http://www.w3.org/1999/xhtml">
+<html lang="en" ng-app="WhiteBoardApp">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
-  <title>Register</title>
-  <!-- Bootstrap core CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <meta charset="UTF-8">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+  <script src="app.js"></script>
+  <title>Ng Model</title>
 </head>
-<style>
-  #no-wrap{
-    white-space: nowrap;
-  }
-  #bod{
-    border: 0px;
-  }
-</style>
 <body>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<div class="container" ng-controller="NgModelController">
+  <h1>Ng Model</h1>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Form Maker</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Username</a></li>
-        <li><a href="#">Logout</a></li>
-      </ul>
-      <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search...">
-      </form>
-    </div>
-  </div>
-</nav>
-<div class="container-fluid">
+  <h2>Model Set by Controller</h2>
+
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
-        <li><a href="/assignment/home.html">Home</a></li>
-        <li><a href="/assignment/profile.html">Profile</a></li>
-        <li><a href="/assignment/admin.html">Admin</a></li>
-        <li><a href="/assignment/forms.html">Forms</a></li>
-      </ul>
+    <div class="col-xs-6">
+      <h3>HTML</h3>
+
+      <code ng-non-bindable>{{lorem}}</code>
+
+      <p>
+        {{lorem}}
+      </p>
+    </div>
+    <div class="col-xs-6">
+      <h3>app.js</h3>
+<pre>
+function NgModelController($scope) {
+  $scope.lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+}</pre>
     </div>
   </div>
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">Forms</h1>
-    <ul class="nav nav-pills">
-      <li role="presentation"><a href="/assignment/forms.html">Forms</a></li>
-      <li role="presentation" class="active"><a href="/assignment/form-fields.html">Fields</a></li>
-    </ul>
-    <br/>
-    <div class="table-responsive">
-      <table>
-        <tbody>
-        <tr>
-          <td class="col-xs-4">
-            First Name<br />
-            <input class="form-control" type="text" name="firstName" placeholder="First Name"/>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-warning">
-              <scan class="glyphicon glyphicon-pencil"></scan>
-            </a>
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <scan class="glyphicon glyphicon-remove"></scan>
-            </a>
-            <a href="#" class="btn btn-success">
-              <scan class="glyphicon glyphicon-align-justify"></scan>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-xs-4">
-            Last Name<br />
-            <input class="form-control" type="text" name="firstName" placeholder="Last Name"/>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-warning">
-              <scan class="glyphicon glyphicon-pencil"></scan>
-            </a>
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <scan class="glyphicon glyphicon-remove"></scan>
-            </a>
-            <a href="#" class="btn btn-success">
-              <scan class="glyphicon glyphicon-align-justify"></scan>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-xs-4">
-            Date of Birth<br />
-            <input class="form-control" type="date" name="startDate" style="text-align: center"/>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-warning">
-              <scan class="glyphicon glyphicon-pencil"></scan>
-            </a>
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <scan class="glyphicon glyphicon-remove"></scan>
-            </a>
-            <a href="#" class="btn btn-success">
-              <scan class="glyphicon glyphicon-align-justify"></scan>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-xs-4">
-            Gender<br />
-            <select class="form-control" type="text" name="Gender">
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
-            </select>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-warning">
-              <scan class="glyphicon glyphicon-pencil"></scan>
-            </a>
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <scan class="glyphicon glyphicon-remove"></scan>
-            </a>
-            <a href="#" class="btn btn-success">
-              <scan class="glyphicon glyphicon-align-justify"></scan>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-xs-4">
-            Roles<br />
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="ADMIN"> Admin <br />
-                <input type="checkbox" value="STUDENT"> Student <br />
-                <input type="checkbox" value="USER"> User <br />
-              </label>
-            </div>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-warning">
-              <scan class="glyphicon glyphicon-pencil"></scan>
-            </a>
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <scan class="glyphicon glyphicon-remove"></scan>
-            </a>
-            <a href="#" class="btn btn-success">
-              <scan class="glyphicon glyphicon-align-justify"></scan>
-            </a>
-          </td>
-        </tr>
 
-        <tr>
-          <td class="col-xs-4">
-            License Agreement<br />
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="YES" checked> Yes <br />
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="NO"> No <br />
-              </label>
-            </div>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-warning">
-              <scan class="glyphicon glyphicon-pencil"></scan>
-            </a>
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <scan class="glyphicon glyphicon-remove"></scan>
-            </a>
-            <a href="#" class="btn btn-success">
-              <scan class="glyphicon glyphicon-align-justify"></scan>
-            </a>
-          </td>
-        </tr>
 
-        <tr>
-          <td class="col-xs-4">
-            Add New Field<br />
-            <select class="form-control" type="text" name="Gender">
-              <option value="SINGLE_LINE_TEXT">Single Line Text</option>
-              <option value="DATE">Date </option>
-              <option value="DROPDOWN"> Dropdown </option>
-              <option value="CHECK_BOX"> Checkboxes </option>
-              <option value="RADIO_BUTTON"> Radio buttons </option>
-              <option value="PARAGRAPH_TEXT_FIELD"> Paragraph Text Field </option>
-            </select>
-          </td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-3" style="white-space: nowrap" align="center">
-            <a href="#" class="btn btn-primary">
-              <scan class="glyphicon glyphicon-plus"></scan>
-            </a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+  <h2>Model Bound to Template</h2>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <input ng-model="title" class="form-control"/>
+      <h3>Title: {{title}}</h3>
+    </div>
+    <div class="col-xs-6">
+<pre>
+&lt;input ng-model=&quot;title&quot; class=&quot;form-control&quot;/&gt;
+&lt;h3&gt;<code ng-non-bindable>Title: {{title}}</code>&lt;/h3&gt;</pre>
     </div>
   </div>
+
+  <h2>Model Sent Through Event Handler</h2>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <input ng-model="author" class="form-control"/>
+      <button ng-click="setAuthor(author)"
+              class="btn btn-primary btn-block">
+        Set Author
+      </button>
+      <h3>Author: {{theAuthor}}</h3>
+      <br/>
+<pre>
+&lt;input ng-model=&quot;author&quot; class=&quot;form-control&quot;/&gt;
+&lt;button ng-click=&quot;setAuthor(author)&quot;&gt; Set Author &lt;/button&gt;
+&lt;h3&gt;Author: <code ng-non-bindable>{{theAuthor}}</code>&lt;/h3&gt;</pre>
+    </div>
+    <div class="col-xs-6">
+<pre>
+function NgModelController($scope) {
+  $scope.setAuthor = setAuthor;
+
+  function setAuthor(author) {
+    $scope.theAuthor = author;
+  }
+}</pre>
+    </div>
+  </div>
+</div>
 </body>
-
 </html>
