@@ -1,10 +1,10 @@
 /**
  * Created by Nitish on 2/16/2016.
  */
-var app = angular.module("FormBuilderApp", []);
-app.factory('UserService', function userService() {
+var app = angular.module("FormBuilderApp");
+app.factory('UserService', function () {
     "use strict";
-    var userService = {};
+    var UserService = {};
     var fakeData = [];
     fakeData = [
         {"_id": 123, "firstName": "Alice", "lastName": "Wonderland", "username": "alice", "password": "alice"},
@@ -13,7 +13,7 @@ app.factory('UserService', function userService() {
         {"_id": 456, "firstName": "Dan", "lastName": "Craig", "username": "dan", "password": "dan"},
         {"_id": 567, "firstName": "Edward", "lastName": "Norton", "username": "ed", "password": "ed"}
     ];
-    userService.findUserByUsernameAndPassword = function (username, password, callback) {
+    UserService.findUserByCredentials = function (username, password, callback) {
         fakeData.forEach(function (user) {
             if (user.username === username) {
                 if (user.password === password) {
@@ -24,25 +24,27 @@ app.factory('UserService', function userService() {
         callback(null);
     }
 
-    userService.findAllUsers = function (callback) {
+    UserService.findAllUsers = function (callback) {
         callback(fakeData);
     }
 
-    userService.createUser = function (user, callback) {
+
+
+    UserService.createUser = function (user, callback) {
         var temp = ('{"_id":' + (new Date()).getTime() + ', "firstName":' + user.firstName + ', "lastName":' + user.lastName + ', "username":' + user.username + ', "password":' + user.password + '}');
         fakeData.push(temp);
         console.log(temp);
         callback(user);
     }
 
-    userService.deleteUserById = function (userId, callback) {
+    UserService.deleteUserById = function (userId, callback) {
         fakeData = fakeData.filter(function (user) {
             return user.username !== userId;
         });
         callback(fakeData);
     }
 
-    userService.updateUser = function (userId, user, callback) {
+    UserService.updateUser = function (userId, user, callback) {
         for (var i = 0; i < fakeData.length; i++) {
             if (fakeData[i].username === userId) {
                 fakeData[i] = user;
@@ -61,6 +63,6 @@ app.factory('UserService', function userService() {
      callback(fakeData);
      }
      */
-    return userService;
+    return UserService;
 });
 

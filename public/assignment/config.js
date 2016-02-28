@@ -10,7 +10,8 @@
                     templateUrl: "views/home/home.view.html"
                 })
                 .when("/profile", {
-                    templateUrl: "views/users/profile.view.html"
+                    templateUrl: "views/users/profile.view.html",
+                    controller: "ProfileController"
                 })
                 .when("/admin", {
                     templateUrl: "views/admin/admin.view.html"

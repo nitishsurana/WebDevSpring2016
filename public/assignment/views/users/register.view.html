@@ -1,21 +1,21 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="FormBuilderApp">
     <body>
         <div class="container-fluid">
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">Register</h1>
-                <form class="form-horizontal" ng-model="addUser">
+                <form class="form-horizontal" ng-model="addUser" ng-controller="RegisterController">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+                        <label class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-10">
-                            <input type="text" ng-model="username" class="form-control" id="inputEmail3" placeholder="Username">
+                            <input type="text" ng-model="usernm" class="form-control" placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" ng-model="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="password" ng-model="pwd" class="form-control" id="inputPassword3" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
@@ -32,10 +32,12 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <a href = "#/profile" role="button" ng-click="register()" class="btn btn-lg" ng-class="{'btn-default' : $location.url()=='/profile'} ">Register</a>
+                            <a href="#/profile" class="btn" ng-class="{'btn-primary' : $location.url() == '/profile'}"
+                               ng-click="register()"> Register </a>
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </body>
