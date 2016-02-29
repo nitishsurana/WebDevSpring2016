@@ -2,20 +2,21 @@
  * Created by Nitish on 2/16/2016.
  */
 
-var app = angular.module("FormBuilderApp");
-app.controller("RegisterController", RegisterController);
+angular
+    .module("FormBuilderApp")
+    .controller("RegisterController", RegisterController);
 
-function RegisterController($scope,$rootScope) {
+function RegisterController($scope,$rootScope,UserService) {
     $scope.register = register;
     function register ($location) {
-        $rootScope.user = {
+        $rootScope.newRegistration = {
             "username": $scope.usernm,
             "password": $scope.pwd,
             "email": $scope.email1
         };
+        UserService.createUser($rootScope.newRegistration,function(response){
+            $rootScope.newUser = response;
+        })
         $scope.$location = $location;
-        //console.log("ROOTSCOPE_USER: " + $rootScope.user["username"] + " " + $rootScope.user["password"] + " " + $rootScope.user["email"]);
-        //console.log(uses,pwd,email1);
-        console.log($rootScope.user);
     }
 }

@@ -2,15 +2,22 @@
  * Created by Nitish on 2/17/2016.
  */
 angular
-    .module('FormBuilderApp')
+    .module("FormBuilderApp")
     .controller('ProfileController',ProfileController);
 
 function ProfileController($scope, $rootScope,UserService) {
-    $scope.update = function () {
-        var user = $rootScope.user;
-        $scope.username = user['username'];
-        $scope.pwd = user['password'];
-        $scope.email1 = user['email'];
-        UserService.updateUser(user);
+    $scope.update = update;
+    function update() {
+        var user = {
+            "_id": $scope.username,
+            "firstName": $scope.firstName,
+            "lastName": $scope.lastName,
+            "username": $scope.username,
+            "password": $scope.pwd
+        };
+        $rootScope.newUser = user;
+        UserService.updateUser(user['username'],$rootScope.newUser,function(response){
+            $rootScope.newUser = response;
+        });
     };
 }
