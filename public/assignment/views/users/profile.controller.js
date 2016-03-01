@@ -1,13 +1,13 @@
 /**
  * Created by Nitish on 2/17/2016.
  */
+(function (){
 angular
     .module("FormBuilderApp")
     .controller('ProfileController',ProfileController);
 
 function ProfileController($scope, $rootScope,UserService) {
     $scope.update = update;
-    console.log($rootScope.newUser);
     if ($rootScope.currentUser !== null){
         $scope.username = $rootScope.currentUser.username;
         $scope.pwd = $rootScope.currentUser.password;
@@ -32,3 +32,4 @@ function ProfileController($scope, $rootScope,UserService) {
         });
     };
 }
+})();

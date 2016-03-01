@@ -1,6 +1,7 @@
 /**
  * Created by Nitish on 2/29/2016.
  */
+(function (){
 angular
     .module("FormBuilderApp")
     .controller("FormController", FormController);
@@ -35,3 +36,4 @@ function FormController($scope, FormService){
         selectedIndex = index;
     }
 }
+})();
