@@ -6,7 +6,7 @@
         .module("FormBuilderApp", ["ngRoute"])
         .config(function($routeProvider){
             $routeProvider
-                .when("/", {
+                .when("/home", {
                     templateUrl: "views/home/home.view.html"
                 })
                 .when("/profile", {
@@ -32,7 +32,7 @@
                     templateUrl: "views/fields/fields.view.html"
                 })
                 .otherwise({
-                    redirectTo: "/"
+                    redirectTo: "/home"
                 });
         });
 })();
