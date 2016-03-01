@@ -12,10 +12,12 @@ function RegisterController($scope,$rootScope,UserService) {
         $rootScope.newRegistration = {
             "username": $scope.usernm,
             "password": $scope.pwd,
+            "firstName": "",
+            "lastName": "",
             "email": $scope.email1
         };
         UserService.createUser($rootScope.newRegistration,function(response){
-            $rootScope.newUser = response;
+            UserService.setCurrentUser(response);
         })
         $scope.$location = $location;
     }

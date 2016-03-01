@@ -7,6 +7,17 @@ angular
 
 function ProfileController($scope, $rootScope,UserService) {
     $scope.update = update;
+    console.log($rootScope.newUser);
+    if ($rootScope.currentUser !== null){
+        $scope.username = $rootScope.currentUser.username;
+        $scope.pwd = $rootScope.currentUser.password;
+        $scope.firstName = $rootScope.currentUser.firstName;
+        $scope.lastName = $rootScope.currentUser.lastName;
+    }
+    else{
+        $scope.username = $rootScope.newUser.username;
+        $scope.pwd = $rootScope.newUser.password;
+    }
     function update() {
         var user = {
             "_id": $scope.username,
@@ -15,9 +26,9 @@ function ProfileController($scope, $rootScope,UserService) {
             "username": $scope.username,
             "password": $scope.pwd
         };
-        $rootScope.newUser = user;
-        UserService.updateUser(user['username'],$rootScope.newUser,function(response){
-            $rootScope.newUser = response;
+        UserService.setCurrentUser(user);
+        UserService.updateUser(user['username'],$rootScope.currentUser,function(response){
+
         });
     };
 }

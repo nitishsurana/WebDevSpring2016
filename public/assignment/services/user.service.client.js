@@ -5,17 +5,9 @@ angular
     .module("FormBuilderApp")
     .factory('UserService', UserService);
 
-function UserService() {
+function UserService($rootScope) {
     "use strict";
     var fakeData = [];
-    var api = {
-        findUserByCredentials: findUserByCredentials,
-        findAllUsers: findAllUsers,
-        createUser: createUser,
-        deleteUserById: deleteUserById,
-        updateUser: updateUser
-    }
-
     fakeData = [
         {"_id": 123, "firstName": "Alice", "lastName": "Wonderland", "username": "alice", "password": "alice"},
         {"_id": 234, "firstName": "Bob", "lastName": "Hope", "username": "bob", "password": "bob"},
@@ -23,6 +15,20 @@ function UserService() {
         {"_id": 456, "firstName": "Dan", "lastName": "Craig", "username": "dan", "password": "dan"},
         {"_id": 567, "firstName": "Edward", "lastName": "Norton", "username": "ed", "password": "ed"}
     ];
+
+    var api = {
+        findUserByCredentials: findUserByCredentials,
+        findAllUsers: findAllUsers,
+        createUser: createUser,
+        deleteUserById: deleteUserById,
+        updateUser: updateUser,
+        setCurrentUser: setCurrentUser,
+        getCurrentUser: getCurrentUser
+    };
+
+    return api;
+
+
 
     function findUserByCredentials(username, password, callback) {
         for(var i=0; i<fakeData.length; i++){
@@ -56,6 +62,12 @@ function UserService() {
         callback(fakeData);
     }
 
+    function setCurrentUser(user){
+        $rootScope.currentUser = user;
+    }
+    function getCurrentUser(){
+        return $rootScope.currentUser;
+    }
     function updateUser(userId, user, callback) {
         for (var i = 0; i < fakeData.length; i++) {
             if (fakeData[i].username === userId) {
@@ -64,6 +76,5 @@ function UserService() {
         }
         callback(fakeData);
     }
-    return api;
 }
 
