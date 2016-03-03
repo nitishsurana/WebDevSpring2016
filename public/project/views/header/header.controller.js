@@ -6,7 +6,11 @@
         .module("PortfolioManager")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController(){
-        console.log("Header");
+    function HeaderController($scope, UserService){
+        $scope.logout = logout;
+
+        function logout(){
+            UserService.setCurrentUser(null);
+        }
     }
 })();

@@ -18,8 +18,12 @@
                     templateUrl: "views/users/login.view.html",
                     controller: "LoginController"
                 })
+                .when("/portfolio", {
+                    templateUrl: "views/portfolio/portfolio.view.html",
+                    controller: "PortfolioController"
+                })
                 .when("/profile", {
-                    templatUrl: "views/users/profile.view.html",
+                    templateUrl: "views/users/profile.view.html",
                     controller: "ProfileController"
                 })
                 .otherwise({

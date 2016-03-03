@@ -7,6 +7,6 @@
         .controller("FooterController", FooterController);
 
     function FooterController(){
-        console.log("Footer");
+
     }
 })();
