@@ -29,3 +29,6 @@ body {
 .options{
     white-space: nowrap;
 }
+.padding{
+    padding-top: 1%;
+}
