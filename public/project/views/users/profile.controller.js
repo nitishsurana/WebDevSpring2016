@@ -18,7 +18,6 @@
             $scope.aboutMe = $rootScope.currentUser.aboutMe;
             $scope.interestedInvestments = $rootScope.currentUser.interestedInvestments;
         }
-        console.log($rootScope.currentUser);
         function update() {
             var user = {
                 "fullName": $scope.fullName,
@@ -29,10 +28,13 @@
                 "aboutMe": $scope.aboutMe,
                 "interestedInvestments": $scope.interestedInvestments
             };
+
             UserService.setCurrentUser(user);
             UserService.updateUser(user['username'],$rootScope.currentUser,function(response){
                 console.log(response);
+                alert("Profile Updated.");
             });
         };
+
     }
 })();

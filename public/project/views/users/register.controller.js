@@ -23,7 +23,7 @@
                 UserService.setCurrentUser(response);
                 console.log(response);
             });
-            $location.url("/portfolio");
+            $location.url("/profile");
         }
     }
 })();
