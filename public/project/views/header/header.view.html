@@ -9,10 +9,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#/">Portfolio Manager</a>
+
+                <form class="navbar-form navbar-right">
+                    <input ng-model="queryText" type="text" class="form-control" placeholder="Search. . .">
+                    <select ng-model="queryType" class="form-control">
+                        <option>Investment Option</option>
+                        <option>Investor</option>
+                    </select>
+                    <button type="submit" ng-click="search()" class="btn">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
             </div>
             <div id="navbar" class="collapse navbar-collapse ">
-                <ul class="nav navbar-nav ">
-                    <li><a href="#/">Home</a></li>
+                <ul class="nav navbar-nav navbar-right">
                     <li><a href="#/register" ng-hide="currentUser">Register</a></li>
                     <li><a href="#/login" ng-hide="currentUser">Login</a></li>
                     <li><a href="#/profile" ng-show="currentUser">Profile</a></li>

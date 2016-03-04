@@ -10,6 +10,7 @@
         $scope.search= search;
 
         function search(){
+            $location.url('/search');
         }
     }
 })();

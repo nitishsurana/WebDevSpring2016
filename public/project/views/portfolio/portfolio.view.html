@@ -14,7 +14,7 @@
                     <th>Total Investment</th>
                     <th>Current Value</th>
                     <th>Profit/Loss</th>
-                    <th class="options"></th>
+                    <th></th>
                 </tr>
                 <tr>
                     <div class="form-group">
@@ -55,7 +55,7 @@
                     <td>{{investment.totalInvestment}} </td>
                     <td>{{investment.currentValue}} </td>
                     <td>{{investment.profit}} </td>
-                    <td>
+                    <td class="options">
                         <a ng-click="deleteInvestment($index)" role="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>

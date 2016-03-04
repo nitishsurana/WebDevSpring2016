@@ -27,5 +27,5 @@ body {
 }
 
 .options{
-    text-wrap: none;
+    white-space: nowrap;
 }
