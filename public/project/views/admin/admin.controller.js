@@ -33,8 +33,29 @@
             })
         }
 
-        function updateUser(){
+        function roles(){
+            if ($scope.roles.indexOf(",")> 0){
+                return $scope.roles.split("'");
+            }
+            else{
+                return [$scope.roles];
+            }
+        }
 
+        function updateUser(){
+            var user = {
+                "fullName": $scope.fullName,
+                "email": $scope.users[selectedIndex].email,
+                "username": $scope.username,
+                "password": $scope.users[selectedIndex].password,
+                "phoneNumber": $scope.users[selectedIndex].phoneNumber,
+                "aboutMe": $scope.users[selectedIndex].aboutMe,
+                "interestedInvestments": $scope.users[selectedIndex].interestedInvestments,
+                "roles": roles()
+            };
+            UserService.updateUser($scope.username, user, function (){
+
+            });
         }
 
         function deleteUser(index){
