@@ -15,6 +15,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#/register" ng-hide="currentUser">Register</a></li>
                     <li><a href="#/login" ng-hide="currentUser">Login</a></li>
+                    <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url()=='/admin'}">
+                        <a href="#/admin">Admin</a></li>
                     <li><a href="#/profile" ng-show="currentUser">Profile</a></li>
                     <li><a href="#/portfolio" ng-show="currentUser">Portfolio</a></li>
                     <li><a href="#/home" ng-click="logout()" ng-show="currentUser">Logout</a></li>

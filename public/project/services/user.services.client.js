@@ -12,11 +12,11 @@ function UserService($rootScope) {
     var fakeData = [];
     fakeData = [
         { "_id":123, "fullName":"Alice Wonderland", "email":"alice@outlook.com", "username":"alice", "password":"alice",
-            "phoneNumber": 999999999, "aboutMe":"nothing", "interestedInvestments":"bonds, stocks"},
+            "phoneNumber": 999999999, "aboutMe":"nothing", "interestedInvestments":"bonds, stocks", "roles": ["investor"]},
         { "_id":234, "fullName":"Bob Wills", "email":"bob@outlook.com", "username":"bob", "password":"bob",
-            "phoneNumber": 8888888888, "aboutMe":"trader", "interestedInvestments":"stocks"},
+            "phoneNumber": 8888888888, "aboutMe":"trader", "interestedInvestments":"stocks", "roles": ["investor"]},
         { "_id":345, "fullName":"John Hopkins", "email":"john@outlook.com", "username":"john", "password":"john",
-            "phoneNumber":999999999, "aboutMe":"accountant", "interestedInvestments":"mutual funds"}
+            "phoneNumber":999999999, "aboutMe":"accountant", "interestedInvestments":"mutual funds", "roles": ["investor","admin"]}
     ];
 
     var api = {
