@@ -26,7 +26,8 @@ function UserService($rootScope) {
         deleteUserById: deleteUserById,
         updateUser: updateUser,
         setCurrentUser: setCurrentUser,
-        getCurrentUser: getCurrentUser
+        getCurrentUser: getCurrentUser,
+        users: fakeData
     };
 
     return api;
@@ -55,7 +56,8 @@ function UserService($rootScope) {
             "password": user.password,
             "phoneNumber": user.phoneNumber,
             "aboutMe": user.aboutMe,
-            "interestedInvestments": user.interestedInvestments
+            "interestedInvestments": user.interestedInvestments,
+            "roles": user.roles
         };
         fakeData.push(temp);
         callback(temp);

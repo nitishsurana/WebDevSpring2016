@@ -14,6 +14,7 @@
         $scope.updateUser = updateUser;
         $scope.deleteUser = deleteUser;
         $scope.selectUser = selectUser;
+        $scope.users = UserService.users;
         var selectedIndex = -1;
 
         function addUser(){
@@ -25,7 +26,7 @@
                 "phoneNumber": 0,
                 "aboutMe": "",
                 "interestedInvestments": "",
-                "roles": [$scope.role]
+                "roles": [$scope.roles]
             };
             UserService.createUser(user,function(response){
                 console.log(response);
@@ -36,8 +37,11 @@
 
         }
 
-        function deleteUser(){
-
+        function deleteUser(index){
+            UserService.deleteUserById($scope.users[index].username,function(response){
+                $scope.users = response;
+                console.log($scope.users);
+            });
         }
 
         function selectUser(){
