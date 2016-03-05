@@ -44,8 +44,11 @@
             });
         }
 
-        function selectUser(){
-
+        function selectUser(index){
+            $scope.fullName = $scope.users[index].fullName;
+            $scope.username = $scope.users[index].username;
+            $scope.roles = $scope.users[index].roles;
+            selectedIndex = index;
         }
     }
 }) ();
