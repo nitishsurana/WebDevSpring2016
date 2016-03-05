@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div>
+        <h1 class="page-header">Admin</h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        Full Name
+                    </th>
+                    <th>
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        Username
+                    </th>
+                    <th>Roles</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <td>
+                                <input type="text" ng-model="fullName" class="form-control" placeholder="Full Name">
+                            </td>
+                            <td>
+                                <input type="text" ng-model="username" class="form-control" placeholder="Username">
+                            </td>
+                            <td>
+                                <input type="number" ng-model="role" class="form-control" placeholder="Role">
+                            </td>
+
+                            <td>
+                                <a ng-click="addUser()" role="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
+                                <a ng-click="updateUser()" role="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </a>
+                            </td>
+                        </div>
+                    </div>
+                </tr>
+                <tr ng-repeat="user in users" ng-class="{'success' : $index == selectedFormIndex}">
+                    <td>{{user.fullName}} </td>
+                    <td>{{user.username}} </td>
+                    <td>{{user.roles}} </td>
+                    <td class="options">
+                        <a ng-click="deleteUser($index)" role="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                        <a ng-click="selectUser($index)" role="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
