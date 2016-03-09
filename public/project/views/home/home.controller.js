@@ -6,11 +6,11 @@
         .module("PortfolioManager")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope){
+    function HomeController($scope,SearchService){
         $scope.search= search;
 
         function search(){
-            $location.url('/search');
+            SearchService.search($scope.queryType, $scope.queryText);
         }
     }
 })();

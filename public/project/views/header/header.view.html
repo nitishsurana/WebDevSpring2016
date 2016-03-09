@@ -1,4 +1,4 @@
-<div ng-controller="HeaderController">
+<div ng-controller='HeaderController'>
     <nav class="navbar navbar-inverse navbar-fixed-top" >
         <div class="container">
             <div class="navbar-header">
@@ -21,16 +21,6 @@
                     <li><a href="#/portfolio" ng-show="currentUser">Portfolio</a></li>
                     <li><a href="#/home" ng-click="logout()" ng-show="currentUser">Logout</a></li>
                 </ul>
-                <form class="navbar-form navbar-center">
-                    <input ng-model="queryText" type="text" class="form-control" placeholder="Search. . .">
-                    <select ng-model="queryType" class="form-control">
-                        <option>Investment Option</option>
-                        <option>Investor</option>
-                    </select>
-                    <button type="submit" ng-click="search()" class="btn">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </form>
             </div>
         </div>
     </nav>
