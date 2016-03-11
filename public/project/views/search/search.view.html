@@ -1,4 +1,14 @@
 <div>
+    <form class="navbar-form navbar-center">
+        <input ng-model="queryText" type="text" class="form-control" placeholder="Search. . .">
+        <select ng-model="queryType" class="form-control">
+            <option>Investment Option</option>
+            <option>Investor</option>
+        </select>
+        <button type="submit" ng-click="search()" class="btn">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </form>
     <h2>Search Results</h2>
     <div ng-repeat="(key,value) in returnData">
         <div ng-if="key=='Name' || key=='fullName'">
