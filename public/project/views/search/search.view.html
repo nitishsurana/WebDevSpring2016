@@ -1,9 +1,6 @@
 <div>
     <div id="results">
-        <h2>{{name}}</h2>
-        <h4>{{symbol}}</h4>
-        <h4>{{about}}</h4>
-        <h4>{{interest}}</h4>
-        {{ltp}}
+        <div ng-repeat="(key,value) in returnData">
+            <div ng-if="value != null && key!= 'username' && key!='password' && key!='roles' && key!='query' && key!='resultType' && key!='_idgit'">{{key}} - {{value}}</div>
     </div>
 </div>

@@ -41,20 +41,18 @@
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
-                $rootScope.returnData.resultType = "YQL";
-                $rootScope.returnData.query = queryText;
                 if (response.data.query.results.quote.Name == ""){
                     $rootScope.returnData = {
-                        "name": "",
-                        "symbol": "",
-                        "ltp": "",
-                        "query": queryText
+                        "Result": "Oops, the symbol does not exist",
+                        "symbol": queryText,
+                        "resultType": "YQL"
                     };
+
                 }
                 else {
-                    $rootScope.returnData.symbol = response.data.query.results.quote.Symbol;
-                    $rootScope.returnData.name = response.data.query.results.quote.Name;
-                    $rootScope.returnData.ltp = response.data.query.results.quote.LastTradePriceOnly;
+                    $rootScope.returnData = response.data.query.results.quote;
+                    $rootScope.returnData.resultType = "YQL";
+                    $rootScope.returnData.query = queryText;
                 }
                 $location.url('/search');
 
