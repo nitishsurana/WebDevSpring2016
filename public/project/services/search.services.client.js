@@ -41,7 +41,6 @@
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
-                console.log(response);
                 if (response.data.query.results.quote.Name == ""){
                     $rootScope.returnData = {
                         "Result": "Oops, the symbol does not exist",

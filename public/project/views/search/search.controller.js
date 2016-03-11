@@ -10,14 +10,11 @@
 
         $scope.search = search;
         var sym = $routeParams.symbol;
-
-        console.log($rootScope.returnData);
         if (sym){
             searchResult(sym);
         }
 
         function searchResult(s){
-            console.log(s);
             $location.url("/search/" + s);
         }
 
@@ -27,13 +24,11 @@
 
             sym = $routeParams.symbol;
 
-            console.log($rootScope.returnData);
             if (sym){
                 searchResult(sym);
             }
 
             function searchResult(s){
-                console.log(s);
                 $location.url("/search/" + s);
             }
         }
