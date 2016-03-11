@@ -6,16 +6,16 @@
         .module("PortfolioManager")
         .factory("SearchService", SearchService);
 
-    function SearchService($location, $http){
-        var returnData = {
+    function SearchService($rootScope,$location, $http, UserService){
+        $rootScope.returnData = {
+            "resultType": "",
             "name": "",
             "symbol": "",
             "ltp": "",
+            "query": ""
         };
-
         var api={
-            search: search,
-            returnData: returnData
+            search: search
         };
         return api;
 
@@ -24,40 +24,45 @@
                 searchYahoo(queryText);
             }
             else{
-                searchInvestor();
+                searchInvestor(queryText);
             }
         }
 
-        function searchInvestor(){
-
+        function searchInvestor(queryText){
+            $rootScope.returnData = UserService.findUser(queryText);
+            $rootScope.returnData.resultType = "Investor";
+            $rootScope.returnData.query = queryText;
+            $location.url('/search');
         }
         function searchYahoo(queryText){
-
             $http({
                 method: 'GET',
                 url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22' + queryText + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
-                console.log(response.data.query.results.quote);
+                $rootScope.returnData.resultType = "YQL";
+                $rootScope.returnData.query = queryText;
                 if (response.data.query.results.quote.Name == ""){
-                    returnData = {
+                    $rootScope.returnData = {
                         "name": "",
                         "symbol": "",
                         "ltp": "",
+                        "query": queryText
                     };
                 }
                 else {
-                    returnData.symbol = response.data.query.results.quote.Symbol;
-                    returnData.name = response.data.query.results.quote.Name;
-                    returnData.ltp = response.data.query.results.quote.LastTradePriceOnly;
+                    $rootScope.returnData.symbol = response.data.query.results.quote.Symbol;
+                    $rootScope.returnData.name = response.data.query.results.quote.Name;
+                    $rootScope.returnData.ltp = response.data.query.results.quote.LastTradePriceOnly;
                 }
                 $location.url('/search');
+
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                console.log(response);
-                $location.url('/search');
+                $location.url('/');
+                alert("Error in connection. Please try again.");
             });
         }
     }

@@ -54,6 +54,7 @@ function PortfolioService(){
             return "$".concat(sum.toString());
         }
     }
+
     function addInvestment(investment, callback){
         portfolio.push(investment);
         callback(investment);

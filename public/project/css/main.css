@@ -29,6 +29,10 @@ body {
 .options{
     white-space: nowrap;
 }
+
+th{
+    text-align: center;
+}
 .padding{
     padding-top: 1%;
 }

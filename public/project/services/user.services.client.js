@@ -22,6 +22,7 @@ function UserService($rootScope) {
     var api = {
         findUserByCredentials: findUserByCredentials,
         findAllUsers: findAllUsers,
+        findUser: findUser,
         createUser: createUser,
         deleteUserById: deleteUserById,
         updateUser: updateUser,
@@ -32,7 +33,14 @@ function UserService($rootScope) {
 
     return api;
 
-
+    function findUser(searchText){
+        for(var i=0; i<fakeData.length; i++){
+            if (fakeData[i].username == searchText || fakeData[i].password == searchText){
+                return fakeData[i];
+            }
+        }
+        return {"name": ""};
+    }
 
     function findUserByCredentials(username, password, callback) {
         for(var i=0; i<fakeData.length; i++){

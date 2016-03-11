@@ -54,7 +54,9 @@
 
         function deleteInvestment(index){
             PortfolioService.deleteInvestment($scope.portfolio[index].investmentOption,function(response){
-
+                $scope.invested = PortfolioService.totalInvestmentValue();
+                $scope.currentValuation = PortfolioService.currentValue();
+                $scope.netGain = PortfolioService.calculateProfit();
             });
         }
 

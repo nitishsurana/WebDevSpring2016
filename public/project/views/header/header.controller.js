@@ -6,8 +6,9 @@
         .module("PortfolioManager")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, UserService){
+    function HeaderController($scope, UserService,SearchService){
         $scope.logout = logout;
+
         function logout(){
             UserService.setCurrentUser(null);
         }
