@@ -1,6 +1,15 @@
 <div>
-    <div id="results">
-        <div ng-repeat="(key,value) in returnData">
-            <div ng-if="value != null && key!= 'username' && key!='password' && key!='roles' && key!='query' && key!='resultType' && key!='_idgit'">{{key}} - {{value}}</div>
+    <h2>Search Results</h2>
+    <div ng-repeat="(key,value) in returnData">
+        <div ng-if="key=='Name' || key=='fullName'">
+            <h3>
+                <a href="#/search/{{value}}">
+                    {{value}}
+                </a>
+            </h3>
+        </div>
+        <div ng-if="(key=='Name' || key=='name') && (value==null || value == '')">
+            <h4>Oops, the searched data "<bold>{{returnData.query}}</bold>" is not correct. Please enter the right query.</h4>
+        </div>
     </div>
 </div>

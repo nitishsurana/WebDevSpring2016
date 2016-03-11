@@ -37,10 +37,11 @@
         function searchYahoo(queryText){
             $http({
                 method: 'GET',
-                url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22' + queryText + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
+                url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20%3D%20%22' + queryText + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
+                console.log(response);
                 if (response.data.query.results.quote.Name == ""){
                     $rootScope.returnData = {
                         "Result": "Oops, the symbol does not exist",

@@ -14,6 +14,10 @@
                     templateUrl: "views/search/search.view.html",
                     controller: "SearchController"
                 })
+                .when("/search/:symbol", {
+                    templateUrl: "views/search/details.view.html",
+                    controller: "DetailsController"
+                })
                 .when("/register", {
                     templateUrl: "views/users/register.view.html",
                     controller: "RegisterController"
