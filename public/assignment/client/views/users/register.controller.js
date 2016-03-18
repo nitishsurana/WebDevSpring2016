@@ -23,7 +23,12 @@
                 .then(function(response){
                     var ret = response.data;
                     //console.log(ret);
-                    UserService.setCurrentUser(ret);
+                    for(var u in ret){
+                        //console.log(ret[u]);
+                        if (ret[u].username == user.username){
+                            UserService.setCurrentUser(ret[u]);
+                        }
+                    }
                     $location.url('/profile');
                 });
 

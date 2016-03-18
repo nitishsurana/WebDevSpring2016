@@ -6,14 +6,23 @@ angular
     .module("FormBuilderApp")
     .controller("FormController", FormController);
 
-function FormController($scope, FormService){
-    $scope.addForm = addForm;
-    $scope.updateForm = updateForm;
-    $scope.deleteForm = deleteForm;
-    $scope.selectForm = selectForm;
-    $scope.forms = FormService.forms;
+function FormController(FormService, $rootScope){
+    var a = this;
+
+    a.addForm = addForm;
+    a.updateForm = updateForm;
+    a.deleteForm = deleteForm;
+    a.selectForm = selectForm;
     var selectedIndex = -1;
 
+    immediate();
+
+    function immediate() {
+        FormService.findAllFormsForUser($rootScope.currentUser._id)
+            .then(function (response) {
+                a.forms = response.data;
+            });
+    }
     function addForm(){
         FormService.createFormForUser((new Date()).getTime(),$scope.title,function(response){
 

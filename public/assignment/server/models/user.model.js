@@ -64,7 +64,7 @@ module.exports = function () {
         console.log("Create User - server");
         console.log(temp);
         fakeData.push(temp);
-        return temp;
+        return fakeData;
     }
 
     function deleteUserById(id) {
