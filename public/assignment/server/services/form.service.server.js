@@ -34,6 +34,7 @@ module.exports  = function(app, formModel){
         var userId = req.params.userId;
         form = formModel.createFormForUser(userId, form)
         console.log("Form Service - Server: " + form);
+        res.send(200);
     }
 
     function updateFormByFormId(req, res) {
