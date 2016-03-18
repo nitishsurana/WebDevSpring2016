@@ -5,18 +5,10 @@ angular
     .module("FormBuilderApp")
     .factory('UserService', UserService);
 
-function UserService($rootScope) {
-    "use strict";
-    var fakeData = [];
-    fakeData = [
-        { "_id":123, "firstName":"Alice", "lastName":"Wonderland", "username":"alice", "password":"alice","roles": ["student"] },
-        { "_id":234, "firstName":"Bob", "lastName":"Hope", "username":"bob", "password":"bob", "roles": ["admin"] },
-        { "_id":345, "firstName":"Charlie", "lastName":"Brown", "username":"charlie","password":"charlie", "roles": ["faculty"] },
-        { "_id":456, "firstName":"Dan", "lastName":"Craig", "username":"dan", "password":"dan", "roles": ["faculty", "admin"]},
-        { "_id":567, "firstName":"Edward", "lastName":"Norton", "username":"ed", "password":"ed", "roles": ["student"] }
-    ];
+function UserService($http,$rootScope) {
 
     var api = {
+        findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
         findAllUsers: findAllUsers,
         createUser: createUser,
@@ -28,22 +20,19 @@ function UserService($rootScope) {
 
     return api;
 
-
-
-    function findUserByCredentials(username, password, callback) {
-        for(var i=0; i<fakeData.length; i++){
-            if (fakeData[i].username == username && fakeData[i].password == password){
-                callback(fakeData[i]);
-            }
-        }
-        callback(null);
+    function findUserByUsername(username){
+        return $http.get("/api/assignment/user?username=" + username);
     }
 
-    function findAllUsers(callback) {
-        callback(fakeData);
+    function findUserByCredentials(username, password) {
+        return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
 
-    function createUser (user, callback) {
+    function findAllUsers() {
+        return $http.get("/api/assignment/user");
+    }
+
+    function createUser (user) {
         var temp = {
             "_id": (new Date()).getTime(),
             "firstName": user.firstName,
@@ -51,15 +40,11 @@ function UserService($rootScope) {
             "username": user.username,
             "password": user.password
         };
-        fakeData.push(temp);
-        callback(user);
+        return $http.post("/api/assignment/user", temp);
     }
 
-    function deleteUserById(userId, callback) {
-        fakeData = fakeData.filter(function (user) {
-            return user.username !== userId;
-        });
-        callback(fakeData);
+    function deleteUserById(userId) {
+        return $http.delete("/api/assignment/user/" + userId);
     }
 
     function setCurrentUser(user){
@@ -68,13 +53,8 @@ function UserService($rootScope) {
     function getCurrentUser(){
         return $rootScope.currentUser;
     }
-    function updateUser(userId, user, callback) {
-        for (var i = 0; i < fakeData.length; i++) {
-            if (fakeData[i].username === userId) {
-                fakeData[i] = user;
-            }
-        }
-        callback(fakeData);
+    function updateUser(userId, user) {
+        return $http.put("/api/assignment/user/" + userId, user);
     }
 }
 
