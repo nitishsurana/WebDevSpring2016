@@ -3,7 +3,7 @@
  */
 
 var fakeData = require("./user.mock.json");
-
+var uuid = require('node-uuid');
 module.exports = function () {
 
     var api = {
@@ -55,7 +55,7 @@ module.exports = function () {
 
     function createUser (user) {
         var temp = {
-            "_id": (new Date()).getTime(),
+            "_id": uuid.v1(),
             "firstName": user.firstName,
             "lastName":  user.lastName,
             "username": user.username,
@@ -64,7 +64,7 @@ module.exports = function () {
         console.log("Create User - server");
         console.log(temp);
         fakeData.push(temp);
-        return user;
+        return temp;
     }
 
     function deleteUserById(id) {
@@ -81,9 +81,14 @@ module.exports = function () {
         return $rootScope.currentUser;
     }
     function updateUser(id, user) {
+        console.log("Update User Model");
+        console.log(id);
         for (var i = 0; i < fakeData.length; i++) {
-            if (fakeData[i]._id === id) {
+            console.log(fakeData[i]._id);
+            console.log(fakeData[i]._id == id);
+            if (fakeData[i]._id == id) {
                 fakeData[i] = user;
+                console.log(fakeData[i]);
             }
         }
         return fakeData;

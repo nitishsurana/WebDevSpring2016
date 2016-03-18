@@ -34,15 +34,8 @@ function UserService($http,$rootScope) {
     }
 
     function createUser (user) {
-        var temp = {
-            "_id": (new Date()).getTime(),
-            "firstName": user.firstName,
-            "lastName":  user.lastName,
-            "username": user.username,
-            "password": user.password
-        };
-        console.log("Create-User: " + temp);
-        return $http.post("/api/assignment/user", temp);
+        //console.log("Create-User: " );
+        return $http.post("/api/assignment/user", user);
     }
 
     function deleteUserById(userId) {
@@ -51,7 +44,6 @@ function UserService($http,$rootScope) {
 
     function setCurrentUser(user){
         $rootScope.currentUser = user;
-        console.log
     }
     function getCurrentUser(){
         return $rootScope.currentUser;

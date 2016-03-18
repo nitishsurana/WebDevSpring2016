@@ -18,12 +18,15 @@
                 "email": user.email
             };
             console.log($rootScope.newRegistration);
-            UserService.createUser($rootScope.newRegistration)
-                .then(function (response) {
-                UserService.setCurrentUser(response.data);
-                console.log(response.data);
-            });
-            $location.url('/profile');
+            UserService
+                .createUser($rootScope.newRegistration)
+                .then(function(response){
+                    var ret = response.data;
+                    //console.log(ret);
+                    UserService.setCurrentUser(ret);
+                    $location.url('/profile');
+                });
+
         }
     }
 })();

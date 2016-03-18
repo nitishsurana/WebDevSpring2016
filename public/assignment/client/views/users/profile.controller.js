@@ -6,31 +6,30 @@ angular
     .module("FormBuilderApp")
     .controller('ProfileController',ProfileController);
 
-function ProfileController($scope, $rootScope,UserService) {
-    $scope.update = update;
+function ProfileController($rootScope,UserService) {
+    var a = this;
+
+    a.update = update;
     if ($rootScope.currentUser !== null){
-        console.log($rootScope.currentUser);
-        $scope.username = $rootScope.currentUser.username;
-        $scope.pwd = $rootScope.currentUser.password;
-        $scope.firstName = $rootScope.currentUser.firstName;
-        $scope.lastName = $rootScope.currentUser.lastName;
+        a.user = $rootScope.currentUser;
     }
     else{
-        $scope.username = $rootScope.newUser.username;
-        $scope.pwd = $rootScope.newUser.password;
+        a.user= $rootScope.newUser;
     }
-    function update() {
-        var user = {
-            "_id": $scope.username,
-            "firstName": $scope.firstName,
-            "lastName": $scope.lastName,
-            "username": $scope.username,
-            "password": $scope.pwd
-        };
-        UserService.setCurrentUser(user);
-        UserService.updateUser(user['username'],$rootScope.currentUser,function(response){
+    function update(user) {
+        console.log(user);
+        UserService
+            .updateUser(user._id,$rootScope.currentUser)
+            .then(function (response) {
+                var result = response.data;
+                console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i]._id == user._id) {
+                        UserService.setCurrentUser(result[i]);
+                    }
+                }
 
-        });
+            });
     };
 }
 })();
