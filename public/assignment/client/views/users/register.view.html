@@ -9,31 +9,31 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-10">
-                            <input type="text" ng-model="usernm" class="form-control" placeholder="Username">
+                            <input type="text" ng-model="model.user.username" class="form-control" placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" ng-model="pwd" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="password" ng-model="model.user.password" class="form-control" id="inputPassword3" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword2" class="col-sm-2 control-label">Verify Password</label>
                         <div class="col-sm-10">
-                            <input type="password" ng-model="verifyPassword" class="form-control" id="inputPassword2" placeholder="Verify Password">
+                            <input type="password" ng-model="model.user.verifyPassword" class="form-control" id="inputPassword2" placeholder="Verify Password">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail1" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" ng-model="email1" class="form-control" id="inputEmail1" placeholder="Email">
+                            <input type="email" ng-model="model.user.email" class="form-control" id="inputEmail1" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button class="btn btn-primary btn-lg btn-block" ng-class="{'btn-primary' : $location.url() == '/profile'}"
-                               ng-click="register()"> Register </button>
+                               ng-click="model.register(model.user)"> Register </button>
                         </div>
                     </div>
                 </form>
