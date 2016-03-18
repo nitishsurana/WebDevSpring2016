@@ -1,20 +1,10 @@
 /**
  * Created by Nitish on 2/16/2016.
  */
-angular
-    .module("FormBuilderApp")
-    .factory('UserService', UserService);
 
-function UserService($rootScope) {
-    "use strict";
-    var fakeData = [];
-    fakeData = [
-        { "_id":123, "firstName":"Alice", "lastName":"Wonderland", "username":"alice", "password":"alice","roles": ["student"] },
-        { "_id":234, "firstName":"Bob", "lastName":"Hope", "username":"bob", "password":"bob", "roles": ["admin"] },
-        { "_id":345, "firstName":"Charlie", "lastName":"Brown", "username":"charlie","password":"charlie", "roles": ["faculty"] },
-        { "_id":456, "firstName":"Dan", "lastName":"Craig", "username":"dan", "password":"dan", "roles": ["faculty", "admin"]},
-        { "_id":567, "firstName":"Edward", "lastName":"Norton", "username":"ed", "password":"ed", "roles": ["student"] }
-    ];
+var fakeData = require("./user.mock.json");
+
+module.exports = function () {
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -50,6 +40,7 @@ function UserService($rootScope) {
 
 
     function findUserByCredentials(username, password) {
+        console.log("User model");
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){
                 return(fakeData[i]);
@@ -70,6 +61,8 @@ function UserService($rootScope) {
             "username": user.username,
             "password": user.password
         };
+        console.log("Create User - server");
+        console.log(temp);
         fakeData.push(temp);
         return user;
     }

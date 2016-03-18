@@ -9,6 +9,7 @@ angular
 function ProfileController($scope, $rootScope,UserService) {
     $scope.update = update;
     if ($rootScope.currentUser !== null){
+        console.log($rootScope.currentUser);
         $scope.username = $rootScope.currentUser.username;
         $scope.pwd = $rootScope.currentUser.password;
         $scope.firstName = $rootScope.currentUser.firstName;

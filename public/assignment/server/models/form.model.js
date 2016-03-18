@@ -1,18 +1,10 @@
 /**
  * Created by Nitish on 2/29/2016.
  */
-angular
-    .module("FormBuilderApp")
-    .factory("FormService", FormService);
 
-function FormService(){
-    "user strict";
-    var forms = [];
-    forms = [
-        {"_id": "000", "title": "Contacts", "userId": 123},
-        {"_id": "010", "title": "ToDo",     "userId": 123},
-        {"_id": "020", "title": "CDs",      "userId": 234}
-    ];
+var forms = require("./form.mock.json");
+
+module.exports = function () {
 
     var api = {
         createFormForUser: createFormForUser,

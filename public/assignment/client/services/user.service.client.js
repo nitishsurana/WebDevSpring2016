@@ -25,6 +25,7 @@ function UserService($http,$rootScope) {
     }
 
     function findUserByCredentials(username, password) {
+        console.log("User SErvice");
         return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
 
@@ -40,6 +41,7 @@ function UserService($http,$rootScope) {
             "username": user.username,
             "password": user.password
         };
+        console.log("Create-User: " + temp);
         return $http.post("/api/assignment/user", temp);
     }
 
@@ -49,6 +51,7 @@ function UserService($http,$rootScope) {
 
     function setCurrentUser(user){
         $rootScope.currentUser = user;
+        console.log
     }
     function getCurrentUser(){
         return $rootScope.currentUser;
