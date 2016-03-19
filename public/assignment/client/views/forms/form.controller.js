@@ -6,13 +6,14 @@ angular
     .module("FormBuilderApp")
     .controller("FormController", FormController);
 
-function FormController(FormService, $rootScope){
+function FormController(FormService, $rootScope, $location){
     var a = this;
 
     a.addForm = addForm;
     a.updateForm = updateForm;
     a.deleteForm = deleteForm;
     a.selectForm = selectForm;
+    a.goToField = goToField;
     var selectedIndex = -1;
 
     immediate();
@@ -67,6 +68,11 @@ function FormController(FormService, $rootScope){
             userId: selectedForm.userId
         };
         selectedIndex = index;
+    }
+
+    function goToField(index) {
+        //console.log("/forms/" + a.forms[index]._id + "/fields");
+        $location.url("/forms/" + a.forms[index]._id + "/fields");
     }
 }
 })();

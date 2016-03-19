@@ -33,7 +33,7 @@
                             </div>
                         </tr>
                         <tr ng-repeat="form in model.forms" ng-class="{'success' : $index == selectedFormIndex}">
-                            <td>{{form.title}} </td>
+                            <td><a ng-click="model.goToField($index)"> {{form.title}} </a></td>
                             <td>
                                 <a ng-click="model.deleteForm($index)" role="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
