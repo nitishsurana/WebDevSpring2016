@@ -15,7 +15,10 @@ module.exports = function(app, userModel, formModel){
     function findFieldsByFormId(req, res){
         var formId = req.params.formId;
         var selectedFields = [];
+        console.log("Fields service server");
+        console.log(formId);
         for(var i = 0; i<forms.length ; i++){
+            console.log(forms[i]._id);
             if (forms[i]._id == formId){
                 selectedFields = forms[i].fields;
                 console.log(selectedFields);

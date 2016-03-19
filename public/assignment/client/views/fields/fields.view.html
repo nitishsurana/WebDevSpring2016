@@ -1,182 +1,197 @@
 
-<!DOCTYPE html>
-<html lang="en" xmlns:white-space="http://www.w3.org/1999/xhtml">
-    <body>
-        <div class="container-fluid">
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Forms</h1>
-                <ul class="nav nav-tabs">
-                    <li role="presentation"><a href="#/forms">Forms</a></li>
-                    <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
-                </ul>
-                <br/>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <td class="col-xs-4">
-                                First Name<br />
-                                <input class="form-control" type="text" name="firstName" placeholder="First Name"/>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-warning">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-danger">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-success">
-                                    <scan class="glyphicon glyphicon-align-justify"></scan>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-4">
-                                Last Name<br />
-                                <input class="form-control" type="text" name="firstName" placeholder="Last Name"/>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-warning">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-danger">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-success">
-                                    <scan class="glyphicon glyphicon-align-justify"></scan>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-4">
-                                Date of Birth<br />
-                                <input class="form-control" id="center-date" type="date" name="startDate"/>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-warning">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-danger">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-success">
-                                    <scan class="glyphicon glyphicon-align-justify"></scan>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-4">
-                                Gender<br />
-                                <select class="form-control" type="text" name="Gender">
-                                    <option value="MALE">Male</option>
-                                    <option value="FEMALE">Female</option>
-                                </select>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-warning">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-danger">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-success">
-                                    <scan class="glyphicon glyphicon-align-justify"></scan>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-4">
-                                Roles<br />
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ADMIN"> Admin <br />
-                                        <input type="checkbox" value="STUDENT"> Student <br />
-                                        <input type="checkbox" value="USER"> User <br />
-                                    </label>
-                                </div>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-warning">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-danger">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-success">
-                                    <scan class="glyphicon glyphicon-align-justify"></scan>
-                                </a>
-                            </td>
-                        </tr>
+<div class="container-fluid">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Forms</h1>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="#/forms">Forms</a></li>
+            <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
+        </ul>
+        <br/>
+        <div class="table-responsive">
+            <table>
+                <tr ng-repeat="field in model.fields">
+                    <td class="col-xs-4">
+                        {{field.label}}<br />
+                        <input class="form-control" type="{{field.type}}" placeholder="{{field.placeholder}}"/>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td class="col-xs-4">
+                        First Name<br />
+                        <input class="form-control" type="text" name="firstName" placeholder="First Name"/>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-xs-4">
+                        Last Name<br />
+                        <input class="form-control" type="text" name="firstName" placeholder="Last Name"/>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-xs-4">
+                        Date of Birth<br />
+                        <input class="form-control" id="center-date" type="date" name="startDate"/>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-xs-4">
+                        Gender<br />
+                        <select class="form-control" type="text" name="Gender">
+                            <option value="MALE">Male</option>
+                            <option value="FEMALE">Female</option>
+                        </select>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-xs-4">
+                        Roles<br />
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="ADMIN"> Admin <br />
+                                <input type="checkbox" value="STUDENT"> Student <br />
+                                <input type="checkbox" value="USER"> User <br />
+                            </label>
+                        </div>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
 
-                        <tr>
-                            <td class="col-xs-4">
-                                License Agreement<br />
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="YES" checked> Yes <br />
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="NO"> No <br />
-                                    </label>
-                                </div>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-warning">
-                                    <scan class="glyphicon glyphicon-pencil"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-danger">
-                                    <scan class="glyphicon glyphicon-remove"></scan>
-                                </a>
-                                <a href = "#" role="button" class="btn btn-success">
-                                    <scan class="glyphicon glyphicon-align-justify"></scan>
-                                </a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="col-xs-4">
-                                Add New Field<br />
-                                <select class="form-control" type="text" name="Gender">
-                                    <option value="SINGLE_LINE_TEXT">Single Line Text</option>
-                                    <option value="DATE">Date </option>
-                                    <option value="DROPDOWN"> Dropdown </option>
-                                    <option value="CHECK_BOX"> Checkboxes </option>
-                                    <option value="RADIO_BUTTON"> Radio buttons </option>
-                                    <option value="PARAGRAPH_TEXT_FIELD"> Paragraph Text Field </option>
-                                </select>
-                            </td>
-                            <td class="col-xs-2"></td>
-                            <td class="col-xs-3" id="col-no-wrap" align="center">
-                                <a href = "#" role="button" class="btn btn-primary">
-                                    <scan class="glyphicon glyphicon-plus"></scan>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+                <tr>
+                    <td class="col-xs-4">
+                        License Agreement<br />
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="YES" checked> Yes <br />
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="NO"> No <br />
+                            </label>
+                        </div>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <a href = "#" role="button" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href = "#" role="button" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-align-justify"></scan>
+                        </a>
+                    </td>
+                </tr>
+-->
+                <tr>
+                    <td class="col-xs-4">
+                        Add New Field<br />
+                        <select class="form-control" type="text" name="Gender">
+                            <option ng-model="model.fieldType">Single Line Text</option>
+                            <option ng-model="model.fieldType">Multi Line Text</option>
+                            <option ng-model="model.fieldType">Date </option>
+                            <option ng-model="model.fieldType"> Dropdown </option>
+                            <option ng-model="model.fieldType"> Checkboxes </option>
+                            <option ng-model="model.fieldType"> Radio buttons </option>
+                        </select>
+                    </td>
+                    <td class="col-xs-2"></td>
+                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                        <button ng-click="model.addField(model.fieldType)" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </div>
-    </body>
-
-</html>
+    </div>
+</div>
