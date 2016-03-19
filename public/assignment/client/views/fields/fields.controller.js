@@ -84,11 +84,14 @@
         }
 
         function edit(field) {
-            if (field.type == "TEXT"){
-                alert(
-                    
-                );
+            a.selectedField = field;
+            if (field.options){
+                a.option = '';
+                for(var i = 0; i< field.options.length ; i++){
+                    a.option += field.options[i].label + ":" + field.options[i].value + "\n";
+                }
             }
+            //console.log(a.selectedField);
         }
     }
 }) ();
