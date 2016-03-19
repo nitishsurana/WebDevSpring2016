@@ -11,7 +11,7 @@
             <table>
                 <tr ng-repeat="field in model.fields">
                     <td class="col-xs-4">
-                        <br />{{field.label}}<br />
+                        {{field.label}}<br />
                         <form>
                             <div ng-switch="field.type">
                                     <input ng-switch-when="TEXT" class="form-control" type="text" placeholder="{{field.placeholder}}" >
@@ -55,7 +55,7 @@
 
                 <tr>
                     <td class="col-xs-4">
-                        <br />Add New Field<br />
+                        Add New Field<br />
                         <select class="form-control" ng-model="model.fieldType" type="text">
                             <option value = "TEXT">Single Line Text</option>
                             <option value = "TEXTAREA">Multi Line Text</option>
