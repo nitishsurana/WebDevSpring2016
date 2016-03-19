@@ -12,22 +12,50 @@
                 <tr ng-repeat="field in model.fields">
                     <td class="col-xs-4">
                         {{field.label}}<br />
-                        <input class="form-control" type="{{field.type}}" placeholder="{{field.placeholder}}"/>
+                        <form class="form-control">
+                            <div ng-switch="{{field.type}}">
+                                <div ng-switch-when="TEXT">
+                                    text
+                                    <input type="text" placeholder="{{field.placeholder}}" />
+                                </div>
+                                <div ng-switch-when="EMAIL">
+                                    email
+                                    <input type="email" placeholder="{{field.placeholder}}" />
+                                </div>
+                                <div ng-switch-when="TEXTAREA">
+                                    <textarea placeholder="{{field.placeholder}}" />
+                                </div>
+                                <div ng-switch-when="DATE">
+                                    <input type="date" placeholder="{{field.placeholder}}" />
+                                </div>
+                                <div ng-switch-when="OPTIONS">
+                                    <select type="text" placeholder="{{field.placeholder}}" />
+                                </div>
+                                <div ng-switch-when="RADIO">
+                                    <input type="radio" placeholder="{{field.placeholder}}" />
+                                </div>
+                                <div ng-switch-when="CHECKBOX">
+                                    <input type="checkbox" placeholder="{{field.placeholder}}" />
+                                </div>
+                            </div>
+
+                        </form>
+
                     </td>
                     <td class="col-xs-2"></td>
                     <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
+                        <button  class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
+                        </button>
+                        <button class="btn btn-primary">
                             <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
+                        </button>
+                        <button ng-click="model.removeField(field._id)" class="btn btn-danger">
                             <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
+                        </button>
+                        <button class="btn btn-success">
                             <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
+                        </button>
                     </td>
                 </tr>
                 <!--<tr>
