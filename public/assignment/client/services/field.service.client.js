@@ -21,7 +21,8 @@
 
         function createFieldForForm(formId, field){
             //console.log(t);
-            return $http.post("/api/assignment/form/" + formId + "/form", field);
+            console.log(field);
+            return $http.post("/api/assignment/form/" + formId + "/field", field);
         }
 
         function getFieldsForForm(formId){

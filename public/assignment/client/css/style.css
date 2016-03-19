@@ -5,3 +5,6 @@
 #center-date{
     text-align: center;
 }
+#col-no-wrap2{
+    white-space: nowrap;
+}

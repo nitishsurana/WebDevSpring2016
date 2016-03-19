@@ -13,37 +13,27 @@
                     <td class="col-xs-4">
                         {{field.label}}<br />
                         <form class="form-control">
-                            <div ng-switch="{{field.type}}">
-                                <div ng-switch-when="TEXT">
-                                    text
-                                    <input type="text" placeholder="{{field.placeholder}}" />
-                                </div>
-                                <div ng-switch-when="EMAIL">
-                                    email
-                                    <input type="email" placeholder="{{field.placeholder}}" />
-                                </div>
-                                <div ng-switch-when="TEXTAREA">
-                                    <textarea placeholder="{{field.placeholder}}" />
-                                </div>
-                                <div ng-switch-when="DATE">
-                                    <input type="date" placeholder="{{field.placeholder}}" />
-                                </div>
-                                <div ng-switch-when="OPTIONS">
-                                    <select type="text" placeholder="{{field.placeholder}}" />
-                                </div>
-                                <div ng-switch-when="RADIO">
-                                    <input type="radio" placeholder="{{field.placeholder}}" />
-                                </div>
-                                <div ng-switch-when="CHECKBOX">
-                                    <input type="checkbox" placeholder="{{field.placeholder}}" />
-                                </div>
-                            </div>
+                            <nav ng-switch="{{field.type}}">
+                                    <input ng-switch-when="TEXT" type="text" placeholder="{{field.placeholder}}" />
+                                    <input ng-switch-when="EMAIL" type="email" placeholder="{{field.placeholder}}" />
+                                    <textarea ng-switch-when="TEXTAREA" placeholder="{{field.placeholder}}" />
+
+                                    <input ng-switch-when="DATE" type="date" placeholder="{{field.placeholder}}" />
+
+                                    <select ng-switch-when="OPTIONS" type="text" placeholder="{{field.placeholder}}" />
+
+                                    <input ng-switch-when="RADIO" type="radio" placeholder="{{field.placeholder}}" />
+
+
+                                    <input ng-switch-when="CHECKBOX" type="checkbox" placeholder="{{field.placeholder}}" />
+
+                            </nav>
 
                         </form>
 
                     </td>
                     <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
+                    <td class="col-xs-3" id="col-no-wrap2" align="center">
                         <button  class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </button>
@@ -203,13 +193,13 @@
                 <tr>
                     <td class="col-xs-4">
                         Add New Field<br />
-                        <select class="form-control" type="text" name="Gender">
-                            <option ng-model="model.fieldType">Single Line Text</option>
-                            <option ng-model="model.fieldType">Multi Line Text</option>
-                            <option ng-model="model.fieldType">Date </option>
-                            <option ng-model="model.fieldType"> Dropdown </option>
-                            <option ng-model="model.fieldType"> Checkboxes </option>
-                            <option ng-model="model.fieldType"> Radio buttons </option>
+                        <select class="form-control" ng-model="model.fieldType" type="text" name="Gender">
+                            <option value = "TEXT">Single Line Text</option>
+                            <option value = "TEXTAREA">Multi Line Text</option>
+                            <option value = "DATE">Date </option>
+                            <option value = "OPTIONS"> Dropdown </option>
+                            <option value = "CHECKBOXES"> Checkboxes </option>
+                            <option value = "RADIOS"> Radio buttons </option>
                         </select>
                     </td>
                     <td class="col-xs-2"></td>
