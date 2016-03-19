@@ -11,6 +11,7 @@
 
         a.removeField = removeField;
         a.addField = addField;
+        a.edit = edit;
 
         toRender();
         function toRender(){
@@ -80,6 +81,14 @@
                     toRender();
                     //console.log(response.data);
                 });
+        }
+
+        function edit(field) {
+            if (field.type == "TEXT"){
+                alert(
+                    
+                );
+            }
         }
     }
 }) ();

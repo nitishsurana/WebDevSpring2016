@@ -24,6 +24,7 @@
                                     <div class="form-group" ng-switch-when="RADIOS" ng-repeat="opt in field.options">
                                         <input
                                            type="radio"
+                                           name="opt.value"
                                            value="opt.value">
                                         {{opt.label}}
                                     </div>
@@ -38,7 +39,7 @@
                     </td>
                     <td class="col-xs-2"></td>
                     <td class="col-xs-3" id="col-no-wrap2" align="center">
-                        <button  class="btn btn-warning">
+                        <button ng-click="model.edit(field)" class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </button>
                         <button class="btn btn-primary">
