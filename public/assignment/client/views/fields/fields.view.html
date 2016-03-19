@@ -11,26 +11,30 @@
             <table>
                 <tr ng-repeat="field in model.fields">
                     <td class="col-xs-4">
-                        {{field.label}}<br />
-                        <form class="form-control">
-                            <nav ng-switch="{{field.type}}">
-                                    <input ng-switch-when="TEXT" type="text" placeholder="{{field.placeholder}}" />
-                                    <input ng-switch-when="EMAIL" type="email" placeholder="{{field.placeholder}}" />
-                                    <textarea ng-switch-when="TEXTAREA" placeholder="{{field.placeholder}}" />
-
-                                    <input ng-switch-when="DATE" type="date" placeholder="{{field.placeholder}}" />
-
-                                    <select ng-switch-when="OPTIONS" type="text" placeholder="{{field.placeholder}}" />
-
-                                    <input ng-switch-when="RADIO" type="radio" placeholder="{{field.placeholder}}" />
-
-
-                                    <input ng-switch-when="CHECKBOX" type="checkbox" placeholder="{{field.placeholder}}" />
-
-                            </nav>
-
+                        <br />{{field.label}}<br />
+                        <form>
+                            <div ng-switch="field.type">
+                                    <input ng-switch-when="TEXT" class="form-control" type="text" placeholder="{{field.placeholder}}" >
+                                    <input ng-switch-when="EMAIL" class="form-control" type="email" placeholder="{{field.placeholder}}" >
+                                    <textarea ng-switch-when="TEXTAREA" class="form-control" placeholder="{{field.placeholder}}" ></textarea>
+                                    <input ng-switch-when="DATE" class="form-control" type="date" placeholder="{{field.placeholder}}" >
+                                    <select ng-switch-when="OPTIONS" class="form-control" type="text" placeholder="{{field.placeholder}}" >
+                                        <option ng-repeat="opt in field.options" label="{{opt.label}}" value="{{opt.value}}"></option>
+                                    </select>
+                                    <div class="form-group" ng-switch-when="RADIOS" ng-repeat="opt in field.options">
+                                        <input
+                                           type="radio"
+                                           value="opt.value">
+                                        {{opt.label}}
+                                    </div>
+                                    <div class="form-group" ng-switch-when="CHECKBOXES" ng-repeat="opt in field.options">
+                                        <input
+                                           type="checkbox"
+                                           value="opt.value" >
+                                        {{opt.label}}
+                                    </div>
+                            </div>
                         </form>
-
                     </td>
                     <td class="col-xs-2"></td>
                     <td class="col-xs-3" id="col-no-wrap2" align="center">
@@ -48,152 +52,11 @@
                         </button>
                     </td>
                 </tr>
-                <!--<tr>
-                    <td class="col-xs-4">
-                        First Name<br />
-                        <input class="form-control" type="text" name="firstName" placeholder="First Name"/>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-xs-4">
-                        Last Name<br />
-                        <input class="form-control" type="text" name="firstName" placeholder="Last Name"/>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-xs-4">
-                        Date of Birth<br />
-                        <input class="form-control" id="center-date" type="date" name="startDate"/>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-xs-4">
-                        Gender<br />
-                        <select class="form-control" type="text" name="Gender">
-                            <option value="MALE">Male</option>
-                            <option value="FEMALE">Female</option>
-                        </select>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-xs-4">
-                        Roles<br />
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="ADMIN"> Admin <br />
-                                <input type="checkbox" value="STUDENT"> Student <br />
-                                <input type="checkbox" value="USER"> User <br />
-                            </label>
-                        </div>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
-                    </td>
-                </tr>
 
                 <tr>
                     <td class="col-xs-4">
-                        License Agreement<br />
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="YES" checked> Yes <br />
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="NO"> No <br />
-                            </label>
-                        </div>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap" align="center">
-                        <a href = "#" role="button" class="btn btn-warning">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                        <a href = "#" role="button" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </a>
-                    </td>
-                </tr>
--->
-                <tr>
-                    <td class="col-xs-4">
-                        Add New Field<br />
-                        <select class="form-control" ng-model="model.fieldType" type="text" name="Gender">
+                        <br />Add New Field<br />
+                        <select class="form-control" ng-model="model.fieldType" type="text">
                             <option value = "TEXT">Single Line Text</option>
                             <option value = "TEXTAREA">Multi Line Text</option>
                             <option value = "DATE">Date </option>

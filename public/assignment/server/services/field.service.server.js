@@ -66,15 +66,10 @@ module.exports = function(app, userModel, formModel){
     function createField(req, res) {
         var field = req.body;
         var formId = req.params.formId;
-        var newField = {
-            "_id": uuid.v1(),
-            "label": field.label,
-            "type": field.type,
-            "placeholder": field.placeholder
-        }
+        field._id = uuid.v1();
         for(var i = 0; i<forms.length ; i++){
             if (forms[i]._id == formId){
-                forms[i].fields.push(newField);
+                forms[i].fields.push(field);
             }
         }
         res.send(forms);
