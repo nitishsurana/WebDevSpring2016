@@ -1,6 +1,8 @@
 /**
  * Created by Nitish on 2/29/2016.
  */
+(function () {
+
 angular
     .module("FormBuilderApp")
     .factory("FormService", FormService);
@@ -16,13 +18,12 @@ function FormService($http){
 
     return api;
 
-    function createFormForUser(userId, form){
-        var new_form ={
-            "_id": (new Date()).getTime(),
-            "title": form,
-            "userId": userId
+    function createFormForUser(userId, title){
+        var t = {
+            title: title
         };
-        return $http.post("/api/assignment/user/" + userId + "/form", new_form);
+        console.log(t);
+        return $http.post("/api/assignment/user/" + userId + "/form", t);
     }
 
     function findAllFormsForUser(userId){
@@ -30,10 +31,14 @@ function FormService($http){
     }
 
     function deleteFormById(formId){
-        return $http.get("/api/assignment//form/" + formId);
+        console.log(formId);
+        return $http.delete("/api/assignment/form/" + formId);
     }
 
     function updateFormById(formId, newForm){
-        return $http.get("/api/assignment/form/" + formId, newForm);
+        console.log(formId);
+        console.log(newForm);
+        return $http.put("/api/assignment/form/" + formId, newForm);
     }
 }
+}) ();

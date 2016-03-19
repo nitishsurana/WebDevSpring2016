@@ -11,7 +11,7 @@
         var a = this;
         a.login = login;
         function login(user) {
-            console.log("login controller");
+            //console.log("login controller");
             UserService.findUserByCredentials(user.username, user.password)
                 .success( function (response) {
                     if (response) {
@@ -20,7 +20,7 @@
                     }
                 })
                 .error(function () {
-                    console.log("Error!");
+                    //console.log("Error!");
                 });
         }
 

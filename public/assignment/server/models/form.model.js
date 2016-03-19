@@ -3,6 +3,7 @@
  */
 
 var forms = require("./form.mock.json");
+var uuid = require('node-uuid');
 
 module.exports = function () {
 
@@ -17,14 +18,15 @@ module.exports = function () {
 
     return api;
 
-    function createFormForUser(userId, form){
+    function createFormForUser(userId, title){
         var new_form ={
-            "_id": (new Date()).getTime(),
-            "title": form,
+            "_id": uuid.v1(),
+            "title": title,
             "userId": userId
         };
         forms.push(new_form);
-        return new_form;
+        console.log(new_form);
+        return forms;
     }
 
     function findFormById(formId){
@@ -39,7 +41,7 @@ module.exports = function () {
     function findAllFormsForUser(userId){
         var result = [];
         for (var i=0; i<forms.length; i++){
-            if (forms[i]._id === userId){
+            if (forms[i].userId == userId){
                 result.push(forms[i]);
             }
         }
@@ -63,6 +65,6 @@ module.exports = function () {
                 break;
             }
         }
-        return forms[i];
+        return forms;
     }
 }

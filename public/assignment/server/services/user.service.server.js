@@ -15,20 +15,20 @@ module.exports = function(app, userModel){
     function createUser (req, res) {
         var user = req.body;
         user = userModel.createUser(user);
-        console.log('User Service Create User:' + user);
+        //console.log('User Service Create User:' + user);
         res.json(user);
     }
 
     function allUsers(res) {
         var users = userModel.findAllUsers;
-        console.log('User Service:' + users);
+        //console.log('User Service:' + users);
         res.json(users);
     }
 
     function findUserById(req,res) {
         var id = req.params.id;
         var user = userModel.findUserById(id);
-        console.log("User Service" + user);
+        //console.log("User Service" + user);
         if (user){
             res.json(user);
         }
@@ -40,7 +40,7 @@ module.exports = function(app, userModel){
     function findUserByUsername(req,res) {
         var username = req.body;
         var user = userModel.findUserByUsername(username);
-        console.log("User Service" + user);
+        //console.log("User Service" + user);
         if (user){
             res.json(user);
         }
@@ -50,11 +50,11 @@ module.exports = function(app, userModel){
     }
 
     function findUserByCredentials(req,res) {
-        console.log("Model user0 server");
+        //console.log("Model user0 server");
         var username = req.query.username;
         var password = req.query.password;
         var user = userModel.findUserByCredentials(username, password);
-        console.log("User Service" + user);
+        //console.log("User Service" + user);
         if (user){
             res.json(user);
         }
@@ -67,19 +67,19 @@ module.exports = function(app, userModel){
     function updateUserById(req, res) {
         var id = req.params.id;
         var user = req.body;
-        console.log("Before: ");
-        console.log(user);
-        console.log(id);
+        //console.log("Before: ");
+        //console.log(user);
+        //console.log(id);
         var users = userModel.updateUser(id,user);
-        console.log("User Service" + users);
-        console.log(users);
+        //console.log("User Service" + users);
+        //console.log(users);
         res.json(users);
     }
 
     function deleteUser(req, res) {
         var id = req.params.id;
         var users = userModel.updateUser(id);
-        console.log("User Service" + users);
+        //console.log("User Service" + users);
         res.json(users);
     }
 }

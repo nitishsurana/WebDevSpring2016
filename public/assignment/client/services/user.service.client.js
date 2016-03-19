@@ -25,7 +25,7 @@ function UserService($http,$rootScope) {
     }
 
     function findUserByCredentials(username, password) {
-        console.log("User SErvice");
+        //console.log("User SErvice");
         return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
 

@@ -61,8 +61,8 @@ module.exports = function () {
             "username": user.username,
             "password": user.password
         };
-        console.log("Create User - server");
-        console.log(temp);
+        //console.log("Create User - server");
+        //console.log(temp);
         fakeData.push(temp);
         return fakeData;
     }
@@ -81,8 +81,8 @@ module.exports = function () {
         return $rootScope.currentUser;
     }
     function updateUser(id, user) {
-        console.log("Update User Model");
-        console.log(id);
+        //console.log("Update User Model");
+        //console.log(id);
         for (var i = 0; i < fakeData.length; i++) {
             console.log(fakeData[i]._id);
             console.log(fakeData[i]._id == id);
