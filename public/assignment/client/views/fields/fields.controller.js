@@ -20,11 +20,10 @@
                     a.fields = response.data;
                     console.log(a.fields);
                 });
-
         }
 
         function removeField(fieldId) {
-            console.log(fieldId);
+            //console.log(fieldId);
             FieldService.deleteFieldFromForm($routeParams.formId, fieldId)
                 .then(function(response){
                     a.fields = response.data;
@@ -93,5 +92,9 @@
             }
             //console.log(a.selectedField);
         }
+
+        a.sortableFields = {
+            axis : 'y'
+        };
     }
 }) ();

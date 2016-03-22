@@ -12,6 +12,7 @@ module.exports = function(app, userModel, formModel){
     app.post("/api/assignment/form/:formId/field" , createField);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldById);
 
+    
     function findFieldsByFormId(req, res){
         var formId = req.params.formId;
         var selectedFields = [];
@@ -91,5 +92,7 @@ module.exports = function(app, userModel, formModel){
         }
         res.send(forms[i].fields);
     }
+    
+    
 
 }

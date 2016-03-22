@@ -1,0 +1,20 @@
+<div class="home">
+<form class="container input-group-lg form-inline">
+    <div class="text-center search">
+        <h1>Investment Search</h1>
+        <form class="form-inline">
+            <div class="form-group">
+                <div>
+                    <input ng-model="queryText" type="text" class="form-control" placeholder="Search. . .">
+                    <select ng-model="queryType" class="form-control">
+                        <option>Investment Option</option>
+                        <option>Investor</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" ng-click="search()" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+</form>
+</div>
