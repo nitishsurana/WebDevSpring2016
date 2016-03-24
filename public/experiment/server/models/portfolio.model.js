@@ -1,6 +1,7 @@
 /**
  * Created by Nitish on 3/24/2016.
  */
+
 var portfolio = require("./portfolio.mock.json");
 
 module.exports = function() {
@@ -44,33 +45,47 @@ module.exports = function() {
         }
     }
 
-    function addInvestment(investment){
-        portfolio.push(investment);
-        return investment;
-    }
-
-
-    function deleteInvestment(investmentOption){
+    function addInvestment(userId, investment){
         for (var i = 0; i<portfolio.length; i++){
-            if (portfolio[i].investmentOption == investmentOption){
+            if (portfolio[i].id == userId){
+                portfolio[i].investment.push(investment);
                 break;
             }
         }
-        portfolio.splice(i,1);
         return portfolio;
     }
 
-    function updateInvestment(investment){
+
+    function deleteInvestment(userId, investmentOption){
+        for (var i = 0; i<portfolio.length; i++){
+            if (portfolio[i].id == userId){
+                for (var j = 0; j<portfolio[i].investment.length; j++){
+                    if (portfolio[i].investment[j].investmentOption == investmentOption){
+                        portfolio[i].investment.splice(j,1);
+                    }
+                }
+            }
+            
+        }
+        
+        return portfolio;
+    }
+
+    function updateInvestment(userId, investment){
         for(var i = 0; i<portfolio.length; i++){
-            if (portfolio[i].investmentOption == investment.investmentOption){
-                portfolio[i].pricePerQty = investment.pricePerQty;
-                portfolio[i].qty = investment.qty;
-                portfolio[i].totalInvestment = investment.totalInvestment;
-                portfolio[i].currentValue = investment.currentValue;
-                portfolio[i].profit = investment.profit;
-                break;
+            if (portfolio[i].id == userId){
+                for (var j = 0; j<portfolio[i].investment.length; j++){
+                    if (portfolio[i].investment[j].investmentOption == investment.investmentOption){
+                        portfolio[i].investment[j].pricePerQty = investment.pricePerQty;
+                        portfolio[i].investment[j].qty = investment.qty;
+                        portfolio[i].investment[j].totalInvestment = investment.totalInvestment;
+                        portfolio[i].investment[j].currentValue = investment.currentValue;
+                        portfolio[i].investment[j].profit = investment.profit;
+                        break;
+                    }
+                }
             }
         }
-        return portfolio[i];
+        return portfolio;
     }
 };

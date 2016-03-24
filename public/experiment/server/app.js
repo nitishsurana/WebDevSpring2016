@@ -8,5 +8,6 @@ module.exports = function(app) {
 
     var userService  = require("./services/user.service.server.js") (app, userModel);
     var searchService = require("./services/search.service.server.js")(app, userModel);
-   // var portfolioSevice = require("./services/")
-}
+    var portfolioSevice = require("./services/portfolio.service.server")(app,portfolioModel);
+
+};
