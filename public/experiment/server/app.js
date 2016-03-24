@@ -1,12 +1,12 @@
 /**
  * Created by Nitish on 3/21/2016.
  */
-module.exports = function(app, db, mongoose) {
+module.exports = function(app) {
 
-    // pass db and mongoose reference to model
-    //var userModel    = require("./models/user.model.server.js")();
-    //var movieModel   = require("./models/portfolio.model.server.js")();
+    var userModel    = require("./models/user.model.js")();
+    var portfolioModel   = require("./models/portfolio.model.js")();
 
-    //var userService  = require("./services/user.service.server.js") (app, movieModel, userModel);
-    var searchService = require("./services/search.service.server.js")(app);
+    var userService  = require("./services/user.service.server.js") (app, userModel);
+    var searchService = require("./services/search.service.server.js")(app, userModel);
+   // var portfolioSevice = require("./services/")
 }

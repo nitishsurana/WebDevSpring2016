@@ -9,7 +9,6 @@ module.exports = function(app, userModel){
     app.get("/api/project/search-yahoo/:symbol", searchYahoo);
     app.get("/api/project/search-investor", searchInvestor);
 
-
     function searchOption(req, res){
         //console.log(req);
         var searchQuery = req.params.query;
@@ -17,11 +16,9 @@ module.exports = function(app, userModel){
             host: 'chstocksearch.herokuapp.com',
             path: '/api/' + searchQuery
         };
-        console.log(searchQuery);
-        //console.log("HTTP");
+        //console.log(searchQuery);
+
         http.get(request, function(response) {
-            // Continuously update stream with data
-            //console.log(response);
 
             var body = '';
             response.on('data', function(d) {
@@ -34,7 +31,7 @@ module.exports = function(app, userModel){
                 // Data reception is done, do whatever with it!
                 //console.log("end");
                 var parsed = JSON.parse(body);
-                console.log(parsed);
+                //console.log(parsed);
                 res.send(parsed);
             });
         });
@@ -58,10 +55,10 @@ module.exports = function(app, userModel){
                 // Data reception is done, do whatever with it!
                 //console.log("end");
                 var parsed = JSON.parse(body);
-                console.log(parsed);
+                //console.log(parsed);
                 res.send(parsed);
             });
-            
+
         });/*
         http.get(request).then(function successCallback(response) {
             // this callback will be called asynchronously
