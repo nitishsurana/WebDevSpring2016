@@ -15,14 +15,15 @@
             "query": ""
         };
         var api={
-            search: search
+            search: search,
+            searchYahoo: searchYahoo
         };
         return api;
 
         function search(queryType, query){
-            console.log("Search service main function");
+            //console.log("Search service main function");
             if (queryType == 'Investment Option'){
-                return searchYahoo(query);
+                return searchCompanySymbol(query);
             }
             else{
                 searchInvestor(query);
@@ -35,13 +36,18 @@
             $rootScope.returnData.query = queryText;
             $location.url('/search');
         }
-        function searchYahoo(query){
-            console.log("Search service client");
-            console.log(query);
+        function searchCompanySymbol(query){
+            //console.log("Search service client");
+            //console.log(query);
             $location.url('/search');
             return $http.get("/api/project/search-option/"+ query);
             //console.log(result);
 
+        }
+
+        function searchYahoo(symbol) {
+            console.log(symbol);
+            return $http.get("/api/project/search-yahoo/"+symbol);
         }
     }
 })();

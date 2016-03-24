@@ -6,7 +6,7 @@
         .module("PortfolioManager")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope, $location, $rootScope,$routeParams, SearchService){
+    function SearchController($scope, $location,$routeParams, SearchService){
         //console.log("search controller");
         $scope.search = search;/*
         var sym = $routeParams.symbol;

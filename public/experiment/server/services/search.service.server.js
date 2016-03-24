@@ -6,7 +6,7 @@ var http = require('http');
 
 module.exports = function(app, userModel){
     app.get("/api/project/search-option/:query", searchOption);
-    app.get("/api/project/search-yahoo", searchYahoo);
+    app.get("/api/project/search-yahoo/:symbol", searchYahoo);
     app.get("/api/project/search-investor", searchInvestor);
 
 
@@ -40,25 +40,42 @@ module.exports = function(app, userModel){
         });
     }
 
-    function searchYahoo(){
-        $http({
-            method: 'GET',
-            url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20%3D%20%22' + queryText + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
-        }).then(function successCallback(response) {
+    function searchYahoo(req, res){
+        var symbol = req.params.symbol;
+        var request ={
+            host: 'query.yahooapis.com',
+            path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20%3D%20%22' + symbol + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
+        };
+        http.get(request, function(response){
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+                //console.log("data");
+                //console.log(d);
+            });
+            response.on('end', function() {
+
+                // Data reception is done, do whatever with it!
+                //console.log("end");
+                var parsed = JSON.parse(body);
+                console.log(parsed);
+                res.send(parsed);
+            });
+            
+        });/*
+        http.get(request).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
             if (response.data.query.results.quote.Name == ""){
                 $rootScope.returnData = {
                     "Result": "Oops, the symbol does not exist",
-                    "symbol": queryText,
+                    "symbol": symbol,
                     "resultType": "YQL"
                 };
 
             }
             else {
-                $rootScope.returnData = response.data.query.results.quote;
-                $rootScope.returnData.resultType = "YQL";
-                $rootScope.returnData.query = queryText;
+                res.send(response);
             }
             $location.url('/search');
 
@@ -67,7 +84,7 @@ module.exports = function(app, userModel){
             // or server returns response with an error status.
             $location.url('/');
             alert("Error in connection. Please try again.");
-        });
+        });*/
     }
     function searchInvestor(){
 

@@ -6,7 +6,14 @@
         .module("PortfolioManager")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($scope, $rootScope) {
+    function DetailsController($scope, $rootScope, $routeParams, SearchService) {
+        var symbol = $routeParams.symbol;
+        console.log(symbol);
+        SearchService.searchYahoo(symbol)
+            .then(function (response){
+                $rootScope.returnData = response.data.query.results.quote;
+                console.log(response.data.query.results.quote);
+            });
         if ($rootScope.returnData.resultType == "Investor"){
             if ($rootScope.returnData.name == ""){
                 $scope.name = "Oops!!";
