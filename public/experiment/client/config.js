@@ -16,7 +16,12 @@
                     controller: "SearchController",
                     controllerAs: "model"
                 })
-                .when("/search/:symbol", {
+                .when("/search/option/:symbol", {
+                    templateUrl: "views/search/details.view.html",
+                    controller: "DetailsController",
+                    controllerAs: "model"
+                })
+                .when("/search/investor/:id", {
                     templateUrl: "views/search/details.view.html",
                     controller: "DetailsController",
                     controllerAs: "model"

@@ -5,6 +5,7 @@
 module.exports = function(app,userModel){
     app.get("/api/project/search/user", findUserByUsername);
     app.get("/api/project/user", findUserByCredentials);
+    app.get("/api/project/userId", findUserById);
     app.get("/api/project/user", findAllUsers);
     app.post("/api/project/user", createUser);
     app.delete("/api/project/user/:id", deleteUserById);
@@ -24,6 +25,11 @@ module.exports = function(app,userModel){
         var result = userModel.findUserByCredentials(username, password);
         //console.log(result);
         res.send(result);
+    }
+    function findUserById(req, res){
+        var userId = req.query.id;
+        var result = userModel.findUserById(userId);
+        res.json(result);
     }
 
     function findAllUsers(req, res) {

@@ -1,5 +1,16 @@
 <div id="results">
-    <div ng-repeat="(key,value) in returnData">
-        <div ng-if="value != null && key!= 'username' && key!='password' && key!='roles' && key!='query' && key!='resultType' && key!='_id' && key!='symbol'">{{key}} - {{value}}</div>
+    <div ng-show="model.returnData.option">
+        <h2>{{model.returnData.option.Name}}</h2>
+        <br>
+        <div ng-repeat="(key,value) in model.returnData.option">
+            <div ng-if="key!= 'symbol' && key!= 'Symbol' &&  key!= 'Name'">{{key}} - {{value}}</div>
+        </div>
+    </div>
+    <div ng-show="model.returnData.investor">
+        <h2>{{model.returnData.investor[0].fullName}}</h2>
+        <br>
+        <div ng-repeat="(key,value) in model.returnData.investor[0]">
+            <div ng-if="key!= 'username' && key!='password' && key!='roles' && key!='_id' && key!= 'fullName'">{{key}} - {{value}}</div>
+        </div>
     </div>
 </div>

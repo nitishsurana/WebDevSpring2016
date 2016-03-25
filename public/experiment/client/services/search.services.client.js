@@ -16,7 +16,8 @@
         };
         var api={
             search: search,
-            searchYahoo: searchYahoo
+            searchYahoo: searchYahoo,
+            searchInvestorById: searchInvestorById
         };
         return api;
 
@@ -37,6 +38,12 @@
             $rootScope.returnData.query = queryText;
             $location.url('/search');*/
         }
+        
+        function searchInvestorById(userId)
+        {
+            return UserService.findUser(userId);
+        }        
+        
         function searchCompanySymbol(query){
             //console.log("Search service client");
             //console.log(query);

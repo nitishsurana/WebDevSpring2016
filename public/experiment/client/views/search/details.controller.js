@@ -7,13 +7,28 @@
         .controller("DetailsController", DetailsController);
 
     function DetailsController($scope, $rootScope, $routeParams, SearchService) {
+        var vm = this;
         var symbol = $routeParams.symbol;
-        console.log(symbol);
-        SearchService.searchYahoo(symbol)
-            .then(function (response){
-                $rootScope.returnData = response.data.query.results.quote;
-                console.log(response.data.query.results.quote);
-            });
+        var username = $routeParams.id;
+        //console.log(symbol, id);
+        if (symbol){
+            SearchService.searchYahoo(symbol)
+                .then(function (response){
+                    vm.returnData = {};
+                    vm.returnData.option = response.data.query.results.quote;
+                    //console.log(response.data.query.results.quote);
+                });
+        }
+        else{
+            console.log("username");
+            SearchService.searchInvestorById(username)
+                .then(function(response){
+                    vm.returnData = {};
+                    vm.returnData.investor = response.data;
+                    console.log(response.data);
+                });
+        }
+        
         if ($rootScope.returnData.resultType == "Investor"){
             if ($rootScope.returnData.name == ""){
                 $scope.name = "Oops!!";
@@ -24,7 +39,7 @@
                 $scope.name = $rootScope.returnData.fullName;
                 $scope.about = "About Me: " + $rootScope.returnData.aboutMe;
                 $scope.interest = "Interested Investments: " + $rootScope.returnData.interestedInvestments;
-                console.log($rootScope.returnData);
+                //console.log($rootScope.returnData);
             }
         }
         if ($rootScope.returnData.resultType == "YQL"){

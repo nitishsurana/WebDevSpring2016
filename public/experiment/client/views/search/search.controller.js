@@ -6,7 +6,7 @@
         .module("PortfolioManager")
         .controller("SearchController", SearchController);
 
-    function SearchController($location,$routeParams, SearchService){
+    function SearchController($location,$routeParams, $rootScope, SearchService){
 
         var vm = this;
         vm.search = search;/*
@@ -24,13 +24,18 @@
            // console.log("search controller");
             SearchService.search(query.queryType, query.queryText)
                 .success(function(response){
-                    //return response;
+                    //console.log(response);
                     //vm.query.queryType = query.queryType;
                     //vm.query.queryText = query.queryText;
                     vm.returnData = {};
                     //console.log(vm.returnData);
                     vm.returnData.options = [];
                     vm.returnData.investors = [];
+                    $rootScope.queryType = query.queryType;
+                    if (response == []){
+                        vm.returnData.err = false;
+                    }
+                    //console.log(vm.returnData.err);
                     if (query.queryType == "Investment Option")
                     {
                         vm.returnData.options = response;

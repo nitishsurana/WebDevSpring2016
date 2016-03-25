@@ -10,6 +10,7 @@ module.exports = function(){
         findUserByCredentials: findUserByCredentials,
         findAllUsers: findAllUsers,
         findUserByUsername: findUserByUsername,
+        findUserById: findUserById,
         createUser: createUser,
         deleteUserById: deleteUserById,
         updateUser: updateUser
@@ -32,13 +33,22 @@ module.exports = function(){
         //console.log(username, password);
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){
-                //giconsole.log(fakeData[i]);
+                //console.log(fakeData[i]);
                 return fakeData[i];
             }
         }
         return null;
     }
 
+    function findUserById(userId) {
+        for(var i=0; i<fakeData.length; i++){
+            if (fakeData[i]._id == userId){
+                //console.log(fakeData[i]);
+                return fakeData[i];
+            }
+        }
+        return null;
+    }
     function findAllUsers() {
         return fakeData;
     }
