@@ -5,14 +5,14 @@
         <form class="form-inline">
             <div class="form-group">
                 <div>
-                    <input ng-model="queryText" type="text" class="form-control" placeholder="Search. . .">
-                    <select ng-model="queryType" class="form-control">
+                    <input ng-model="model.query.queryText" type="text" class="form-control" placeholder="Search. . .">
+                    <select ng-model="model.query.queryType" class="form-control">
                         <option>Investment Option</option>
                         <option>Investor</option>
                     </select>
                 </div>
             </div>
-            <button type="submit" ng-click="search()" class="btn btn-primary">Search</button>
+            <button type="submit" ng-click="model.search(model.query)" class="btn btn-primary">Search</button>
         </form>
     </div>
 

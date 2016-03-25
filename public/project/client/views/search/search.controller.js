@@ -9,15 +9,15 @@
     function SearchController($location,$routeParams, $rootScope, SearchService){
 
         var vm = this;
-        vm.search = search;/*
-        var sym = $routeParams.symbol;
-        if (sym){
-            searchResult(sym);
+        vm.search = search;
+
+        function init(){
+            search($rootScope.queryAtHome);
+            //console.log($rootScope.queryAtHome);
+            vm.query = $rootScope.queryAtHome;
         }
-*/      //search();
-        function searchResult(s){
-            $location.url("/search/" + s);
-        }
+
+        init();
 
         function search(query){
             //console.log(query.queryType);
@@ -39,7 +39,7 @@
                     if (query.queryType == "Investment Option")
                     {
                         vm.returnData.options = response;
-                        //console.log(vm.returnData.options);
+                        console.log(vm.returnData.options);
                     }
                     else{
                         vm.returnData.investors = response;
@@ -49,16 +49,10 @@
                     }
 
                     //console.log(vm.returnData);
+                })
+                .error(function(response){
+
                 });
-            sym = $routeParams.symbol;
-
-            if (sym){
-                searchResult(sym);
-            }
-
-            function searchResult(s){
-                $location.url("/search/" + s);
-            }
         }
     }
 })();
