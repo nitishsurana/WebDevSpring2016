@@ -55,7 +55,7 @@ module.exports = function(){
             "roles": user.roles
         };
         fakeData.push(temp);
-        return fakeData;
+        return temp;
     }
 
     function deleteUserById(userId) {
