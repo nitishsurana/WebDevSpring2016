@@ -58,8 +58,11 @@ module.exports = function() {
     }
 
     function findAllInvestmentByUser(userId) {
+        console.log("Portfolio Model");
         for(var i = 0; i<portfolio.length; i++) {
             if (portfolio[i].id == userId) {
+
+                console.log(portfolio[i]);
                 return portfolio[i].investment;
             }
         }

@@ -33,14 +33,10 @@ function PortfolioService($http){
     }
 
     function findAllInvestmentByUserId(userId){
-        $http.get("/api/project/" + userId + "/investment")
-            .success(function(response){
-                return response.data;
-            });
+        return $http.get("/api/project/" + userId + "/investment");
     }
 
-    function totalInvestmentValue(userId){
-        var portfolio = findAllInvestmentByUserId(userId);
+    function totalInvestmentValue(portfolio){
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].totalInvestment;
@@ -48,8 +44,7 @@ function PortfolioService($http){
         return sum;
     }
 
-    function currentValue(userId){
-        var portfolio = findAllInvestmentByUserId(userId);
+    function currentValue(portfolio){
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].currentValue;
@@ -57,8 +52,7 @@ function PortfolioService($http){
         return sum;
     }
 
-    function calculateProfit(userId){
-        var portfolio = findAllInvestmentByUserId(userId);
+    function calculateProfit(portfolio){
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].profit;
