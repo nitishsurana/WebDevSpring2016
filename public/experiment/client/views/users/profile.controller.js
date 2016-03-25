@@ -7,34 +7,20 @@
         .controller("ProfileController", ProfileController);
 
     function ProfileController($scope, $rootScope,UserService) {
-        $scope.update = update;
-        if ($rootScope.currentUser !== null){
-            $scope.username = $rootScope.currentUser.username;
-            $scope.password = $rootScope.currentUser.password;
-            $scope.fullName = $rootScope.currentUser.fullName;
-            $scope.email = $rootScope.currentUser.email;
-            $scope.verfiyPassword = $rootScope.currentUser.password;
-            $scope.phoneNumber = $rootScope.currentUser.phoneNumber;
-            $scope.aboutMe = $rootScope.currentUser.aboutMe;
-            $scope.interestedInvestments = $rootScope.currentUser.interestedInvestments;
-        }
-        function update() {
-            var user = {
-                "fullName": $scope.fullName,
-                "email": $scope.email,
-                "username": $scope.username,
-                "password": $scope.password,
-                "phoneNumber": $scope.phoneNumber,
-                "aboutMe": $scope.aboutMe,
-                "interestedInvestments": $scope.interestedInvestments
-            };
 
+        var vm = this;
+
+        $scope.update = update;
+        vm.user = UserService.getCurrentUser();
+        console.log();
+        function update(user) {
             UserService.setCurrentUser(user);
-            UserService.updateUser(user['username'],$rootScope.currentUser,function(response){
-                console.log(response);
+            //console.log(user);
+            UserService.updateUser(user._id,user)
+                .success(function(response){
+                //console.log(response);
                 alert("Profile Updated.");
             });
-        };
-
+        }
     }
 })();
