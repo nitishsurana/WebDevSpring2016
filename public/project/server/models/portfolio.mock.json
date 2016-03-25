@@ -1,0 +1,35 @@
+[
+  {
+    "id": 123,
+    "investment": [
+      {
+        "investmentOption": "Option 1",
+        "pricePerQty": 30,
+        "qty": 200,
+        "totalInvestment": 6000,
+        "currentValue": 8000,
+        "profit": 2000
+      },
+      {
+        "investmentOption": "Option 2",
+        "pricePerQty": 100,
+        "qty": 10,
+        "totalInvestment": 1000,
+        "currentValue": 900,
+        "profit": -100
+      }
+    ]
+  },
+  {"id": 234,
+    "investment": [
+      {
+        "investmentOption":"Option 3",
+        "pricePerQty":50,
+        "qty":1000,
+        "totalInvestment":50000,
+        "currentValue":50000,
+        "profit":0
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+<div>
+    <form class="navbar-form navbar-center">
+        <input ng-model="model.query.queryText" type="text" class="form-control" placeholder="Search. . .">
+        <select ng-model="model.query.queryType" class="form-control">
+            <option>Investment Option</option>
+            <option>Investor</option>
+        </select>
+        <button type="submit" ng-click="model.search(model.query)" class="btn">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </form>
+    <h2>Search Results</h2>
+    <div ng-show="model.query.queryType == 'Investment Option'">
+        <div ng-show="model.returnData.options">
+            <div ng-repeat="option in model.returnData.options">
+                <div ng-if= "option">
+                    <h3>
+                        <a href="#/search/option/{{option.symbol}}">
+                            {{option.company}}
+                        </a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div ng-show="model.returnData.err">
+            <h4>Oops, the searched option "{{model.query.queryText}}" does not exist.</h4>
+        </div>
+    </div>
+    <div ng-show="model.query.queryType == 'Investor'">
+        <div ng-repeat="investor in model.returnData.investors">
+            <div ng-if="investor">
+                <h3>
+                    <a href="#/search/investor/{{investor.username}}">
+                        {{investor.fullName}}
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div ng-show="model.returnData.err">
+            <h4>Oops, the searched investor "{{model.query.queryText}}" does not exist.</h4>
+        </div>
+    </div>
+</div>
