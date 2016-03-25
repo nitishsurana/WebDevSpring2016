@@ -15,17 +15,19 @@
         vm.deleteInvestment = deleteInvestment;
         vm.selectInvestment = selectInvestment;
 
-        var selectedIndex = -1;
         var currentUser = UserService.getCurrentUser();
         var currentUserId = currentUser._id;
-        console.log(currentUserId);
+
+        function init(response){
+            vm.portfolio = response;
+            vm.invested = PortfolioService.totalInvestmentValue(response);
+            vm.currentValuation = PortfolioService.currentValue(response);
+            vm.netGain = PortfolioService.calculateProfit(response);
+        }
         PortfolioService.findAllInvestmentByUserId(currentUserId)
             .success(function(response){
                 //console.log(response);
-                vm.portfolio = response;
-                vm.invested = PortfolioService.totalInvestmentValue(response);
-                vm.currentValuation = PortfolioService.currentValue(response);
-                vm.netGain = PortfolioService.calculateProfit(response);
+                init(response);
             });
 
 
@@ -33,21 +35,16 @@
             PortfolioService.addInvestment(currentUserId,investment)
                 .success(function(response){
                     //console.log(response);
-                    vm.portfolio = response;
-                    vm.invested = PortfolioService.totalInvestmentValue(response);
-                    vm.currentValuation = PortfolioService.currentValue(response);
-                    vm.netGain = PortfolioService.calculateProfit(response);
+                    init(response);
                 });
         }
 
         function updateInvestment(investment){
+            console.log(investment);
             PortfolioService.updateInvestment(currentUserId, investment)
                 .success(function(response){
                     //console.log(response);
-                    vm.portfolio = response;
-                    vm.invested = PortfolioService.totalInvestmentValue(response);
-                    vm.currentValuation = PortfolioService.currentValue(response);
-                    vm.netGain = PortfolioService.calculateProfit(response);
+                    init(response);
                 });
         }
 
@@ -55,15 +52,12 @@
             PortfolioService.deleteInvestment(currentUserId, vm.portfolio[index].investmentOption)
                 .success(function(response){
                     //console.log(response);
-                    vm.portfolio = response;
-                    vm.invested = PortfolioService.totalInvestmentValue(response);
-                    vm.currentValuation = PortfolioService.currentValue(response);
-                    vm.netGain = PortfolioService.calculateProfit(response);
+                    init(response);
                 });
         }
 
         function selectInvestment(index){
-            console.log(vm.portfolio[index]);
+            //console.log(vm.portfolio[index]);
             vm.investment = vm.portfolio[index];
         }
     }

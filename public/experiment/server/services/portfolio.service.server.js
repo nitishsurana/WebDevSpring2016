@@ -11,8 +11,8 @@ module.exports = function(app, portfolioModel){
     function findAllInvestmentByUser(req, res){
         var userId = req.params.id;
         var result = portfolioModel.findAllInvestmentByUser(userId);
-        console.log("Portfolio Service Service");
-        console.log(result);
+        //console.log("Portfolio Service Service");
+        //console.log(result);
         res.json(result);
     }
 
@@ -34,6 +34,8 @@ module.exports = function(app, portfolioModel){
         var userId = req.params.id;
         var investmentOption = req.body;
         var result = portfolioModel.updateInvestment(userId, investmentOption);
+        //console.log("Update Investment Server service");
+        //console.log(result);
         res.json(result);
     }
 };

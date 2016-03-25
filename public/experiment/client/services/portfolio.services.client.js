@@ -37,6 +37,8 @@ function PortfolioService($http){
     }
 
     function totalInvestmentValue(portfolio){
+        //console.log("Portfolio Service client");
+        //console.log(portfolio);
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].totalInvestment;
@@ -58,7 +60,7 @@ function PortfolioService($http){
             sum += portfolio[i].profit;
         }
         if (sum<0){
-            return "-".concat(Math.abs(sum).toString());
+            return "- $".concat(Math.abs(sum).toString());
         }
         else {
             return "$".concat(sum.toString());

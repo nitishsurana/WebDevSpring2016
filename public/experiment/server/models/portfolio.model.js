@@ -19,10 +19,9 @@ module.exports = function() {
         for (var i = 0; i<portfolio.length; i++){
             if (portfolio[i].id == userId){
                 portfolio[i].investment.push(investment);
-                break;
+                return portfolio[i].investment;
             }
         }
-        return portfolio;
     }
 
     function deleteInvestment(userId, investmentOption){
@@ -31,12 +30,11 @@ module.exports = function() {
                 for (var j = 0; j<portfolio[i].investment.length; j++){
                     if (portfolio[i].investment[j].investmentOption == investmentOption){
                         portfolio[i].investment.splice(j,1);
+                        return portfolio[i].investment;
                     }
                 }
             }
-            
         }
-        return portfolio;
     }
 
     function updateInvestment(userId, investment){
@@ -49,20 +47,18 @@ module.exports = function() {
                         portfolio[i].investment[j].totalInvestment = investment.totalInvestment;
                         portfolio[i].investment[j].currentValue = investment.currentValue;
                         portfolio[i].investment[j].profit = investment.profit;
-                        break;
+                        return portfolio[i].investment;
                     }
                 }
             }
         }
-        return portfolio;
     }
 
     function findAllInvestmentByUser(userId) {
-        console.log("Portfolio Model");
+        //console.log("Portfolio Model");
         for(var i = 0; i<portfolio.length; i++) {
             if (portfolio[i].id == userId) {
-
-                console.log(portfolio[i]);
+                //console.log(portfolio[i]);
                 return portfolio[i].investment;
             }
         }
