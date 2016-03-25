@@ -26,15 +26,16 @@
                 return searchCompanySymbol(query);
             }
             else{
-                searchInvestor(query);
+                return searchInvestor(query);
             }
         }
 
         function searchInvestor(queryText){
-            $rootScope.returnData = UserService.findUser(queryText);
+            //console.log("seacrch investor");
+            return UserService.findUser(queryText);/*
             $rootScope.returnData.resultType = "Investor";
             $rootScope.returnData.query = queryText;
-            $location.url('/search');
+            $location.url('/search');*/
         }
         function searchCompanySymbol(query){
             //console.log("Search service client");
@@ -46,7 +47,7 @@
         }
 
         function searchYahoo(symbol) {
-            console.log(symbol);
+            //console.log(symbol);
             return $http.get("/api/project/search-yahoo/"+symbol);
         }
     }

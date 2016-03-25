@@ -26,11 +26,10 @@
         return api;
 
         function findUser(searchText){
-            return $http.get("/api/project/user?username=" + searchText);
+            return $http.get("/api/project/search/user?username=" + searchText);
         }
 
         function findUserByCredentials(username, password) {
-            //console.log(username, password);
             return $http.get("/api/project/user?username=" + username + "&password=" + password);
         }
 

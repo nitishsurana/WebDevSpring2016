@@ -6,9 +6,10 @@
         .module("PortfolioManager")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope, $location,$routeParams, SearchService){
-        //console.log("search controller");
-        $scope.search = search;/*
+    function SearchController($location,$routeParams, SearchService){
+
+        var vm = this;
+        vm.search = search;/*
         var sym = $routeParams.symbol;
         if (sym){
             searchResult(sym);
@@ -18,14 +19,31 @@
             $location.url("/search/" + s);
         }
 
-        function search(){
-            console.log($scope.queryText);
+        function search(query){
+            //console.log(query.queryType);
            // console.log("search controller");
-            SearchService.search($scope.queryType, $scope.queryText)
+            SearchService.search(query.queryType, query.queryText)
                 .success(function(response){
                     //return response;
-                    $scope.returnData= response;
-                    console.log($scope.returnData);
+                    //vm.query.queryType = query.queryType;
+                    //vm.query.queryText = query.queryText;
+                    vm.returnData = {};
+                    //console.log(vm.returnData);
+                    vm.returnData.options = [];
+                    vm.returnData.investors = [];
+                    if (query.queryType == "Investment Option")
+                    {
+                        vm.returnData.options = response;
+                        //console.log(vm.returnData.options);
+                    }
+                    else{
+                        vm.returnData.investors = response;
+                        /*for(var i in vm.returnData.investors){
+                            console.log(i);
+                        }*/
+                    }
+
+                    //console.log(vm.returnData);
                 });
             sym = $routeParams.symbol;
 

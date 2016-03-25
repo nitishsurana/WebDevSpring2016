@@ -18,12 +18,13 @@ module.exports = function(){
     return api;
 
     function findUserByUsername(searchText){
+        var returnData = [];
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == searchText){
-                return fakeData[i];
+                returnData.push(fakeData[i]);
             }
         }
-        return null;
+        return returnData;
     }
 
     function findUserByCredentials(username, password) {

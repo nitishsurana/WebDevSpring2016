@@ -3,7 +3,7 @@
  */
 
 module.exports = function(app,userModel){
-    //app.get("/api/project/user?username=username", findUserByUsername);
+    app.get("/api/project/search/user", findUserByUsername);
     app.get("/api/project/user", findUserByCredentials);
     app.get("/api/project/user", findAllUsers);
     app.post("/api/project/user", createUser);
@@ -11,7 +11,7 @@ module.exports = function(app,userModel){
     app.put("/api/project/user/:id", updateUser);
 
     function findUserByUsername(req, res){
-        var username = req.params.username;
+        var username = req.query.username;
         var result = userModel.findUserByUsername(username);
         res.send(result);
     }
