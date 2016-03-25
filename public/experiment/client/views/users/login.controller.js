@@ -8,13 +8,16 @@
 
     function LoginController($scope, $location, UserService) {
         $scope.login = login;
-        function login() {
-            UserService.findUserByCredentials($scope.username, $scope.password, function (response) {
-                if (response) {
-                    UserService.setCurrentUser(response);
-                    $location.url("/portfolio");
-                }
-            });
+        function login(loginCredentials) {
+            //console.log(loginCredentials);
+            UserService.findUserByCredentials(loginCredentials.username, loginCredentials.password)
+                .success(function(response){
+                    if (response) {
+                        //console.log(response);
+                        UserService.setCurrentUser(response);
+                        $location.url("/portfolio");
+                    }
+                });
         }
 
     }

@@ -3,8 +3,8 @@
  */
 
 module.exports = function(app,userModel){
-    app.get("/api/project/user?username=username", findUserByUsername);
-    app.get("/api/project/user?username=username&password=password", findUserByCredentials);
+    //app.get("/api/project/user?username=username", findUserByUsername);
+    app.get("/api/project/user", findUserByCredentials);
     app.get("/api/project/user", findAllUsers);
     app.post("/api/project/user", createUser);
     app.delete("/api/project/user/:id", deleteUserById);
@@ -17,9 +17,12 @@ module.exports = function(app,userModel){
     }
 
     function findUserByCredentials(req, res){
-        var username  = req.params.username;
-        var password = req.params.password;
+        var username  = req.query.username;
+        var password = req.query.password;
+        //console.log("User Service server");
+        //console.log(username, password);
         var result = userModel.findUserByCredentials(username, password);
+        //console.log(result);
         res.send(result);
     }
 

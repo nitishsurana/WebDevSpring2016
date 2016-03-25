@@ -27,8 +27,11 @@ module.exports = function(){
     }
 
     function findUserByCredentials(username, password) {
+        //console.log("User Model");
+        //console.log(username, password);
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){
+                //giconsole.log(fakeData[i]);
                 return fakeData[i];
             }
         }
