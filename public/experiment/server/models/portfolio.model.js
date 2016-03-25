@@ -5,45 +5,15 @@
 var portfolio = require("./portfolio.mock.json");
 
 module.exports = function() {
+
     var api = {
         addInvestment: addInvestment,
         deleteInvestment: deleteInvestment,
         updateInvestment: updateInvestment,
-        totalInvestmentValue: totalInvestmentValue,
-        currentValue: currentValue,
-        calculateProfit: calculateProfit
+        findAllInvestmentByUser: findAllInvestmentByUser
     };
 
     return api;
-
-    function totalInvestmentValue(){
-        var sum = 0;
-        for(var i=0; i<portfolio.length; i++){
-            sum += portfolio[i].totalInvestment;
-        }
-        return sum;
-    }
-
-    function currentValue(){
-        var sum = 0;
-        for(var i=0; i<portfolio.length; i++){
-            sum += portfolio[i].currentValue;
-        }
-        return sum;
-    }
-
-    function calculateProfit(){
-        var sum = 0;
-        for(var i=0; i<portfolio.length; i++){
-            sum += portfolio[i].profit;
-        }
-        if (sum<0){
-            return "-".concat(Math.abs(sum).toString());
-        }
-        else {
-            return "$".concat(sum.toString());
-        }
-    }
 
     function addInvestment(userId, investment){
         for (var i = 0; i<portfolio.length; i++){
@@ -54,7 +24,6 @@ module.exports = function() {
         }
         return portfolio;
     }
-
 
     function deleteInvestment(userId, investmentOption){
         for (var i = 0; i<portfolio.length; i++){
@@ -67,7 +36,6 @@ module.exports = function() {
             }
             
         }
-        
         return portfolio;
     }
 
@@ -87,5 +55,13 @@ module.exports = function() {
             }
         }
         return portfolio;
+    }
+
+    function findAllInvestmentByUser(userId) {
+        for(var i = 0; i<portfolio.length; i++) {
+            if (portfolio[i].id == userId) {
+                return portfolio[i].investment;
+            }
+        }
     }
 };

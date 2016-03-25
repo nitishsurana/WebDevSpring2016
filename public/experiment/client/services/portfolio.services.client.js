@@ -6,27 +6,41 @@ angular
     .module("PortfolioManager")
     .factory("PortfolioService", PortfolioService);
 
-function PortfolioService(){
-    var portfolio = [];
-    portfolio = [
-        {"investmentOption":"Option 1", "pricePerQty":30, "qty":200, "totalInvestment": 6000, "currentValue":8000, "profit": 2000},
-        {"investmentOption":"Option 2", "pricePerQty":100, "qty":10, "totalInvestment": 1000, "currentValue":900, "profit": -100},
-        {"investmentOption":"Option 3", "pricePerQty":50, "qty":1000, "totalInvestment":50000, "currentValue":50000, "profit":0}
-    ];
+function PortfolioService($http){
 
-    var api = {
+    var portfolioServiceApi ={
         addInvestment: addInvestment,
         deleteInvestment: deleteInvestment,
         updateInvestment: updateInvestment,
         totalInvestmentValue: totalInvestmentValue,
         currentValue: currentValue,
         calculateProfit: calculateProfit,
-        portfolio: portfolio
+        findAllInvestmentByUserId: findAllInvestmentByUserId
     };
 
-    return api;
+    return portfolioServiceApi;
 
-    function totalInvestmentValue(){
+    function addInvestment(userId, investment){
+        return $http.post("/api/project/" + userId + "/investment", investment);
+    }
+
+    function deleteInvestment(userId, investmentOption){
+        return $http.delete("/api/project/" + userId + "/investment/" + investmentOption);
+    }
+
+    function updateInvestment(userId, investment){
+        return $http.put("/api/project/" + userId + "/investment", investment);
+    }
+
+    function findAllInvestmentByUserId(userId){
+        $http.get("/api/project/" + userId + "/investment")
+            .success(function(response){
+                return response.data;
+            });
+    }
+
+    function totalInvestmentValue(userId){
+        var portfolio = findAllInvestmentByUserId(userId);
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].totalInvestment;
@@ -34,7 +48,8 @@ function PortfolioService(){
         return sum;
     }
 
-    function currentValue(){
+    function currentValue(userId){
+        var portfolio = findAllInvestmentByUserId(userId);
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].currentValue;
@@ -42,7 +57,8 @@ function PortfolioService(){
         return sum;
     }
 
-    function calculateProfit(){
+    function calculateProfit(userId){
+        var portfolio = findAllInvestmentByUserId(userId);
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
             sum += portfolio[i].profit;
@@ -54,34 +70,5 @@ function PortfolioService(){
             return "$".concat(sum.toString());
         }
     }
-
-    function addInvestment(investment, callback){
-        portfolio.push(investment);
-        callback(investment);
-    }
-
-
-    function deleteInvestment(investmentOption, callback){
-        for (var i = 0; i<portfolio.length; i++){
-            if (portfolio[i].investmentOption == investmentOption){
-                break;
-            }
-        }
-        portfolio.splice(i,1);
-        callback(portfolio);
-    }
-
-    function updateInvestment(investment, callback){
-        for(var i = 0; i<portfolio.length; i++){
-            if (portfolio[i].investmentOption == investment.investmentOption){
-                portfolio[i].pricePerQty = investment.pricePerQty;
-                portfolio[i].qty = investment.qty;
-                portfolio[i].totalInvestment = investment.totalInvestment;
-                portfolio[i].currentValue = investment.currentValue;
-                portfolio[i].profit = investment.profit;
-                break;
-            }
-        }
-        callback(portfolio[i]);
-    }
+    
 }

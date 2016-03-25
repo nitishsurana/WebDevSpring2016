@@ -6,67 +6,70 @@
         .module("PortfolioManager")
         .controller("PortfolioController",PortfolioController);
 
-    function PortfolioController($scope, PortfolioService){
+    function PortfolioController($scope, PortfolioService, UserService){
+
         $scope.addInvestment = addInvestment;
         $scope.updateInvestment = updateInvestment;
         $scope.deleteInvestment = deleteInvestment;
         $scope.selectInvestment = selectInvestment;
-        $scope.invested = PortfolioService.totalInvestmentValue();
-        $scope.currentValuation = PortfolioService.currentValue();
-        $scope.netGain = PortfolioService.calculateProfit();
-        $scope.portfolio = PortfolioService.portfolio;
+
         var selectedIndex = -1;
+        var currentUserId = UserService.getCurrentUser.userId;
 
+        $scope.portfolio = PortfolioService.findAllInvestmentByUserId(currentUserId);
+        $scope.model.invested = PortfolioService.totalInvestmentValue(currentUserId);
+        $scope.model.currentValuation = PortfolioService.currentValue(currentUserId);
+        $scope.model.netGain = PortfolioService.calculateProfit(currentUserId);
 
-        function addInvestment(){
-            var investment = {
+        function addInvestment(investment){
+            /*var investment = {
                 "investmentOption": $scope.investmentOption,
                 "pricePerQty": $scope.pricePerQty,
                 "qty": $scope.qty,
                 "totalInvestment": $scope.totalInvestment,
                 "currentValue": $scope.currentValue,
                 "profit": $scope.profit
-            };
-            PortfolioService.addInvestment(investment,function(response){
-                console.log(response);
-                console.log(investment);
-                $scope.invested = PortfolioService.totalInvestmentValue();
-                $scope.currentValuation = PortfolioService.currentValue();
-                $scope.netGain = PortfolioService.calculateProfit();
-            });
+            };*/
+            
+            var investments = PortfolioService.addInvestment(currentUserId,investment);
+            $scope.model.portfolio = investments.data;
+            $scope.model.invested = PortfolioService.totalInvestmentValue(currentUserId);
+            $scope.model.currentValuation = PortfolioService.currentValue(currentUserId);
+            $scope.model.netGain = PortfolioService.calculateProfit(currentUserId);
         }
 
-        function updateInvestment(){
-            var investment = {
+        function updateInvestment(investment){
+            /*var investment = {
                 "investmentOption": $scope.investmentOption,
                 "pricePerQty": $scope.pricePerQty,
                 "qty": $scope.qty,
                 "totalInvestment": $scope.totalInvestment,
                 "currentValue": $scope.currentValue,
                 "profit": $scope.profit
-            };
-            PortfolioService.updateInvestment(investment, function(response){
-                $scope.invested = PortfolioService.totalInvestmentValue();
-                $scope.currentValuation = PortfolioService.currentValue();
-                $scope.netGain = PortfolioService.calculateProfit();
-            });
+            };*/
+
+            var investments = PortfolioService.updateInvestment(currentUserId, investment);
+            $scope.model.portfolio = investments.data;
+            $scope.model.invested = PortfolioService.totalInvestmentValue(currentUserId);
+            $scope.model.currentValuation = PortfolioService.currentValue(currentUserId);
+            $scope.model.netGain = PortfolioService.calculateProfit(currentUserId);
         }
 
         function deleteInvestment(index){
-            PortfolioService.deleteInvestment($scope.portfolio[index].investmentOption,function(response){
-                $scope.invested = PortfolioService.totalInvestmentValue();
-                $scope.currentValuation = PortfolioService.currentValue();
-                $scope.netGain = PortfolioService.calculateProfit();
-            });
+            var investments = PortfolioService.deleteInvestment(currentUserId, $scope.portfolio[index].investmentOption);
+            $scope.model.portfolio = investments.data;
+            $scope.model.invested = PortfolioService.totalInvestmentValue(currentUserId);
+            $scope.model.currentValuation = PortfolioService.currentValue(currentUserId);
+            $scope.model.netGain = PortfolioService.calculateProfit(currentUserId);
         }
 
         function selectInvestment(index){
-            $scope.investmentOption = $scope.portfolio[index].investmentOption;
-            $scope.pricePerQty = $scope.portfolio[index].pricePerQty;
-            $scope.qty = $scope.portfolio[index].qty;
-            $scope.totalInvestment = $scope.portfolio[index].totalInvestment;
-            $scope.currentValue = $scope.portfolio[index].currentValue;
-            $scope.profit = $scope.portfolio[index].profit;
+            $scope.model.investmentOption = $scope.model.portfolio[index].investmentOption;
+            $scope.model.pricePerQty = $scope.model.portfolio[index].pricePerQty;
+            $scope.model.qty = $scope.model.portfolio[index].qty;
+            $scope.model.totalInvestment = $scope.model.portfolio[index].totalInvestment;
+            $scope.model.currentValue = $scope.model.portfolio[index].currentValue;
+            $scope.model.profit = $scope.model.portfolio[index].profit;
             selectedIndex = index;
         }
 

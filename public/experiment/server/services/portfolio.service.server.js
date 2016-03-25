@@ -3,10 +3,17 @@
  */
 
 module.exports = function(app, portfolioModel){
+    app.get("/api/project/:id/investment", findAllInvestmentByUser);
     app.post("/api/project/:id/investment", addInvestment);
     app.delete("/api/project/:id/investment/:investmentOption", deleteInvestment);
     app.put("/api/project/:id/investment", updateInvestment);
-    
+
+    function findAllInvestmentByUser(req, res){
+        var userId = req.params.id;
+        var result = portfolioModel.findAllInvestmentByUser(userId);
+        res.json(result);
+    }
+
     function addInvestment(req, res) {
         var userId = req.params.id;
         var investment = req.body;

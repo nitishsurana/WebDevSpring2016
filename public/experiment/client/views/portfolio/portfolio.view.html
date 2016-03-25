@@ -20,35 +20,35 @@
                     <div class="form-group">
                         <div class="col-sm-10">
                             <td>
-                                <input type="text" ng-model="investmentOption" class="form-control" placeholder="Investment">
+                                <input type="text" ng-model="model.investment.investmentOption" class="form-control" placeholder="Investment">
                             </td>
                             <td>
-                                <input type="number" ng-model="pricePerQty" class="form-control" placeholder="Cost">
+                                <input type="number" ng-model="model.investment.pricePerQty" class="form-control" placeholder="Cost">
                             </td>
                             <td>
-                                <input type="number" ng-model="qty" class="form-control" placeholder="Quantity">
+                                <input type="number" ng-model="model.investment.qty" class="form-control" placeholder="Quantity">
                             </td>
                             <td>
-                                <input type="number" ng-model="totalInvestment" class="form-control" placeholder="Total Investment">
+                                <input type="number" ng-model="model.investment.totalInvestment" class="form-control" placeholder="Total Investment">
                             </td>
                             <td>
-                                <input type="number" ng-model="currentValue" class="form-control" placeholder="Current Value">
+                                <input type="number" ng-model="model.investment.currentValue" class="form-control" placeholder="Current Value">
                             </td>
                             <td>
-                                <input type="number" ng-model="profit" class="form-control" placeholder="Profit">
+                                <input type="number" ng-model="model.investment.profit" class="form-control" placeholder="Profit">
                             </td>
                             <td>
-                                <a ng-click="addInvestment()" role="button" class="btn btn-default">
+                                <a ng-click="addInvestment(model.investment)" role="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </a>
-                                <a ng-click="updateInvestment()" role="button" class="btn btn-default">
+                                <a ng-click="updateInvestment(model.investment)" role="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </a>
                             </td>
                         </div>
                     </div>
                 </tr>
-                <tr ng-repeat="investment in portfolio" ng-class="{'success' : $index == selectedFormIndex}">
+                <tr ng-repeat="investment in model.portfolio" ng-class="{'success' : $index == selectedFormIndex}">
                     <td>{{investment.investmentOption}} </td>
                     <td>{{investment.pricePerQty}} </td>
                     <td>{{investment.qty}} </td>
@@ -66,9 +66,9 @@
                 </tr>
                 <tr>
                     <td colspan="3">Total Value</td>
-                    <td>${{invested}}</td>
-                    <td>${{currentValuation}}</td>
-                    <td>{{netGain}}</td>
+                    <td>${{model.invested}}</td>
+                    <td>${{model.currentValuation}}</td>
+                    <td>{{model.netGain}}</td>
                 </tr>
             </table>
         </div>
