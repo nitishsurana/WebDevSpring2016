@@ -6,11 +6,9 @@
         .module("PortfolioManager")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, $rootScope,UserService) {
-
+    function ProfileController(UserService) {
         var vm = this;
-
-        $scope.update = update;
+        vm.update = update;
         vm.user = UserService.getCurrentUser();
         console.log();
         function update(user) {
