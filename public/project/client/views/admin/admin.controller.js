@@ -6,70 +6,83 @@
         .module("PortfolioManager")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, UserService){
-        $scope.addUser= addUser;
-        $scope.updateUser= updateUser;
-        $scope.deleteUser= deleteUser;
-        $scope.selectUser= selectUser;
-        $scope.updateUser = updateUser;
-        $scope.deleteUser = deleteUser;
-        $scope.selectUser = selectUser;
-        $scope.users = UserService.users;
-        var selectedIndex = -1;
+    function AdminController(UserService){
 
-        function addUser(){
-            var user = {
-                "fullName": $scope.fullName,
+        var vm = this;
+
+        vm.addUser= addUser;
+        vm.updateUser= updateUser;
+        vm.deleteUser= deleteUser;
+        vm.selectUser= selectUser;
+        vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
+        vm.selectUser = selectUser;
+
+        function init(){
+            UserService.findAllUsers()
+                .success(function(response){
+                    vm.users = response;
+                    //console.log(response);
+                });
+        }
+
+        init();
+
+        function addUser(user){
+            var new_user = {
+                "_id": "",
+                "fullName": user.fullName,
                 "email": "",
-                "username": $scope.username,
+                "username": user.username,
                 "password": "",
                 "phoneNumber": 0,
                 "aboutMe": "",
                 "interestedInvestments": "",
-                "roles": [$scope.roles]
+                "roles": [user.roles]
             };
-            UserService.createUser(user,function(response){
-                console.log(response);
-            })
-        }
+            UserService.createUser(new_user)
+                .success(function(response){
+                    console.log(response);
+                    vm.users.push(response);
+                })
+                .error(function (response){
 
-        function roles(){
-            if ($scope.roles.indexOf(",")> 0){
-                return $scope.roles.split("'");
+                });
+            }
+
+        function roles(roles){
+            if (roles.indexOf(",")> 0){
+                return roles.split(",");
             }
             else{
-                return [$scope.roles];
+                return [roles];
             }
         }
 
-        function updateUser(){
-            var user = {
-                "fullName": $scope.fullName,
-                "email": $scope.users[selectedIndex].email,
-                "username": $scope.username,
-                "password": $scope.users[selectedIndex].password,
-                "phoneNumber": $scope.users[selectedIndex].phoneNumber,
-                "aboutMe": $scope.users[selectedIndex].aboutMe,
-                "interestedInvestments": $scope.users[selectedIndex].interestedInvestments,
-                "roles": roles()
-            };
-            UserService.updateUser($scope.username, user, function (){
+        function updateUser(user){
+            user.roles = roles(user.roles);
+            UserService.updateUser(user._id, user)
+                .success(function (response){
 
-            });
+                });
         }
 
         function deleteUser(index){
-            UserService.deleteUserById($scope.users[index].username,function(response){
-                $scope.users = response;
-                console.log($scope.users);
-            });
+            //console.log(vm.users[index]._id);
+            UserService.deleteUserById(vm.users[index]._id)
+                .success(function(response){
+                    vm.users = response;
+                    console.log(vm.users);
+                });
         }
 
         function selectUser(index){
-            $scope.fullName = $scope.users[index].fullName;
-            $scope.username = $scope.users[index].username;
-            $scope.roles = $scope.users[index].roles;
-            selectedIndex = index;
+            console.log(vm.users[index]);
+            vm.user = vm.users[index];
+            /*
+            vm.user.fullName = vm.users[index].fullName;
+            vm.user.username = vm.users[index].username;
+            vm.user.roles = vm.users[index].roles;*/
         }
     }
 }) ();

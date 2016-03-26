@@ -39,7 +39,8 @@
         }
 
         function findAllUsers() {
-            return $http.get("/api/project/user");
+            //console.log("Find user service client");
+            return $http.get("/api/project/admin/");
         }
 
         function createUser (user) {
@@ -47,11 +48,13 @@
         }
 
         function deleteUserById(userId) {
+            console.log(userId);
             return $http.delete("/api/project/user/" + userId);
         }
 
         function setCurrentUser(user){
             $rootScope.currentUser = user;
+            console.log(user);
         }
         
         function getCurrentUser(){

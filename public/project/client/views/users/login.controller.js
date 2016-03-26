@@ -7,9 +7,17 @@
         .controller("LoginController", LoginController);
 
     function LoginController($scope, $location, UserService) {
-        $scope.login = login;
+        $scope.login = login;/*
+        UserService.findAllUsers()
+            .success(function(response){
+                console.log(response);
+            });*/
         function login(loginCredentials) {
-            //console.log(loginCredentials);
+            console.log(loginCredentials);
+            if (!loginCredentials.hasOwnProperty("password")){
+                //console.log("TRUE");
+                loginCredentials.password = "";
+            }
             UserService.findUserByCredentials(loginCredentials.username, loginCredentials.password)
                 .success(function(response){
                     if (response) {
@@ -18,6 +26,7 @@
                         $location.url("/portfolio");
                     }
                 });
+
         }
 
     }

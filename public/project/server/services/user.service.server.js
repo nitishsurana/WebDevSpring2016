@@ -3,10 +3,10 @@
  */
 
 module.exports = function(app,userModel){
+    app.get("/api/project/admin", findAllUsers);
     app.get("/api/project/search/user", findUserByUsername);
     app.get("/api/project/user", findUserByCredentials);
     app.get("/api/project/userId", findUserById);
-    app.get("/api/project/user", findAllUsers);
     app.post("/api/project/user", createUser);
     app.delete("/api/project/user/:id", deleteUserById);
     app.put("/api/project/user/:id", updateUser);
@@ -23,7 +23,7 @@ module.exports = function(app,userModel){
         //console.log("User Service server");
         //console.log(username, password);
         var result = userModel.findUserByCredentials(username, password);
-        //console.log(result);
+        //console.log(userModel.findAllUsers());
         res.send(result);
     }
     function findUserById(req, res){
@@ -33,7 +33,7 @@ module.exports = function(app,userModel){
     }
 
     function findAllUsers(req, res) {
-        var result = userModel.findAllUsers;
+        var result = userModel.findAllUsers();
         res.json(result);
     }
 
@@ -45,6 +45,7 @@ module.exports = function(app,userModel){
     
     function deleteUserById(req, res){
         var id = req.params.id;
+        console.log(id);
         var result = userModel.deleteUserById(id);
         res.json(result);
     }
@@ -56,10 +57,4 @@ module.exports = function(app,userModel){
         res.json(result);
     }
 
-    function setCurrentUser(user){
-        $rootScope.currentUser = user;
-    }
-    function getCurrentUser(){
-        return $rootScope.currentUser;
-    }
 };

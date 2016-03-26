@@ -20,35 +20,35 @@
                     <div class="form-group">
                         <div class="col-sm-10">
                             <td>
-                                <input type="text" ng-model="fullName" class="form-control" placeholder="Full Name">
+                                <input type="text" ng-model="model.user.fullName" class="form-control" placeholder="Full Name">
                             </td>
                             <td>
-                                <input type="text" ng-model="username" class="form-control" placeholder="Username">
+                                <input type="text" ng-model="model.user.username" class="form-control" placeholder="Username">
                             </td>
                             <td>
-                                <input type="text" ng-model="roles" class="form-control" placeholder="Role">
+                                <input type="text" ng-model="model.user.roles" class="form-control" placeholder="Role">
                             </td>
 
                             <td>
-                                <a ng-click="addUser()" role="button" class="btn btn-default">
+                                <a ng-click="model.addUser(model.user)" role="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </a>
-                                <a ng-click="updateUser()" role="button" class="btn btn-default">
+                                <a ng-click="model.updateUser(model.user)" role="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </a>
                             </td>
                         </div>
                     </div>
                 </tr>
-                <tr ng-repeat="user in users" ng-class="{'success' : $index == selectedFormIndex}">
+                <tr ng-repeat="user in model.users" ng-class="{'success' : $index == selectedFormIndex}">
                     <td>{{user.fullName}} </td>
                     <td>{{user.username}} </td>
                     <td>{{user.roles}} </td>
                     <td class="options">
-                        <a ng-click="deleteUser($index)" role="button" class="btn btn-default">
+                        <a ng-click="model.deleteUser($index)" role="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
-                        <a ng-click="selectUser($index)" role="button" class="btn btn-default">
+                        <a ng-click="model.selectUser($index)" role="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                     </td>

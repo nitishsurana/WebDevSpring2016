@@ -29,7 +29,6 @@ module.exports = function(){
     }
 
     function findUserByCredentials(username, password) {
-        //console.log("User Model");
         //console.log(username, password);
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){
@@ -49,7 +48,9 @@ module.exports = function(){
         }
         return null;
     }
+
     function findAllUsers() {
+        //console.log("User model");
         return fakeData;
     }
 
@@ -70,15 +71,19 @@ module.exports = function(){
     }
 
     function deleteUserById(userId) {
-        fakeData = fakeData.filter(function (user) {
-            return user._id !== userId;
-        });
+        //var index;
+        for (var i = 0; i < fakeData.length; i++) {
+            if (fakeData[i]._id == userId) {
+                break;
+            }
+        }
+        fakeData.splice(i,1);
         return fakeData;
     }
 
     function updateUser(userId, user) {
         for (var i = 0; i < fakeData.length; i++) {
-            if (fakeData[i]._id === userId) {
+            if (fakeData[i]._id == userId) {
                 fakeData[i] = user;
             }
         }
