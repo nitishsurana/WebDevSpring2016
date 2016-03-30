@@ -5,7 +5,7 @@
 var fakeData = require("./user.mock.json");
 var uuid = require('node-uuid');
 var UserSchema = require('./user.schema.server');
-
+var UserModel = mongoose.model('User', UserSchema);
 module.exports = function (db, mongoose) {
 
     var api = {

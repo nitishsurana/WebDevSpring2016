@@ -6,6 +6,7 @@ var forms = require("./form.mock.json");
 var uuid = require('node-uuid');
 var FormSchema = require('./form.schema.server.js');
 var FieldSchema = require('./field.schema.server');
+var FormModel = mongoose.model('Form', FormSchema);
 
 module.exports = function (db, mongoose) {
 
