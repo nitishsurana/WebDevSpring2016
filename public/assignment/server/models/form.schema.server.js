@@ -11,4 +11,5 @@ module.exports = function(mongoose){
         created: {type: Date, default: Date.now()},
         updated: {type: Date, default: Date.now()}
     }, {collection: 'form'});
+    return FormSchema;
 };
