@@ -4,7 +4,9 @@
 
 var fakeData = require("./user.mock.json");
 var uuid = require('node-uuid');
-module.exports = function () {
+var UserSchema = require('./user.schema.server');
+
+module.exports = function (db, mongoose) {
 
     var api = {
         findUserByCredentials: findUserByCredentials,

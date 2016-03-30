@@ -4,16 +4,17 @@
 
 var forms = require("./form.mock.json");
 var uuid = require('node-uuid');
+var FormSchema = require('./form.schema.server.js');
+var FieldSchema = require('./field.schema.server');
 
-module.exports = function () {
+module.exports = function (db, mongoose) {
 
     var api = {
         createFormForUser: createFormForUser,
         findFormById:findFormById,
         findAllFormsForUser: findAllFormsForUser,
         deleteFormById: deleteFormById,
-        updateFormById: updateFormById,
-        forms: forms
+        updateFormById: updateFormById
     };
 
     return api;
