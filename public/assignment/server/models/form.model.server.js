@@ -2,13 +2,14 @@
  * Created by Nitish on 2/29/2016.
  */
 
-var forms = require("./form.mock.json");
-var uuid = require('node-uuid');
-var FormSchema = require('./form.schema.server.js');
-var FieldSchema = require('./field.schema.server');
-var FormModel = mongoose.model('Form', FormSchema);
 
 module.exports = function (db, mongoose) {
+
+    var forms = require("./form.mock.json");
+    var uuid = require('node-uuid');
+    var FormSchema = require('./form.schema.server.js')(mongoose);
+    var FieldSchema = require('./field.schema.server.js')(mongoose);
+    var FormModel = mongoose.model('Form', FormSchema);
 
     var api = {
         createFormForUser: createFormForUser,
@@ -19,6 +20,8 @@ module.exports = function (db, mongoose) {
     };
 
     return api;
+
+
 
     function createFormForUser(userId, title){
         var new_form ={

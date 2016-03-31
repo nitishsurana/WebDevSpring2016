@@ -2,8 +2,10 @@
  * Created by Nitish on 3/29/2016.
  */
 
-var FieldSchema = require('./field.schema.server');
 module.exports = function(mongoose){
+
+    var FieldSchema = require('./field.schema.server.js')(mongoose);
+
     var FormSchema = mongoose.Schema({
         userId: String,
         title: {type: String, default: 'New Form'},

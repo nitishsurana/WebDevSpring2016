@@ -11,6 +11,7 @@ module.exports = function(mongoose){
         emails: [String],
         phones: [String]
     }, {collection: 'user'});
-
+    //console.log("User  Schema");
+    //console.log(UserSchema);
     return UserSchema;
 };
