@@ -10,6 +10,7 @@ module.exports = function (db, mongoose) {
     var FormSchema = require('./form.schema.server.js')(mongoose);
     //var FieldSchema = require('./field.schema.server.js')(mongoose);
     var FormModel = mongoose.model('Form', FormSchema);
+    var q = require("q");
 
     var api = {
         createFormForUser: createFormForUser,
@@ -37,7 +38,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();
+        return deferred.promise;
     }
 /*
         forms.push(new_form);
@@ -54,7 +55,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         var result = [];
         for (var i=0; i<forms.length; i++){
             if (forms[i]._id === formId){
@@ -66,13 +67,15 @@ module.exports = function (db, mongoose) {
     function findAllFormsForUser(userId){
         var deferred = q.defer();
         FormModel.find({userId: userId},function (err, doc) {
+            //console.log(err);
+            //console.log(doc);
             if (err) {
                 deferred.reject(err);
             } else {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         var result = [];
         for (var i=0; i<forms.length; i++){
             if (forms[i].userId == userId){
@@ -91,7 +94,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         for (var i = 0; i<forms.length; i++){
             if (forms[i]._id == formId){
                 break;
@@ -110,7 +113,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         for(var i = 0; i<forms.length; i++){
             if (forms[i]._id == formId){
                 forms[i].title = newForm;

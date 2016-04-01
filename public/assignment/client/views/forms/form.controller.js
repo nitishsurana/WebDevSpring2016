@@ -19,6 +19,7 @@ function FormController(FormService, $rootScope, $location){
     immediate();
 
     function immediate() {
+        //console.log($rootScope.currentUser._id);
         FormService.findAllFormsForUser($rootScope.currentUser._id)
             .then(function (response) {
                 a.forms = response.data;
@@ -26,8 +27,8 @@ function FormController(FormService, $rootScope, $location){
             });
     }
     function addForm(){
-        console.log($rootScope.currentUser._id);
-        console.log(a.form.title);
+        //console.log($rootScope.currentUser._id);
+        //console.log(a.form.title);
         FormService.createFormForUser($rootScope.currentUser._id,a.form.title)
             .then(function (response){
                 //a.forms = response.data;

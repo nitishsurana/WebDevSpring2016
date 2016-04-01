@@ -22,11 +22,12 @@ function FormService($http){
         var t = {
             title: title
         };
-        console.log(t);
+        //console.log(t);
         return $http.post("/api/assignment/user/" + userId + "/form", t);
     }
 
     function findAllFormsForUser(userId){
+        //console.log(userId);
         return $http.get("/api/assignment/user/" + userId + "/form");
     }
 

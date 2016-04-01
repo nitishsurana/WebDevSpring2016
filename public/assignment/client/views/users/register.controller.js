@@ -18,12 +18,12 @@
                 "emails": [user.email],
                 "phones": []
             };
-            console.log($rootScope.newRegistration);
+            //console.log($rootScope.newRegistration);
             UserService
                 .createUser($rootScope.newRegistration)
                 .then(function(response){
                     var ret = response.data;
-                    console.log(ret);
+                    //console.log(ret);
                     UserService.setCurrentUser(ret);/*
                     for(var u in ret){
                         console.log(ret[u]);

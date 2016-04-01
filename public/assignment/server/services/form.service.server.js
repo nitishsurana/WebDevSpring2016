@@ -11,14 +11,15 @@ module.exports  = function(app, formModel){
 
     function findFormsByUser(req, res) {
         var userId = req.params.userId;
+        console.log("Form Service - Server: ");
+        console.log(userId);
         formModel.findAllFormsForUser(userId)
             .then(function (doc){
                 res.json(doc);
             },function (err) {
                 res.status(400).send(err);
             });/*
-        console.log("Form Service - Server: ");
-        console.log(forms);
+
         res.json(forms);*/
     }
 
@@ -50,11 +51,11 @@ module.exports  = function(app, formModel){
     }
 
     function createFormForUser(req, res) {
-        console.log("Create Form");
+        //console.log("Create Form");
         var title = req.body;
         var userId = req.params.userId;
-        console.log(userId);
-        console.log(title);
+        //console.log(userId);
+        //console.log(title);
         formModel.createFormForUser(userId, title.title)
             .then(function (doc){
                 res.json(doc);
