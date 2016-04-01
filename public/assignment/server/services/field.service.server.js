@@ -70,13 +70,11 @@ module.exports = function(app, formModel, fieldModel){
         //var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         fieldModel.deleteFieldById(fieldId)
-            .then(function(err, doc){
-                if(err){
+            .then(function(err){
                     res.status(400).send(err);
-                }else{
+                }, function (doc) {
                     res.json(doc);
-                }
-            });/*
+                });/*
         for(var i = 0; i<forms.length ; i++){
             if (forms[i]._id == formId){
                 for (var j = 0 ; j < forms[i].fields.length ; j++){
@@ -94,13 +92,12 @@ module.exports = function(app, formModel, fieldModel){
         var fields = req.body;
         //var formId = req.params.formId;
         fieldModel.createField(fields)
-            .then(function(err, doc){
-                if(err){
+            .then(function(err){
                     res.status(400).send(err);
-                }else{
+                },
+                function (doc){
                     res.json(doc);
-                }
-            });/*
+                });/*
         field._id = uuid.v1();
         for(var i = 0; i<forms.length ; i++){
             if (forms[i]._id == formId){
@@ -115,13 +112,11 @@ module.exports = function(app, formModel, fieldModel){
         var fieldId = req.params.fieldId;
         var updatedFields = req.body;
         fieldModel.updateFieldById(fieldId, updatedFields)
-            .then(function(err, doc){
-                if(err){
+            .then(function(err){
                     res.status(400).send(err);
-                }else{
+                }, function (doc){
                     res.json(doc);
-                }
-            });/*
+                });/*
         for(var i = 0; i<forms.length ; i++){
             if (forms[i]._id == formId){
                 for (var j = 0 ; j < forms[i].fields.length ; j++){

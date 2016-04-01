@@ -11,27 +11,42 @@ module.exports  = function(app, formModel){
 
     function findFormsByUser(req, res) {
         var userId = req.params.userId;
-        var forms = formModel.findAllFormsForUser(userId);
+        formModel.findAllFormsForUser(userId)
+            .then(function (doc){
+                res.json(doc);
+            },function (err) {
+                res.status(400).send(err);
+            });/*
         console.log("Form Service - Server: ");
         console.log(forms);
-        res.json(forms);
+        res.json(forms);*/
     }
 
     function findFormByFormId(req, res) {
         var formId = req.params.formId;
-        var form = formModel.findFormById(formId);
+        var form = formModel.findFormById(formId)
+            .then(function (doc){
+                res.json(doc);
+            },function (err) {
+                res.status(400).send(err);
+            });/*
         console.log("Form Service - Server: " + form);
-        res.json(form);
+        res.json(form);*/
     }
 
     function deleteFormByFormId(req, res) {
         var formId = req.params.formId;
-        console.log(formId);
-        console.log("delete server service");
-        console.log(formId);
-        var forms = formModel.deleteFormById(formId);
+        //console.log(formId);
+        //console.log("delete server service");
+        //console.log(formId);
+        formModel.deleteFormById(formId)
+            .then(function (doc){
+                res.json(doc);
+            },function (err) {
+                res.status(400).send(err);
+            });
         //console.log("Form Service - Server: " + forms);
-        res.send(forms);
+        //res.send(forms);
     }
 
     function createFormForUser(req, res) {
@@ -40,18 +55,28 @@ module.exports  = function(app, formModel){
         var userId = req.params.userId;
         console.log(userId);
         console.log(title);
-        var forms = formModel.createFormForUser(userId, title.title);
+        formModel.createFormForUser(userId, title.title)
+            .then(function (doc){
+                res.json(doc);
+            },function (err) {
+                res.status(400).send(err);
+            });/*
         console.log("Form Service  - Server: ");
         console.log(forms);
-        res.send(forms);
+        res.send(forms);*/
     }
 
     function updateFormByFormId(req, res) {
         var formId = req.params.formId;
         var form = req.body;
-        forms = formModel.updateFormById(formId, form.title);
-        console.log("Form Service - Server: " + forms);
-        res.send(forms);
+        formModel.updateFormById(formId, form)
+            .then(function (doc){
+                res.json(doc);
+            },function (err) {
+                res.status(400).send(err);
+            });
+        //console.log("Form Service - Server: " + forms);
+       // res.send(forms);
     }
 
 };
