@@ -46,28 +46,48 @@ module.exports = function (db, mongoose) {
 
 
     function findUserByCredentials(username, password) {
-        console.log("User model");
+        //console.log("User model");
+        var deferred = q.defer();
+        UserModel.findById({username: username, password: password}, function(err ,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise();
+        /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){
                 return(fakeData[i]);
             }
         }
-        return(null);
+        return(null);*/
     }
 
     function findAllUsers() {
-        return fakeData;
+        var deferred = q.defer();
+        UserModel.find({}, function(err ,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise();
+        //return fakeData;
     }
 
     function createUser (user) {
         var temp = {
-            "_id": uuid.v1(),
             "firstName": user.firstName,
             "lastName":  user.lastName,
             "username": user.username,
-            "password": user.password
+            "password": user.password,
+            "emails": [],
+            "phones": []
         };
-        console.log(temp);
+        //console.log(temp);
         //console.log(UserSchema);
         //console.log(UserModel);
         var deferred = q.defer();
@@ -76,8 +96,8 @@ module.exports = function (db, mongoose) {
         //fakeData.push(temp);
         //console.log(deferred);
         UserModel.create(temp, function(err, doc){
-            console.log(doc);
-            console.log(err);
+            //console.log(doc);
+            //console.log(err);
             if(err){
                 deferred.reject(err);
             } else{
