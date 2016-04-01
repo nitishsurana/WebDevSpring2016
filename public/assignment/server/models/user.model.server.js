@@ -26,29 +26,49 @@ module.exports = function (db, mongoose) {
 
 
 
-    function findUserById(id){
+    function findUserById(userId){
+        var deferred = q.defer();
+        UserModel.findUserById({_id: userId}, function(err ,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise();
+        /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i]._id == id){
                 return fakeData[i];
             }
         }
-        return null;
+        return null;*/
     }
 
     function findUserByUsername(username){
+        var deferred = q.defer();
+        UserModel.findOne({username: username}, function(err ,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise();
+        /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username){
                 return fakeData[i];
             }
         }
-        return null;
+        return null;*/
     }
 
 
     function findUserByCredentials(username, password) {
         //console.log("User model");
         var deferred = q.defer();
-        UserModel.findById({username: username, password: password}, function(err ,doc){
+        UserModel.findOne({username: username, password: password}, function(err ,doc){
             if(err){
                 deferred.reject(err);
             }else{
@@ -108,11 +128,20 @@ module.exports = function (db, mongoose) {
         return deferred.promise;
     }
 
-    function deleteUserById(id) {
+    function deleteUserById(userId) {
+        var deferred = q.defer();
+        UserModel.remove({_id: userId}, function(err ,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise();/*
         fakeData = fakeData.filter(function (user) {
             return user._id !== id;
         });
-        return fakeData;
+        return fakeData;*/
     }
 /*
     function setCurrentUser(user){
@@ -121,9 +150,18 @@ module.exports = function (db, mongoose) {
     function getCurrentUser(){
         return $rootScope.currentUser;
     }*/
-    function updateUser(id, user) {
+    function updateUser(userId, user) {
         //console.log("Update User Model");
         //console.log(id);
+        var deferred = q.defer();
+        UserModel.findOneAndUpdate({_id: userId}, user, function(err ,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise();/*
         for (var i = 0; i < fakeData.length; i++) {
             console.log(fakeData[i]._id);
             console.log(fakeData[i]._id == id);
@@ -132,7 +170,7 @@ module.exports = function (db, mongoose) {
                 console.log(fakeData[i]);
             }
         }
-        return fakeData;
+        return fakeData;*/
     }
-}
+};
 
