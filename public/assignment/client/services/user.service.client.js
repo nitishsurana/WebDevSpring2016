@@ -34,7 +34,7 @@ function UserService($http,$rootScope) {
     }
 
     function createUser (user) {
-        //console.log("Create-User: " );
+        console.log(user);
         return $http.post("/api/assignment/user", user);
     }
 

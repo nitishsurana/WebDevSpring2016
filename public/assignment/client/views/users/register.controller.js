@@ -15,20 +15,22 @@
                 "password": user.password,
                 "firstName": "",
                 "lastName": "",
-                "email": user.email
+                "emails": [user.email],
+                "phones": []
             };
             console.log($rootScope.newRegistration);
             UserService
                 .createUser($rootScope.newRegistration)
                 .then(function(response){
                     var ret = response.data;
-                    //console.log(ret);
+                    console.log(ret);
+                    UserService.setCurrentUser(ret);/*
                     for(var u in ret){
-                        //console.log(ret[u]);
+                        console.log(ret[u]);
                         if (ret[u].username == user.username){
-                            UserService.setCurrentUser(ret[u]);
+
                         }
-                    }
+                    }*/
                     $location.url('/profile');
                 });
 

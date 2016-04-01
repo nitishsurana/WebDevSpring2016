@@ -14,9 +14,12 @@ module.exports = function(app, userModel){
 
     function createUser (req, res) {
         var user = req.body;
+        console.log("Create user - services server");
+        console.log(user);
         userModel.createUser(user)
             .then(
                 function (doc){
+                    console.log(doc);
                     res.json(doc);
                 },
                 function(err){

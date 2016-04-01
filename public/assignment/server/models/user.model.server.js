@@ -35,7 +35,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();
+        return deferred.promise;
         /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i]._id == id){
@@ -54,7 +54,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();
+        return deferred.promise;
         /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username){
@@ -69,13 +69,15 @@ module.exports = function (db, mongoose) {
         //console.log("User model");
         var deferred = q.defer();
         UserModel.findOne({username: username, password: password}, function(err ,doc){
+            //console.log(doc);
+            //console.log(err);
             if(err){
                 deferred.reject(err);
             }else{
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();
+        return deferred.promise;
         /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){
@@ -94,7 +96,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();
+        return deferred.promise;
         //return fakeData;
     }
 
@@ -104,7 +106,7 @@ module.exports = function (db, mongoose) {
             "lastName":  user.lastName,
             "username": user.username,
             "password": user.password,
-            "emails": [],
+            "emails": user.emails,
             "phones": []
         };
         //console.log(temp);
@@ -137,7 +139,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         fakeData = fakeData.filter(function (user) {
             return user._id !== id;
         });
@@ -161,7 +163,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         for (var i = 0; i < fakeData.length; i++) {
             console.log(fakeData[i]._id);
             console.log(fakeData[i]._id == id);
