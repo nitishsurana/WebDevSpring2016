@@ -66,18 +66,20 @@ module.exports = function (db, mongoose) {
 
 
     function findUserByCredentials(username, password) {
-        //console.log("User model");
+        console.log("User model");
         var deferred = q.defer();
         UserModel.findOne({username: username, password: password}, function(err ,doc){
-            //console.log(doc);
-            //console.log(err);
+            console.log(doc);
+            console.log(err);
             if(err){
                 deferred.reject(err);
             }else{
                 deferred.resolve(doc);
             }
         });
+        console.log("returns");
         return deferred.promise;
+        console.log("does not reach");
         /*
         for(var i=0; i<fakeData.length; i++){
             if (fakeData[i].username == username && fakeData[i].password == password){

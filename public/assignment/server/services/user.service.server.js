@@ -3,7 +3,8 @@
  */
 
 module.exports = function(app, userModel){
-
+    app.get("/api/assignment/loggedIn", loggedIn);
+    app.get("/api/assignment/logout", logout);
     app.get("/api/assignment/user", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user",  allUsers);
@@ -12,14 +13,24 @@ module.exports = function(app, userModel){
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUser);
 
+    function loggedIn(req, res){
+        //console.log(req.session);
+        res.send(req.session.currentUser);
+    }
+
+    function logout(req,res){
+        req.session.destroy();
+        res.send(200);
+    }
     function createUser (req, res) {
         var user = req.body;
-        console.log("Create user - services server");
-        console.log(user);
+        //console.log("Create user - services server");
+        //console.log(user);
         userModel.createUser(user)
             .then(
                 function (doc){
-                    console.log(doc);
+                    //console.log(doc);
+                    req.session.currentUser = doc;
                     res.json(doc);
                 },
                 function(err){
@@ -66,6 +77,7 @@ module.exports = function(app, userModel){
         userModel.findUserByUsername(username)
             .then(
                 function (doc){
+                    req.session.currentUser = doc;
                     res.json(doc);
                 },
                 function(err){
@@ -87,9 +99,21 @@ module.exports = function(app, userModel){
         userModel.findUserByCredentials(username, password)
             .then(
                 function (doc){
+                    //console.log("sucess");
+                    //console.log(doc);
+                    //console.log("Before assigning session");
+                    //console.log(req);
+                    //console.log(req.session);
+                    //req.session = {};
+                    //console.log(req.session);
+                    //console.log(req.session.currentUser);
+                    req.session.currentUser = doc;
+                    //console.log("After assigning session");
+                    //console.log("session: ", req.session.currentUser);
                     res.json(doc);
                 },
                 function(err){
+                    //console.log(err);
                     res.status(400).send(err);
                 });
         /*console.log("User Service" + user);

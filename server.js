@@ -11,7 +11,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 app.use(cookieParser());
-
+app.use(session({
+    secret: "This is a secret.",
+    resave: true,
+    saveUninitialized: true
+}));
 var connectionString = 'mongodb://127.0.0.1:27017/';
 
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {

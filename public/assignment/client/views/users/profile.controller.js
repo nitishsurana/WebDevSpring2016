@@ -10,7 +10,8 @@
         var a = this;
 
         a.update = update;
-        //console.log($rootScope.currentUser);
+        
+        console.log($rootScope.currentUser);
         if ($rootScope.currentUser){
             a.user = $rootScope.currentUser;
         }

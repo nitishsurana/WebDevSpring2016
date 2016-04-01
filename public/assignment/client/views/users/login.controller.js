@@ -11,16 +11,17 @@
         var a = this;
         a.login = login;
         function login(user) {
-            //console.log("login controller");
+            console.log("login controller");
             UserService.findUserByCredentials(user.username, user.password)
-                .success( function (response) {
+                .then( function (response) {
                     if (response) {
-                        UserService.setCurrentUser(response);
+                        console.log("success");
+                        console.log(response);
+                        UserService.setCurrentUser(response.data);
                         $location.url("/profile");
                     }
-                })
-                .error(function () {
-                    //console.log("Error!");
+                }, function (err) {
+                    console.log("Error!");
                 });
         }
 

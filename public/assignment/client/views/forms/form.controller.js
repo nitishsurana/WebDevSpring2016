@@ -23,12 +23,14 @@ function FormController(FormService, $rootScope, $location){
         FormService.findAllFormsForUser($rootScope.currentUser._id)
             .then(function (response) {
                 a.forms = response.data;
+                a.form.title = "";
                 //console.log(a.forms);
             });
     }
     function addForm(){
         //console.log($rootScope.currentUser._id);
         //console.log(a.form.title);
+
         FormService.createFormForUser($rootScope.currentUser._id,a.form.title)
             .then(function (response){
                 //a.forms = response.data;

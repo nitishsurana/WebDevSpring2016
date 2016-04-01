@@ -15,7 +15,8 @@ function UserService($http,$rootScope) {
         deleteUserById: deleteUserById,
         updateUser: updateUser,
         setCurrentUser: setCurrentUser,
-        getCurrentUser: getCurrentUser
+        getCurrentUser: getCurrentUser,
+        logOut: logOut
     };
 
     return api;
@@ -25,7 +26,7 @@ function UserService($http,$rootScope) {
     }
 
     function findUserByCredentials(username, password) {
-        //console.log("User SErvice");
+        console.log("User SErvice");
         return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
 
@@ -46,10 +47,16 @@ function UserService($http,$rootScope) {
         $rootScope.currentUser = user;
     }
     function getCurrentUser(){
-        return $rootScope.currentUser;
+        console.log("Get Current User - user client service");
+        return $http.get("/api/assignment/loggedIn");
     }
     function updateUser(userId, user) {
         return $http.put("/api/assignment/user/" + userId, user);
+    }
+
+    function logOut(){
+        setCurrentUser(null);
+        return $http.get("/api/assignment/logout");
     }
 }
 
