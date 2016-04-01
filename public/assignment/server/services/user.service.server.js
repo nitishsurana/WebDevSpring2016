@@ -135,6 +135,7 @@ module.exports = function(app, userModel){
         userModel.updateUser(id,user)
             .then(
                 function (doc){
+                    req.session.currentUser = user;
                     res.json(doc);
                 },
                 function(err){

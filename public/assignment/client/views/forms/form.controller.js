@@ -23,7 +23,6 @@ function FormController(FormService, $rootScope, $location){
         FormService.findAllFormsForUser($rootScope.currentUser._id)
             .then(function (response) {
                 a.forms = response.data;
-                a.form.title = "";
                 //console.log(a.forms);
             });
     }
@@ -34,6 +33,7 @@ function FormController(FormService, $rootScope, $location){
         FormService.createFormForUser($rootScope.currentUser._id,a.form.title)
             .then(function (response){
                 //a.forms = response.data;
+                a.form.title = "";
                 immediate();
                 //console.log(a.forms);
             });
@@ -47,6 +47,7 @@ function FormController(FormService, $rootScope, $location){
         FormService.updateFormById(a.forms[selectedIndex]._id,t)
             .then(function(response){
                 //a.forms = response.data;
+                a.form.title = "";
                 immediate();
                 //console.log(response.data);
         });
