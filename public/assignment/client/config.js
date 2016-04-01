@@ -51,8 +51,6 @@
         UserService.getCurrentUser()
             .then(function(response){
                 var currentUser = response.data;
-                console.log("Congif");
-                console.log(currentUser);
                 if(currentUser){
                     UserService.setCurrentUser(currentUser);
                     deferred.resolve();

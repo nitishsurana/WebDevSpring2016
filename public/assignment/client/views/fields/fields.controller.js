@@ -14,46 +14,44 @@
         a.edit = edit;
 
         toRender();
-        function toRender(){
-            console.log($routeParams.formId);
+        function toRender() {
             FieldService.getFieldsForForm($routeParams.formId)
-                .then(function (response){
-                    //console.log(response);
+                .then(function (response) {
                     a.fields = response.data.fields;
-                    //console.log(a.fields);
+                }, function (error) {
+                    a.alert("Error in loading page. Please try again.");
                 });
         }
 
         function removeField(fieldId) {
-            //console.log(fieldId);
             FieldService.deleteFieldFromForm($routeParams.formId, fieldId)
-                .then(function(response){
+                .then(function (response) {
                     a.fields = response.data;
                     toRender();
-                    //console.log(a.fields);
+                }, function (error) {
+                    a.alert("Error in removing Field. Please try again.");
                 })
         }
 
         function addField(type) {
-            console.log(type);
             var newField = {
                 label: "",
                 type: type,
                 placeholder: "",
                 options: []
             };
-            if (type == "TEXT"){
+            if (type == "TEXT") {
                 newField.label = "New Text Field";
                 newField.placeholder = "New Field";
             }
-            else if(type == "TEXTAREA"){
+            else if (type == "TEXTAREA") {
                 newField.label = "New Text Field";
                 newField.placeholder = "New Field";
             }
-            else if(type == "DATE"){
+            else if (type == "DATE") {
                 newField.label = "New Date Field";
             }
-            else if(type == "OPTIONS"){
+            else if (type == "OPTIONS") {
                 newField.label = "New Dropdown";
                 newField.options = [
                     {"label": "Option 1", "value": "OPTION_1"},
@@ -61,7 +59,7 @@
                     {"label": "Option 3", "value": "OPTION_3"}
                 ];
             }
-            else if(type == "CHECKBOXES"){
+            else if (type == "CHECKBOXES") {
                 newField.label = "New Checkboxes";
                 newField.options = [
                     {"label": "Option A", "value": "OPTION_A"},
@@ -69,7 +67,7 @@
                     {"label": "Option C", "value": "OPTION_C"}
                 ];
             }
-            else if(type == "RADIOS"){
+            else if (type == "RADIOS") {
                 newField.label = "New Radio Buttons";
                 newField.options = [
                     {"label": "Option X", "value": "OPTION_X"},
@@ -77,29 +75,28 @@
                     {"label": "Option Z", "value": "OPTION_Z"}
                 ];
             }
-            //console.log(newField);
+
             FieldService.createFieldForForm($routeParams.formId, newField)
-                .then(function (response){
+                .then(function (response) {
                     a.forms = response.data;
-                    //console.log(a.forms);
                     toRender();
-                    //console.log(response.data);
+                }, function (error) {
+                    a.alert("Error in creating Field. Please try again.");
                 });
         }
 
         function edit(field) {
             a.selectedField = field;
-            if (field.options){
+            if (field.options) {
                 a.option = '';
-                for(var i = 0; i< field.options.length ; i++){
+                for (var i = 0; i < field.options.length; i++) {
                     a.option += field.options[i].label + ":" + field.options[i].value + "\n";
                 }
             }
-            //console.log(a.selectedField);
         }
 
         a.sortableFields = {
-            axis : 'y'
+            axis: 'y'
         };
     }
-}) ();
+})();

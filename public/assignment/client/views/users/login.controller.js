@@ -11,19 +11,15 @@
         var a = this;
         a.login = login;
         function login(user) {
-            console.log("login controller");
             UserService.findUserByCredentials(user.username, user.password)
-                .then( function (response) {
+                .then(function (response) {
                     if (response) {
-                        console.log("success");
-                        console.log(response);
                         UserService.setCurrentUser(response.data);
                         $location.url("/profile");
                     }
                 }, function (err) {
-                    console.log("Error!");
+                    a.alert("Error in Logging In. Please try again.");
                 });
         }
-
     }
 })();

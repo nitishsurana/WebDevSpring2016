@@ -7,41 +7,32 @@
         .module("FormBuilderApp")
         .factory("FieldService", FieldService);
 
-    function FieldService($http){
+    function FieldService($http) {
 
         var api = {
             createFieldForForm: createFieldForForm,
             getFieldsForForm: getFieldsForForm,
-            getFieldForForm: getFieldForForm,
             deleteFieldFromForm: deleteFieldFromForm,
             updateField: updateField
         };
 
         return api;
 
-        function createFieldForForm(formId, field){
-            //console.log(t);
-            //console.log(field);
+        function createFieldForForm(formId, field) {
             return $http.post("/api/assignment/form/" + formId + "/field", field);
         }
 
-        function getFieldsForForm(formId){
-            //console.log("fields service client: ", formId);
+        function getFieldsForForm(formId) {
             return $http.get("/api/assignment/form/" + formId + "/field");
         }
 
-        function getFieldForForm(formId, fieldId) {
-            
-        }
-        function deleteFieldFromForm(formId, fieldId){
-            //console.log(formId, fieldId);
+
+        function deleteFieldFromForm(formId, fieldId) {
             return $http.delete("/api/assignment/form/" + formId + "/field/" + fieldId);
         }
 
-        function updateField(formId, fieldId, field){
-            //console.log(formId);
-            //console.log(newForm);
+        function updateField(formId) {
             return $http.put("/api/assignment/form/" + formId, newForm);
         }
     }
-}) ();
+})();

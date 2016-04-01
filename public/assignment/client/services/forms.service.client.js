@@ -3,43 +3,38 @@
  */
 (function () {
 
-angular
-    .module("FormBuilderApp")
-    .factory("FormService", FormService);
+    angular
+        .module("FormBuilderApp")
+        .factory("FormService", FormService);
 
-function FormService($http){
+    function FormService($http) {
 
-    var api = {
-        createFormForUser: createFormForUser,
-        findAllFormsForUser: findAllFormsForUser,
-        deleteFormById: deleteFormById,
-        updateFormById: updateFormById
-    };
-
-    return api;
-
-    function createFormForUser(userId, title){
-        var t = {
-            title: title
+        var api = {
+            createFormForUser: createFormForUser,
+            findAllFormsForUser: findAllFormsForUser,
+            deleteFormById: deleteFormById,
+            updateFormById: updateFormById
         };
-        //console.log(t);
-        return $http.post("/api/assignment/user/" + userId + "/form", t);
-    }
 
-    function findAllFormsForUser(userId){
-        //console.log(userId);
-        return $http.get("/api/assignment/user/" + userId + "/form");
-    }
+        return api;
 
-    function deleteFormById(formId){
-        console.log(formId);
-        return $http.delete("/api/assignment/form/" + formId);
-    }
+        function createFormForUser(userId, title) {
+            var t = {
+                title: title
+            };
+            return $http.post("/api/assignment/user/" + userId + "/form", t);
+        }
 
-    function updateFormById(formId, newForm){
-        console.log(formId);
-        console.log(newForm);
-        return $http.put("/api/assignment/form/" + formId, newForm);
+        function findAllFormsForUser(userId) {
+            return $http.get("/api/assignment/user/" + userId + "/form");
+        }
+
+        function deleteFormById(formId) {
+            return $http.delete("/api/assignment/form/" + formId);
+        }
+
+        function updateFormById(formId, newForm) {
+            return $http.put("/api/assignment/form/" + formId, newForm);
+        }
     }
-}
-}) ();
+})();

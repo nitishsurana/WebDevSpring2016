@@ -5,7 +5,7 @@ angular
     .module("FormBuilderApp")
     .factory('UserService', UserService);
 
-function UserService($http,$rootScope) {
+function UserService($http, $rootScope) {
 
     var api = {
         findUserByUsername: findUserByUsername,
@@ -21,12 +21,11 @@ function UserService($http,$rootScope) {
 
     return api;
 
-    function findUserByUsername(username){
+    function findUserByUsername(username) {
         return $http.get("/api/assignment/user?username=" + username);
     }
 
     function findUserByCredentials(username, password) {
-        console.log("User SErvice");
         return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
 
@@ -34,8 +33,7 @@ function UserService($http,$rootScope) {
         return $http.get("/api/assignment/user");
     }
 
-    function createUser (user) {
-        console.log(user);
+    function createUser(user) {
         return $http.post("/api/assignment/user", user);
     }
 
@@ -43,18 +41,19 @@ function UserService($http,$rootScope) {
         return $http.delete("/api/assignment/user/" + userId);
     }
 
-    function setCurrentUser(user){
+    function setCurrentUser(user) {
         $rootScope.currentUser = user;
     }
-    function getCurrentUser(){
-        console.log("Get Current User - user client service");
+
+    function getCurrentUser() {
         return $http.get("/api/assignment/loggedIn");
     }
+
     function updateUser(userId, user) {
         return $http.put("/api/assignment/user/" + userId, user);
     }
 
-    function logOut(){
+    function logOut() {
         setCurrentUser(null);
         return $http.get("/api/assignment/logout");
     }
