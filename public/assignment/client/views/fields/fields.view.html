@@ -30,6 +30,26 @@
                                     <input class="form-control" type="date"
                                            placeholder="{{field.placeholder}}">
                                 </div>
+                                <div ng-switch-when="OPTIONS">
+                                    <select class="form-control" type="text">
+                                        <option ng-repeat="option in field.options" value="option.value">{{option.label}}</option>
+                                    </select>
+                                </div>
+                                <div ng-switch-when="CHECKBOXES">
+                                    <div class="checkbox">
+                                        <label ng-repeat="option in field.options">
+                                            <input type="checkbox" value="option.value"> {{option.label}} <br>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="RADIOS">
+                                    <div class="checkbox">
+                                        <label ng-repeat="option in field.options">
+                                            <input type="radio" value="option.value"> {{option.label}} <br>
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <!--<div ng-switch-when="OPTIONS">-->
                                 <!--&lt;!&ndash;<select class="form-control" type="text"&ndash;&gt;-->
                                 <!--&lt;!&ndash;placeholder="{{field.placeholder}}">&ndash;&gt;-->
@@ -114,13 +134,12 @@
                                        class="form-control"
                                        type="text">
                             </div>
-                            <div ng-show="model.selectedField.options">
+                            <div ng-show="model.selectedField.options.length > 0">
                                 Options: <br>
                                     <textarea>
                                         {{model.option}}
                                     </textarea>
                             </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

@@ -5,6 +5,7 @@ module.exports = function (db , mongoose) {
 
     var fieldSchema = require("./field.schema.server.js")(mongoose);
     var fieldModel = mongoose.model('fields', fieldSchema);
+    var q = require('q');
 
     var api = {
         
@@ -50,7 +51,7 @@ module.exports = function (db , mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var selectedFields = [];
@@ -78,7 +79,7 @@ module.exports = function (db , mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         for(var i = 0; i<forms.length ; i++){
@@ -103,7 +104,7 @@ module.exports = function (db , mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         var field = req.body;
         var formId = req.params.formId;
         field._id = uuid.v1();
@@ -124,7 +125,7 @@ module.exports = function (db , mongoose) {
                 deferred.resolve(doc);
             }
         });
-        return deferred.promise();/*
+        return deferred.promise;/*
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var updatedForm = req.body;

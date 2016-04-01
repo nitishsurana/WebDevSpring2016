@@ -15,10 +15,12 @@
 
         toRender();
         function toRender(){
+            console.log($routeParams.formId);
             FieldService.getFieldsForForm($routeParams.formId)
                 .then(function (response){
-                    a.fields = response.data;
-                    console.log(a.fields);
+                    //console.log(response);
+                    a.fields = response.data.fields;
+                    //console.log(a.fields);
                 });
         }
 
@@ -27,16 +29,18 @@
             FieldService.deleteFieldFromForm($routeParams.formId, fieldId)
                 .then(function(response){
                     a.fields = response.data;
+                    toRender();
                     //console.log(a.fields);
                 })
         }
 
         function addField(type) {
+            console.log(type);
             var newField = {
-                _id: null,
                 label: "",
                 type: type,
-                placeholder: ""
+                placeholder: "",
+                options: []
             };
             if (type == "TEXT"){
                 newField.label = "New Text Field";
@@ -73,10 +77,11 @@
                     {"label": "Option Z", "value": "OPTION_Z"}
                 ];
             }
-            console.log(newField);
+            //console.log(newField);
             FieldService.createFieldForForm($routeParams.formId, newField)
                 .then(function (response){
                     a.forms = response.data;
+                    //console.log(a.forms);
                     toRender();
                     //console.log(response.data);
                 });

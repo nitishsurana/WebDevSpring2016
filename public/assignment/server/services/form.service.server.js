@@ -11,8 +11,8 @@ module.exports  = function(app, formModel){
 
     function findFormsByUser(req, res) {
         var userId = req.params.userId;
-        console.log("Form Service - Server: ");
-        console.log(userId);
+        //console.log("Form Service - Server: ");
+        //console.log(userId);
         formModel.findAllFormsForUser(userId)
             .then(function (doc){
                 res.json(doc);

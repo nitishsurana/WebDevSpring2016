@@ -48,7 +48,9 @@ module.exports = function (db, mongoose) {
 
     function findFormById(formId){
         var deferred = q.defer();
-        FormModel.findOne({_id: formId},function (err, doc) {
+        FormModel.findById(formId,function (err, doc) {
+            //console.log(err);
+            //console.log(doc);
             if (err) {
                 deferred.reject(err);
             } else {
