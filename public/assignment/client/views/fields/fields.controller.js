@@ -12,12 +12,15 @@
         a.removeField = removeField;
         a.addField = addField;
         a.edit = edit;
+        a.sortField = sortField;
 
         toRender();
         function toRender() {
+            console.log(a);
             FieldService.getFieldsForForm($routeParams.formId)
                 .then(function (response) {
                     a.fields = response.data.fields;
+                    console.log("Fields Controller");
                 }, function (error) {
                     a.alert("Error in loading page. Please try again.");
                 });
@@ -95,8 +98,16 @@
             }
         }
 
-        a.sortableFields = {
-            axis: 'y'
-        };
+        function sortField(start,end){
+            console.log("Sort Field");
+            console.log([start,end]);
+            FieldService.sortField($routeParams.formId, start, end)
+                .then(function(response){
+                    //a.forms = response.data;
+                }, function(err){
+                    a.error = err;
+                })
+        }
+
     }
 })();

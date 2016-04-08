@@ -13,7 +13,8 @@
             createFieldForForm: createFieldForForm,
             getFieldsForForm: getFieldsForForm,
             deleteFieldFromForm: deleteFieldFromForm,
-            updateField: updateField
+            updateField: updateField,
+            sortPage: sortPage
         };
 
         return api;
@@ -33,6 +34,10 @@
 
         function updateField(formId) {
             return $http.put("/api/assignment/form/" + formId, newForm);
+        }
+
+        function sortPage(formId, startIndex, endIndex){
+            return $http.put("/api/assignment/"+formId+"/field?startIndex="+startIndex+"&endIndex="+endIndex);
         }
     }
 })();

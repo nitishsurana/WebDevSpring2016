@@ -6,93 +6,95 @@
             <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
         </ul>
         <br/>
-        <div class="table-responsive">
+        <div class="table-responsive table-hover">
             <table>
-                <tbody ui-sortable="sortableFields" ng-model="model.fields">
-                <tr ng-repeat="field in model.fields">
-                    <td class="col-xs-4">
-                        {{field.label}}<br/>
-                        <form>
-                            <div ng-switch="field.type" class="myHandle">
-                                <div ng-switch-when="TEXT">
-                                    <input class="form-control" type="text"
-                                           placeholder="{{field.placeholder}}">
-                                </div>
-                                <div ng-switch-when="EMAIL">
-                                    <input class="form-control" type="email"
-                                           placeholder="{{field.placeholder}}">
-                                </div>
-                                <div ng-switch-when="TEXTAREA">
-                                    <textarea class="form-control"
-                                              placeholder="{{field.placeholder}}"></textarea>
-                                </div>
-                                <div ng-switch-when="DATE">
-                                    <input class="form-control" type="date"
-                                           placeholder="{{field.placeholder}}">
-                                </div>
-                                <div ng-switch-when="OPTIONS">
-                                    <select class="form-control" type="text">
-                                        <option ng-repeat="option in field.options" value="option.value">{{option.label}}</option>
-                                    </select>
-                                </div>
-                                <div ng-switch-when="CHECKBOXES">
-                                    <div class="checkbox">
-                                        <label ng-repeat="option in field.options">
-                                            <input type="checkbox" value="option.value"> {{option.label}} <br>
-                                        </label>
+                <tbody jga-sortable jgaSortableCallback="model.sortField(start, end)">
+                    <tr ng-repeat="field in model.fields">
+                        <td class="col-xs-4">
+                            {{field.label}}<br/>
+                            <form>
+                                <div ng-switch="field.type" class="myHandle">
+                                    <div ng-switch-when="TEXT">
+                                        <input class="form-control" type="text"
+                                               placeholder="{{field.placeholder}}">
                                     </div>
-                                </div>
-                                <div ng-switch-when="RADIOS">
-                                    <div class="checkbox">
-                                        <label ng-repeat="option in field.options">
-                                            <input type="radio" value="option.value"> {{option.label}} <br>
-                                        </label>
+                                    <div ng-switch-when="EMAIL">
+                                        <input class="form-control" type="email"
+                                               placeholder="{{field.placeholder}}">
                                     </div>
-                                </div>
+                                    <div ng-switch-when="TEXTAREA">
+                                        <textarea class="form-control"
+                                                  placeholder="{{field.placeholder}}"></textarea>
+                                    </div>
+                                    <div ng-switch-when="DATE">
+                                        <input class="form-control" type="date"
+                                               placeholder="{{field.placeholder}}">
+                                    </div>
+                                    <div ng-switch-when="OPTIONS">
+                                        <select class="form-control" type="text">
+                                            <option ng-repeat="option in field.options" value="option.value">
+                                                {{option.label}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div ng-switch-when="CHECKBOXES">
+                                        <div class="checkbox">
+                                            <label ng-repeat="option in field.options">
+                                                <input type="checkbox" value="option.value"> {{option.label}} <br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div ng-switch-when="RADIOS">
+                                        <div class="checkbox">
+                                            <label ng-repeat="option in field.options">
+                                                <input type="radio" value="option.value"> {{option.label}} <br>
+                                            </label>
+                                        </div>
+                                    </div>
 
-                                <!--<div ng-switch-when="OPTIONS">-->
-                                <!--&lt;!&ndash;<select class="form-control" type="text"&ndash;&gt;-->
-                                <!--&lt;!&ndash;placeholder="{{field.placeholder}}">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<option ng-repeat="opt in field.options" label="{{opt.label}}"&ndash;&gt;-->
-                                <!--&lt;!&ndash;value="{{opt.value}}"></option>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                                <!--</div>-->
-                                <!--<div class="form-group" ng-switch-when="RADIOS" ng-repeat="opt in field.options">-->
-                                <!--<input-->
-                                <!--type="radio"-->
-                                <!--name="opt.value"-->
-                                <!--value="opt.value">-->
-                                <!--{{opt.label}}-->
-                                <!--</div>-->
-                                <!--<div class="form-group" ng-switch-when="CHECKBOXES"-->
-                                <!--ng-repeat="opt in field.options">-->
-                                <!--<input-->
-                                <!--type="checkbox"-->
-                                <!--value="opt.value">-->
-                                <!--{{opt.label}}-->
-                                <!--</div>-->
-                            </div>
-                        </form>
-                    </td>
-                    <td class="col-xs-2"></td>
-                    <td class="col-xs-3" id="col-no-wrap2" align="center">
-                        <button ng-click="model.edit(field)"
-                                class="btn btn-warning"
-                                data-toggle="modal"
-                                data-target="#myModal">
-                            <scan class="glyphicon glyphicon-pencil"></scan>
-                        </button>
-                        <button class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </button>
-                        <button ng-click="model.removeField(field._id)" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </button>
-                        <button class="btn btn-success">
-                            <scan class="glyphicon glyphicon-align-justify"></scan>
-                        </button>
-                    </td>
-                </tr>
+                                    <!--<div ng-switch-when="OPTIONS">-->
+                                    <!--&lt;!&ndash;<select class="form-control" type="text"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;placeholder="{{field.placeholder}}">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<option ng-repeat="opt in field.options" label="{{opt.label}}"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;value="{{opt.value}}"></option>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group" ng-switch-when="RADIOS" ng-repeat="opt in field.options">-->
+                                    <!--<input-->
+                                    <!--type="radio"-->
+                                    <!--name="opt.value"-->
+                                    <!--value="opt.value">-->
+                                    <!--{{opt.label}}-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group" ng-switch-when="CHECKBOXES"-->
+                                    <!--ng-repeat="opt in field.options">-->
+                                    <!--<input-->
+                                    <!--type="checkbox"-->
+                                    <!--value="opt.value">-->
+                                    <!--{{opt.label}}-->
+                                    <!--</div>-->
+                                </div>
+                            </form>
+                        </td>
+                        <td class="col-xs-2"></td>
+                        <td class="col-xs-3" id="col-no-wrap2" align="center">
+                            <button ng-click="model.edit(field)"
+                                    class="btn btn-warning"
+                                    data-toggle="modal"
+                                    data-target="#myModal">
+                                <scan class="glyphicon glyphicon-pencil"></scan>
+                            </button>
+                            <button class="btn btn-primary">
+                                <scan class="glyphicon glyphicon-plus"></scan>
+                            </button>
+                            <button ng-click="model.removeField(field._id)" class="btn btn-danger">
+                                <scan class="glyphicon glyphicon-remove"></scan>
+                            </button>
+                            <button class="btn btn-success">
+                                <scan class="glyphicon glyphicon-align-justify"></scan>
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
                 <tfoot>
                 <tr>
