@@ -7,14 +7,17 @@
         .config(function($routeProvider){
             $routeProvider
                 .when("/home", {
-                    templateUrl: "views/home/home.view.html"
+                    templateUrl: "views/home/home.view.html",
+                    resolve: {
+                        loggedIn: checkCurrentUser
+                    }
                 })
                 .when("/profile", {
                     templateUrl: "views/users/profile.view.html",
                     controller: "ProfileController",
                     controllerAs: "model",
                     resolve: {
-                        checkLoggedIn: checkLoggedIn
+                        loggedIn: checkLoggedIn
                     }
                 })
                 .when("/admin", {
@@ -61,4 +64,20 @@
             });
         return deferred.promise;
     }
+
+    function checkCurrentUser($q, $http, $rootScope){
+
+        var deferred = $q.defer();
+
+        $http.get("/api/assignment/loggedIn")
+            .success(function(user){
+                $rootScope.errorMessage = null;
+                if(user != '0'){
+                    $rootScope.currentUser = user;
+                }
+                deferred.resolve();
+            });
+        return deferred.promise;
+    }
+
 })();

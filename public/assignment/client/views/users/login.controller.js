@@ -11,7 +11,7 @@
         var a = this;
         a.login = login;
         function login(user) {
-            UserService.findUserByCredentials(user.username, user.password)
+            UserService.login(user)
                 .then(function (response) {
                     if (response) {
                         UserService.setCurrentUser(response.data);

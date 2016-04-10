@@ -16,7 +16,8 @@ function UserService($http, $rootScope) {
         updateUser: updateUser,
         setCurrentUser: setCurrentUser,
         getCurrentUser: getCurrentUser,
-        logOut: logOut
+        logOut: logOut,
+        login: login
     };
 
     return api;
@@ -53,6 +54,9 @@ function UserService($http, $rootScope) {
         return $http.put("/api/assignment/user/" + userId, user);
     }
 
+    function login(user){
+        return $http.post("/api/assignment/login", user);
+    }
     function logOut() {
         setCurrentUser(null);
         return $http.get("/api/assignment/logout");

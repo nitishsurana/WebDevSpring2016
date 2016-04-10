@@ -5,6 +5,7 @@ var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var passport = require('passport');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -16,6 +17,10 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
 var connectionString = 'mongodb://127.0.0.1:27017/formMaker';
 
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
