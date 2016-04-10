@@ -6,12 +6,14 @@ angular
     .module("FormBuilderApp")
     .controller("HeaderController", HeaderController);
 
-function HeaderController($location, UserService) {
-    var a = this;
-    a.logout = logout;
+function HeaderController($scope, $location, UserService) {
+
+    $scope.logout = logout;
     function logout(){
+        //console.log("Log out!");
         UserService.logOut()
             .then(function (response){
+                //console.log("Logged out.");
                 $location.url("/home");
             }, function(err){
                 a.alert("Error in logging out. Please try again.");
