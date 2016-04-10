@@ -18,7 +18,7 @@
                         $location.url("/profile");
                     }
                 }, function (err) {
-                    a.alert("Error in Logging In. Please try again.");
+                    a.message = "Incorrect username and/or password.";
                 });
         }
     }
