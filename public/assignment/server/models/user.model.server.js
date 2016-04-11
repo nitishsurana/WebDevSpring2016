@@ -100,6 +100,7 @@ module.exports = function (db, mongoose) {
             if (err) {
                 deferred.reject(err);
             } else {
+                //console.log(doc);
                 deferred.resolve(doc);
             }
         });

@@ -42,7 +42,7 @@ function UserService($http, $rootScope) {
     }
 
     function deleteUserById(userId) {
-        return $http.delete("/api/assignment/user/" + userId);
+        return $http.delete("/api/assignment/admin/user/" + userId);
     }
 
     function setCurrentUser(user) {

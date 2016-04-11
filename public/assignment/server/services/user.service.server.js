@@ -24,7 +24,7 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user", findUserByUsername);
     app.put("/api/assignment/user/:id", updateUserById);
-    app.delete("/api/assignment/user/:id", deleteUser);
+    app.delete("/api/assignment/admin/user/:id", deleteUser);
 
     app.post("/api/assignment/admin/user", adminCreateUser);
     app.put("/api/assignment/admin/user/:userId", adminUpdateUser);
@@ -156,10 +156,16 @@ module.exports = function (app, userModel) {
 
     function deleteUser(req, res) {
         var id = req.params.id;
-        userModel.updateUser(id)
-            .then(
-                function (doc) {
-                    res.json(doc);
+        userModel.deleteUserById(id)
+            .then(function (doc) {
+                    userModel.findAllUsers()
+                        .then(
+                            function (response) {
+                                res.json(response);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            });
                 },
                 function (err) {
                     res.status(400).send(err);

@@ -54,7 +54,14 @@
         }
         
         function deleteUser(index) {
-            
+            //console.log(a.users[index]._id);
+            UserService.deleteUserById(a.users[index]._id)
+                .then(function(result){
+                    //console.log(result.data);
+                    a.users = result.data;
+                }, function(error){
+                    console.log(error);
+                });
         }
 
         function stringToArray(text) {
