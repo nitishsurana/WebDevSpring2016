@@ -7,6 +7,7 @@ module.exports = function (app, userModel) {
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
 
+    var bcrypt = require('bcrypt-nodejs');
     var auth = function (req, res, next) {
         if (!req.isAuthenticated()) {
             res.send(401);
@@ -79,6 +80,7 @@ module.exports = function (app, userModel) {
     function createUser(req, res) {
         var user = req.body;
         user.roles = ['student'];
+        user.password = bcrypt.hashSync(user.password);
         userModel.createUser(user)
             .then(
                 function (doc) {
