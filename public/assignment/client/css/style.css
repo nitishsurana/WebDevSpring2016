@@ -1,4 +1,4 @@
-#col-no-wrap{
+.col-no-wrap{
     white-space: nowrap;
 }
 
@@ -7,4 +7,8 @@
 }
 #col-no-wrap2{
     white-space: nowrap;
+}
+
+.admin-alignment{
+    text-align: center;
 }

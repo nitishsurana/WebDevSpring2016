@@ -77,7 +77,8 @@ module.exports = function (db, mongoose) {
             "username": user.username,
             "password": user.password,
             "emails": user.emails,
-            "phones": []
+            "phones": [],
+            "roles": user.roles
         };
 
         var deferred = q.defer();

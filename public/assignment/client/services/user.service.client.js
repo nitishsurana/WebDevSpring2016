@@ -17,7 +17,10 @@ function UserService($http, $rootScope) {
         setCurrentUser: setCurrentUser,
         getCurrentUser: getCurrentUser,
         logOut: logOut,
-        login: login
+        login: login,
+        adminCreateUser: adminCreateUser,
+        adminUpdateUser: adminUpdateUser,
+        findUserById: findUserById
     };
 
     return api;
@@ -31,7 +34,7 @@ function UserService($http, $rootScope) {
     }
 
     function findAllUsers() {
-        return $http.get("/api/assignment/user");
+        return $http.get("/api/assignment/admin/user");
     }
 
     function createUser(user) {
@@ -60,6 +63,18 @@ function UserService($http, $rootScope) {
     function logOut() {
         setCurrentUser(null);
         return $http.get("/api/assignment/logout");
+    }
+
+    function adminCreateUser(user){
+        return $http.post("/api/assignment/admin/user", user);
+    }
+
+    function adminUpdateUser(user){
+
+    }
+
+    function findUserById(userId){
+
     }
 }
 

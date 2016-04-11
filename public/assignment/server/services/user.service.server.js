@@ -20,12 +20,14 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/user", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
     app.post("/api/assignment/login", passport.authenticate('local'), login);
-    app.get("/api/assignment/user", allUsers);
+    app.get("/api/assignment/admin/user", findAllUsers);
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user", findUserByUsername);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUser);
 
+    app.post("/api/assignment/admin/user", adminCreateUser);
+    
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -87,8 +89,8 @@ module.exports = function (app, userModel) {
                 });
     }
 
-    function allUsers(res) {
-        userModel.findAllUsers
+    function findAllUsers(req, res) {
+        userModel.findAllUsers()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -157,6 +159,26 @@ module.exports = function (app, userModel) {
             .then(
                 function (doc) {
                     res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+    }
+    
+    function adminCreateUser(req, res){
+        var user = req.body;
+        userModel.createUser(user)
+            .then(
+                function (doc) {
+                    userModel.findAllUsers()
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            });
+                    //res.json();
                 },
                 function (err) {
                     res.status(400).send(err);
