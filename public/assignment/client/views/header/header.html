@@ -24,6 +24,11 @@
                             Login
                         </a>
                     </li>
+                    <li ng-class="{'active': $location.url()=='/login'}" ng-show="currentUser.roles.indexOf('admin') >= 0">
+                        <a href="#/admin">
+                            Admin
+                        </a>
+                    </li>
                     <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
                         <a href="#/profile">
                             {{currentUser.username}}

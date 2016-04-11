@@ -27,6 +27,7 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/user/:id", deleteUser);
 
     app.post("/api/assignment/admin/user", adminCreateUser);
+    app.put("/api/assignment/admin/user/:userId", adminUpdateUser);
     
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -179,6 +180,26 @@ module.exports = function (app, userModel) {
                                 res.status(400).send(err);
                             });
                     //res.json();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+    }
+
+    function adminUpdateUser(req, res){
+        var userId = req.params.userId;
+        var user = req.body;
+        userModel.updateUser(userId, user)
+            .then(
+                function (doc) {
+                    userModel.findAllUsers()
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            });
                 },
                 function (err) {
                     res.status(400).send(err);

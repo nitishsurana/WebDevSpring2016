@@ -69,8 +69,8 @@ function UserService($http, $rootScope) {
         return $http.post("/api/assignment/admin/user", user);
     }
 
-    function adminUpdateUser(user){
-
+    function adminUpdateUser(userId, user){
+        return $http.put("/api/assignment/admin/user/" + userId, user)
     }
 
     function findUserById(userId){

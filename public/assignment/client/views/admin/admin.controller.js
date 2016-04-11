@@ -39,7 +39,14 @@
         }
         
         function updateUser(user) {
-            
+            console.log(user);
+            user.roles = stringToArray(user.roles);
+            UserService.adminUpdateUser(user._id, user)
+                .then(function(result){
+                    a.users = result.data;
+                }, function(error){
+                    console.log(error);
+                });
         }
         
         function selectUser(index){
@@ -48,6 +55,17 @@
         
         function deleteUser(index) {
             
+        }
+
+        function stringToArray(text) {
+            var array = [];
+            if (text.indexOf(",") > 0) {
+                array = text.split(",");
+            }
+            else {
+                array = [text];
+            }
+            return array;
         }
     }
 }) ();
