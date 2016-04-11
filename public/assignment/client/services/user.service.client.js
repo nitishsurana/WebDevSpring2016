@@ -70,11 +70,11 @@ function UserService($http, $rootScope) {
     }
 
     function adminUpdateUser(userId, user){
-        return $http.put("/api/assignment/admin/user/" + userId, user)
+        return $http.put("/api/assignment/admin/user/" + userId, user);
     }
 
     function findUserById(userId){
-
+        return $http.get("/api/assignment/admin/user/" + userId);
     }
 }
 

@@ -21,11 +21,11 @@ module.exports = function (app, userModel) {
     app.post("/api/assignment/user", createUser);
     app.post("/api/assignment/login", passport.authenticate('local'), login);
     app.get("/api/assignment/admin/user", findAllUsers);
-    app.get("/api/assignment/user/:id", findUserById);
+    app.get("/api/assignment/admin/user/:id", findUserById);
     app.get("/api/assignment/user", findUserByUsername);
     app.put("/api/assignment/user/:id", updateUserById);
+    
     app.delete("/api/assignment/admin/user/:id", deleteUser);
-
     app.post("/api/assignment/admin/user", adminCreateUser);
     app.put("/api/assignment/admin/user/:userId", adminUpdateUser);
     

@@ -33,6 +33,7 @@
                 .then(function(result){
                     //console.log(result.data);
                     a.users = result.data;
+                    a.user = {};
                 }, function(error){
                     console.log(error);
                 });
