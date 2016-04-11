@@ -43,7 +43,7 @@
         }
         
         function selectUser(index){
-            
+            a.user = a.users[index];
         }
         
         function deleteUser(index) {
