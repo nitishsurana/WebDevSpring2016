@@ -91,26 +91,30 @@ module.exports = function (app, userModel) {
     }
 
     function findAllUsers(req, res) {
-        userModel.findAllUsers()
-            .then(
-                function (doc) {
-                    res.json(doc);
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
+        if(isAdmin(req.user)) {
+            userModel.findAllUsers()
+                .then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    });
+        }
     }
 
     function findUserById(req, res) {
-        var id = req.params.id;
-        userModel.findUserById(id)
-            .then(
-                function (doc) {
-                    res.json(doc);
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
+        if(isAdmin(req.user)) {
+            var id = req.params.id;
+            userModel.findUserById(id)
+                .then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    });
+        }
     }
 
     function findUserByUsername(req, res) {
@@ -155,60 +159,73 @@ module.exports = function (app, userModel) {
     }
 
     function deleteUser(req, res) {
-        var id = req.params.id;
-        userModel.deleteUserById(id)
-            .then(function (doc) {
-                    userModel.findAllUsers()
-                        .then(
-                            function (response) {
-                                res.json(response);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            });
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
+        if(isAdmin(req.user)) {
+            var id = req.params.id;
+            userModel.deleteUserById(id)
+                .then(function (doc) {
+                        userModel.findAllUsers()
+                            .then(
+                                function (response) {
+                                    res.json(response);
+                                },
+                                function (err) {
+                                    res.status(400).send(err);
+                                });
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    });
+        }
     }
     
     function adminCreateUser(req, res){
-        var user = req.body;
-        userModel.createUser(user)
-            .then(
-                function (doc) {
-                    userModel.findAllUsers()
-                        .then(
-                            function (doc) {
-                                res.json(doc);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            });
-                    //res.json();
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
+        if(isAdmin(req.user)) {
+            var user = req.body;
+            userModel.createUser(user)
+                .then(
+                    function (doc) {
+                        userModel.findAllUsers()
+                            .then(
+                                function (doc) {
+                                    res.json(doc);
+                                },
+                                function (err) {
+                                    res.status(400).send(err);
+                                });
+                        //res.json();
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    });
+        }
     }
 
     function adminUpdateUser(req, res){
-        var userId = req.params.userId;
-        var user = req.body;
-        userModel.updateUser(userId, user)
-            .then(
-                function (doc) {
-                    userModel.findAllUsers()
-                        .then(
-                            function (doc) {
-                                res.json(doc);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            });
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
+        if (isAdmin(req.user)) {
+            var userId = req.params.userId;
+            var user = req.body;
+            userModel.updateUser(userId, user)
+                .then(
+                    function (doc) {
+                        userModel.findAllUsers()
+                            .then(
+                                function (doc) {
+                                    res.json(doc);
+                                },
+                                function (err) {
+                                    res.status(400).send(err);
+                                });
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    });
+        }
+    }
+
+    function isAdmin(user){
+        if (user.roles.indexOf('admin')>=0){
+            return true;
+        }
+        return false;
     }
 };
