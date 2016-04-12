@@ -6,8 +6,9 @@
         .module("PortfolioManager")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, $location, UserService) {
-        $scope.login = login;/*
+    function LoginController($location, UserService) {
+        var vm = this;
+        vm.login = login;/*
         UserService.findAllUsers()
             .success(function(response){
                 console.log(response);
@@ -19,12 +20,12 @@
                 loginCredentials.password = "";
             }
             UserService.findUserByCredentials(loginCredentials.username, loginCredentials.password)
-                .success(function(response){
-                    if (response) {
-                        //console.log(response);
-                        UserService.setCurrentUser(response);
-                        $location.url("/portfolio");
-                    }
+                .then(function(user){
+                    console.log(user);
+                    UserService.setCurrentUser(user);
+                    $location.url("/portfolio");
+                }, function(error){
+                    console.log(error);
                 });
 
         }
