@@ -15,10 +15,12 @@
             UserService.setCurrentUser(user);
             //console.log(user);
             UserService.updateUser(user._id,user)
-                .success(function(response){
+                .then(function(response){
                 //console.log(response);
-                alert("Profile Updated.");
-            });
+                vm.message = "Profile Updated.";
+                }, function(error){
+                    
+                });
         }
     }
 })();
