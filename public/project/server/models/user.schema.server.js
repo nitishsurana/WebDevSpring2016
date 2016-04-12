@@ -15,6 +15,6 @@ module.exports = function(mongoose){
         followUsers: [String],
         followStocks: [String],
         roles: [String]
-    }, {collection: 'user'});
+    }, {collection: 'projectUser'});
     return UserSchema;
 };
