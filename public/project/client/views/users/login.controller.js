@@ -20,9 +20,9 @@
                 loginCredentials.password = "";
             }
             UserService.findUserByCredentials(loginCredentials.username, loginCredentials.password)
-                .then(function(user){
-                    console.log(user);
-                    UserService.setCurrentUser(user);
+                .then(function(response){
+                    //console.log(respose.data);
+                    UserService.setCurrentUser(response.data);
                     $location.url("/portfolio");
                 }, function(error){
                     console.log(error);
