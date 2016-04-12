@@ -1,10 +1,10 @@
 /**
  * Created by Nitish on 3/21/2016.
  */
-module.exports = function(app) {
+module.exports = function(app, db, mongoose) {
 
-    var userModel    = require("./models/user.model.js")();
-    var portfolioModel   = require("./models/portfolio.model.js")();
+    var userModel    = require("./models/user.model.js")(db, mongoose);
+    var portfolioModel   = require("./models/portfolio.model.js")(db, mongoose);
 
     var userService  = require("./services/user.service.server.js") (app, userModel);
     var searchService = require("./services/search.service.server.js")(app, userModel);
