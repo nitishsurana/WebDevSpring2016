@@ -13,7 +13,7 @@
             $(element)
                 .sortable({
                     axis: "y",
-                    sort: function(event, ui) {
+                    start: function(event, ui) {
                         //ui.helper.find("a").hide();
                         start = ui.item.index();
                     },

@@ -3,7 +3,7 @@
  */
 (function(){
     angular
-        .module("FormBuilderApp", ["ngRoute"])
+        .module("FormBuilderApp")
         .config(function($routeProvider){
             $routeProvider
                 .when("/home", {
