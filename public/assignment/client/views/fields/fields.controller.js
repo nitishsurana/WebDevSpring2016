@@ -9,6 +9,8 @@
     function FieldController($routeParams, FieldService) {
         var a = this;
 
+        console.log('Hello sort');
+
         a.removeField = removeField;
         a.addField = addField;
         a.edit = edit;
@@ -99,14 +101,15 @@
         }
 
         function sortField(start,end){
-            console.log("Sort Field");
-            console.log([start,end]);
+            console.log("Start end" , start, end);
             FieldService.sortField($routeParams.formId, start, end)
-                .then(function(response){
-                    //a.forms = response.data;
-                }, function(err){
-                    a.error = err;
-                })
+                .then(
+                    function (response) {
+                    },
+                    function (err) {
+                        a.error = err;
+                    }
+                );
         }
 
     }

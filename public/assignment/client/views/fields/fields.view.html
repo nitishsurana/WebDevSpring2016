@@ -8,7 +8,9 @@
         <br/>
         <div class="table-responsive table-hover">
             <table>
-                <tbody jga-sortable jgaSortableCallback="model.sortField(start, end)">
+                <tbody>
+                <div jga-sortable
+                     jga-sortable-callback="model.sortField(start, end)">
                     <tr ng-repeat="field in model.fields">
                         <td class="col-xs-4">
                             {{field.label}}<br/>
@@ -95,6 +97,8 @@
                             </button>
                         </td>
                     </tr>
+                </div>
+
                 </tbody>
                 <tfoot>
                 <tr>
