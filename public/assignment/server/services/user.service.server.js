@@ -35,13 +35,14 @@ module.exports = function (app, userModel) {
     passport.deserializeUser(deserializeUser);
 
     function localStrategy(username, password, done) {
-        userModel.findUserByCredentials(username, password)
+        userModel.findUserByUsername(username)
             .then(
                 function (user) {
-                    if (!user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else  {
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function (err) {
                     if (err) {
