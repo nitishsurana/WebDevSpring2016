@@ -83,32 +83,24 @@ module.exports = function (app, userModel) {
         user.roles = ['student'];
         user.password = bcrypt.hashSync(user.password);
         userModel.findUserByUsername(user.username)
-            .then(function (user){
-                if (user){
+            .then(function (response){
+                if (response){
                     res.json(null);
                 } else {
                     userModel.createUser(user)
-                        .then(
-                            function (doc) {
-                                req.session.currentUser = doc;
-                                res.json(doc);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            });
+                        .then( function(user){
+                            if(user){
+                                req.login(user, function(err){
+                                    if(err){
+                                        res.status(400).send(err);
+                                    } else {
+                                        res.json(user);
+                                    }
+                                })
+                            }
+                        });
                 }
-            })
-            .then( function(user){
-                if(user){
-                    req.login(user, function(err){
-                        if(err){
-                            res.status(400).send(err);
-                        } else {
-                            res.json(user);
-                        }
-                    })
-                }
-            })
+            });
     }
 
     function findAllUsers(req, res) {
