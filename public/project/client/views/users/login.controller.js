@@ -14,7 +14,7 @@
                 console.log(response);
             });*/
         function login(loginCredentials) {
-            console.log(loginCredentials);
+            //console.log(loginCredentials);
             if (!loginCredentials.hasOwnProperty("password")){
                 //console.log("TRUE");
                 loginCredentials.password = "";

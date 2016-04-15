@@ -48,13 +48,13 @@
         }
 
         function deleteUserById(userId) {
-            console.log(userId);
+            //console.log(userId);
             return $http.delete("/api/project/user/" + userId);
         }
 
         function setCurrentUser(user){
             $rootScope.currentUser = user;
-            console.log(user);
+            //console.log(user);
         }
         
         function getCurrentUser(){

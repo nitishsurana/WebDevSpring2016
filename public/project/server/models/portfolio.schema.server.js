@@ -3,11 +3,11 @@
  */
 module.exports = function(mongoose){
 
-    var InvestmentSchema = require('./investmentOption.schema.server.js')(mongoose);
+    var stockSchema = require('./stock.schema.server.js')(mongoose);
 
     var PortfolioSchema = mongoose.Schema({
         userId: String,
-        investment: [InvestmentSchema]
+        investment: [stockSchema]
     }, {collection : 'portfolio'});
     return PortfolioSchema;
 };

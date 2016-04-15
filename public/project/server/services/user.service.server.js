@@ -24,8 +24,6 @@ module.exports = function(app,userModel){
     function findUserByCredentials(req, res){
         var username  = req.query.username;
         var password = req.query.password;
-        //console.log("User Service server");
-        //console.log(username, password);
         userModel.findUserByCredentials(username, password)
             .then(function(user){
                 res.json(user);
@@ -54,7 +52,6 @@ module.exports = function(app,userModel){
 
     function createUser(req, res) {
         var new_user = req.body;
-        console.log(new_user);
         userModel.createUser(new_user)
             .then(function(user){
                 console.log(user);
@@ -66,7 +63,6 @@ module.exports = function(app,userModel){
     
     function deleteUserById(req, res){
         var id = req.params.id;
-        console.log(id);
         userModel.deleteUserById(id)
             .then(function(user){
                 res.json(user);

@@ -24,8 +24,8 @@ function PortfolioService($http){
         return $http.post("/api/project/" + userId + "/investment", investment);
     }
 
-    function deleteInvestment(userId, investmentOption){
-        return $http.delete("/api/project/" + userId + "/investment/" + investmentOption);
+    function deleteInvestment(userId, stockId){
+        return $http.delete("/api/project/" + userId + "/investment/" + stockId);
     }
 
     function updateInvestment(userId, investment){
@@ -41,7 +41,7 @@ function PortfolioService($http){
         //console.log(portfolio);
         var sum = 0;
         for(var i=0; i<portfolio.length; i++){
-            sum += portfolio[i].totalInvestment;
+            sum += portfolio[i].totalAmtInvested;
         }
         return sum;
     }

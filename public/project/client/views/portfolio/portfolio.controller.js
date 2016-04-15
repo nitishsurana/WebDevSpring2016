@@ -6,7 +6,7 @@
         .module("PortfolioManager")
         .controller("PortfolioController",PortfolioController);
 
-    function PortfolioController(PortfolioService, UserService){
+    function PortfolioController(PortfolioService, UserService, SearchService){
 
         var vm = this;
 
@@ -16,43 +16,70 @@
         vm.selectInvestment = selectInvestment;
 
         var currentUser = UserService.getCurrentUser();
+        //console.log(currentUser);
         var currentUserId = currentUser._id;
 
-        function init(response){
-            vm.portfolio = response;
-            vm.invested = PortfolioService.totalInvestmentValue(response);
-            vm.currentValuation = PortfolioService.currentValue(response);
-            vm.netGain = PortfolioService.calculateProfit(response);
+        function init(){
+            PortfolioService.findAllInvestmentByUserId(currentUserId)
+                .then(function(response){
+                    var portfolio = response.data[0].investment;
+                    vm.message = null;
+                    vm.portfolio = portfolio;
+                    getCurrentValue();
+                    vm.invested = PortfolioService.totalInvestmentValue(portfolio);
+                    vm.currentValuation = PortfolioService.currentValue(portfolio);
+                    vm.netGain = PortfolioService.calculateProfit(portfolio);
+                }, function(error){
+                    vm.message = "Error in loading portfolio. Please try again later.";
+                });
         }
-        PortfolioService.findAllInvestmentByUserId(currentUserId)
-            .success(function(response){
-                //console.log(response);
-                init(response);
-            });
+        
+        init();
 
-
+        function getCurrentValue(){
+            for (var i=0; i<vm.portfolio.length; i++){
+                var a = SearchService.getStockValue("Yahoo");
+                console.log(a);
+            }
+        }
+        
         function addInvestment(investment){
+            //console.log(investment);
+            //console.log(currentUserId);
+            investment.totalAmtInvested = investment.qty * investment.pricePerQty;
             PortfolioService.addInvestment(currentUserId,investment)
-                .success(function(response){
+                .then(function(response){
                     //console.log(response);
-                    init(response);
+                    vm.message = null;
+                    //console.log(response.data);
+                    init();
+                }, function(error){
+                    vm.message = "Error in adding Investment. Please try again later.";
                 });
         }
 
         function updateInvestment(investment){
-            console.log(investment);
+            //console.log(investment);
+            investment.totalAmtInvested = investment.qty * investment.pricePerQty;
             PortfolioService.updateInvestment(currentUserId, investment)
-                .success(function(response){
+                .then(function(response){
                     //console.log(response);
-                    init(response);
+                    vm.message = null;
+                    init();
+                }, function(error){
+                    vm.message = "Error in updating Investment. Please try again later.";
                 });
         }
 
         function deleteInvestment(index){
-            PortfolioService.deleteInvestment(currentUserId, vm.portfolio[index].investmentOption)
-                .success(function(response){
+            console.log(index);
+            PortfolioService.deleteInvestment(currentUserId, vm.portfolio[index]._id)
+                .then(function(response){
                     //console.log(response);
-                    init(response);
+                    vm.message = null;
+                    init();
+                }, function(error){
+                    vm.message = "Error in deleting Investment. Please try again later.";
                 });
         }
 

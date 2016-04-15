@@ -3,39 +3,58 @@
  */
 
 module.exports = function(app, portfolioModel){
-    app.get("/api/project/:id/investment", findAllInvestmentByUser);
+    app.get("/api/project/:id/investment", findAllInvestmentByUserId);
     app.post("/api/project/:id/investment", addInvestment);
-    app.delete("/api/project/:id/investment/:investmentOption", deleteInvestment);
+    app.delete("/api/project/:id/investment/:stockId", deleteInvestment);
     app.put("/api/project/:id/investment", updateInvestment);
 
-    function findAllInvestmentByUser(req, res){
+    function findAllInvestmentByUserId(req, res){
         var userId = req.params.id;
-        var result = portfolioModel.findAllInvestmentByUser(userId);
+        //console.log(userId);
+        portfolioModel.findAllInvestmentByUser(userId)
+            .then(function(response){
+                //console.log(response);
+                res.json(response);
+            }, function (error){
+                res.status(400).send(error);
+            });
         //console.log("Portfolio Service Service");
         //console.log(result);
-        res.json(result);
+        //res.json(result);
     }
 
     function addInvestment(req, res) {
         var userId = req.params.id;
         var investment = req.body;
-        var result = portfolioModel.addInvestment(userId, investment);
-        res.json(result);
+        //console.log("Adding");
+        portfolioModel.addInvestment(userId, investment)
+            .then(function (response){
+                console.log(response);
+                res.json(response);
+            }, function(error){
+                res.status(400).send(error);
+            });
     }
     
     function deleteInvestment(req, res) {
         var userId = req.params.id;
-        var investmentOption = req.params.investmentOption;
-        var result = portfolioModel.deleteInvestment(userId, investmentOption);
-        res.json(result);
+        var stockId = req.params.stockId;
+        portfolioModel.deleteInvestment(userId, stockId)
+            .then(function(response){
+                res.json(response);
+            }, function(error){
+                res.status(400).send(error);
+            });
     }
 
     function updateInvestment(req, res) {
         var userId = req.params.id;
-        var investmentOption = req.body;
-        var result = portfolioModel.updateInvestment(userId, investmentOption);
-        //console.log("Update Investment Server service");
-        //console.log(result);
-        res.json(result);
+        var investment = req.body;
+        portfolioModel.updateInvestment(userId, investment)
+            .then(function (response){
+                res.json(response);
+            }, function (error){
+                res.status(400).send(error);
+            });
     }
 };
