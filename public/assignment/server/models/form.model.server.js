@@ -87,7 +87,7 @@ module.exports = function (db, mongoose) {
 
     function sortField(formId, startIndex, endIndex){
         var deferred = q.defer();
-        console.log(startIndex, endIndex);
+        //console.log(startIndex, endIndex);
         FormModel.find({_id: formId}, function(err, doc){
             if(err){
                 deferred.reject(err);

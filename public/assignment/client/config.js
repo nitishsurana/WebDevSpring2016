@@ -7,10 +7,7 @@
         .config(function($routeProvider){
             $routeProvider
                 .when("/home", {
-                    templateUrl: "views/home/home.view.html",
-                    resolve: {
-                        loggedIn: checkCurrentUser
-                    }
+                    templateUrl: "views/home/home.view.html"
                 })
                 .when("/profile", {
                     templateUrl: "views/users/profile.view.html",
