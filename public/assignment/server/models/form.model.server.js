@@ -14,7 +14,8 @@ module.exports = function (db, mongoose) {
         findFormById:findFormById,
         findAllFormsForUser: findAllFormsForUser,
         deleteFormById: deleteFormById,
-        updateFormById: updateFormById
+        updateFormById: updateFormById,
+        sortField: sortField
     };
 
     return api;
@@ -79,6 +80,31 @@ module.exports = function (db, mongoose) {
                 deferred.reject(err);
             } else {
                 deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function sortField(formId, startIndex, endIndex){
+        var deferred = q.defer();
+        console.log(startIndex, endIndex);
+        FormModel.find({_id: formId}, function(err, doc){
+            if(err){
+                deferred.reject(err);
+            }
+            if (doc){
+                var field =  doc[0].fields[startIndex];
+                doc[0].fields.splice(startIndex, 1);
+                doc[0].fields.splice(endIndex, 0, field);
+                doc[0].markModified("fields");
+                doc[0].save();
+                FormModel.findOneAndUpdate({_id: formId}, doc[0], function(err, doc){
+                    if(err){
+                        deferred.reject(err);
+                    } if (doc) {
+                        deferred.resolve(doc);
+                    }
+                });
             }
         });
         return deferred.promise;

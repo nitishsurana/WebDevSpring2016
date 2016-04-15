@@ -13,8 +13,8 @@ module.exports = function (db , mongoose) {
         findFieldById: findFieldById,
         deleteFieldById: deleteFieldById,
         createField: createField,
-        updateFieldById: updateFieldById,
-        sortField: sortField
+        updateFieldById: updateFieldById
+        //sortField: sortField
     };
 
     return api;
@@ -67,14 +67,5 @@ module.exports = function (db , mongoose) {
         return deferred.promise;
     }
 
-    function sortField(formId, startIndex, endIndex){
-        return fieldModel.findById(formId)
-            .then(
-                function(response){
-                    response.fields.splice(endIndex, 0, response.fields.splice(startIndex, 1)[0]);
-                    response.markModified("fields");
-                    response.save();
-                }
-            );
-    }
+    
 };

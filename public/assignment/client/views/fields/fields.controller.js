@@ -9,8 +9,6 @@
     function FieldController($routeParams, FieldService) {
         var a = this;
 
-        console.log('Hello sort');
-
         a.removeField = removeField;
         a.addField = addField;
         a.edit = edit;
@@ -18,13 +16,11 @@
 
         toRender();
         function toRender() {
-            console.log(a);
             FieldService.getFieldsForForm($routeParams.formId)
                 .then(function (response) {
                     a.fields = response.data.fields;
-                    console.log("Fields Controller");
                 }, function (error) {
-                    a.alert("Error in loading page. Please try again.");
+
                 });
         }
 
@@ -34,7 +30,7 @@
                     a.fields = response.data;
                     toRender();
                 }, function (error) {
-                    a.alert("Error in removing Field. Please try again.");
+
                 })
         }
 
@@ -86,7 +82,7 @@
                     a.forms = response.data;
                     toRender();
                 }, function (error) {
-                    a.alert("Error in creating Field. Please try again.");
+
                 });
         }
 
@@ -101,13 +97,17 @@
         }
 
         function sortField(start,end){
-            console.log("Start end" , start, end);
+            //console.log(start, end);
+            if (start>=end){
+                start++;
+            }
+            //console.log(start, end);
             FieldService.sortField($routeParams.formId, start, end)
                 .then(
                     function (response) {
                     },
                     function (err) {
-                        a.error = err;
+                       // a.error = err;
                     }
                 );
         }

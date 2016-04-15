@@ -90,7 +90,7 @@ module.exports = function (app, formModel, fieldModel) {
         var endIndex = req.query.endIndex;
 
         if(startIndex && endIndex){
-            fieldModel.sortField(formId, startIndex, endIndex)
+            formModel.sortField(formId, startIndex, endIndex)
                 .then(function (response){
                     res.json(200);
                 }, function(err){

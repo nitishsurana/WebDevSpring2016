@@ -14,7 +14,7 @@
             getFieldsForForm: getFieldsForForm,
             deleteFieldFromForm: deleteFieldFromForm,
             updateField: updateField,
-            sortPage: sortPage
+            sortField: sortField
         };
 
         return api;
@@ -36,7 +36,7 @@
             return $http.put("/api/assignment/form/" + formId, newForm);
         }
 
-        function sortPage(formId, startIndex, endIndex){
+        function sortField(formId, startIndex, endIndex){
             return $http.put("/api/assignment/"+formId+"/field?startIndex="+startIndex+"&endIndex="+endIndex);
         }
     }
