@@ -25,8 +25,6 @@
                     var ret = response.data;
                     UserService.setCurrentUser(ret);
                     $location.url('/profile');
-                }, function(error){
-                    console.log(error);
                 });
         }
     }
