@@ -15,7 +15,8 @@ module.exports = function(db, mongoose){
         findUserById: findUserById,
         createUser: createUser,
         deleteUserById: deleteUserById,
-        updateUser: updateUser
+        updateUser: updateUser,
+        followStock: followStock
     };
 
     return api;
@@ -104,6 +105,43 @@ module.exports = function(db, mongoose){
                 deferred.reject(err);
             } else {
                 deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function followStock(userId, stock) {
+        var deferred = q.defer();
+        var flag = 1;
+        UserModel.find({_id: userId}, function(err, investor){
+            if (err){
+                deferred.reject(err);
+            }
+            if (investor){
+                //console.log(investor[0].followStocks);
+                for(var i = 0; i< investor[0].followStocks.length ; i++){
+                    if (investor[0].followStocks[i].symbol == stock.symbol){
+                        flag = 0;
+                        break;
+                    }
+                }
+                if(flag == 1){
+                    investor[0].followStocks.push(stock);
+                    //console.log(investor[0].followStocks);
+                }
+                else if(flag == 0){
+                    investor[0].followStocks.splice(i, 1);
+                }
+
+                UserModel.update({_id: userId}, investor[0], function(err, doc){
+                    if (err){
+                        deferred.reject(err);
+                    }
+                    if (doc){
+                        //console.log(doc);
+                        deferred.resolve(doc);
+                    }
+                });
             }
         });
         return deferred.promise;

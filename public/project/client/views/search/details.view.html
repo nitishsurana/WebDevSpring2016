@@ -1,7 +1,17 @@
 <div id="results">
     <div ng-show="model.returnData.option">
         <h2>{{model.returnData.option.Name}}</h2>
-        <br>
+        <div ng-hide="model.message">
+            <button class="btn btn-primary"
+                    ng-click="model.followStock(model.returnData.option.Symbol, model.returnData.option.Name)">
+                <span ng-show="!model.follow"
+                      class="glyphicon glyphicon-star-empty"></span>
+                <span ng-show="model.follow"
+                      class="glyphicon glyphicon-star"></span>
+            </button>
+        </div>
+        <h3>{{model.message}}</h3>
+
         <div ng-repeat="(key,value) in model.returnData.option">
             <div ng-if="key!= 'symbol' && key!= 'Symbol' &&  key!= 'Name'">{{key}} - {{value}}</div>
         </div>
@@ -10,7 +20,12 @@
         <h2>{{model.returnData.investor[0].fullName}}</h2>
         <br>
         <div ng-repeat="(key,value) in model.returnData.investor[0]">
-            <div ng-if="key!= 'username' && key!='password' && key!='roles' && key!='_id' && key!= 'fullName'">{{key}} - {{value}}</div>
+            <div ng-if="key!= 'username' && key!='password' && key!='roles' && key!='_id' && key!= 'fullName' && key!= 'followStocks' && key!= 'followUsers' && key!= 'interestedInvestments' && key!= '__v'">{{key}} - {{value}}</div>
+            <div ng-if="key == 'followStocks'">
+                <div ng-repeat="stock in value">
+                    {{stock.name}}
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -21,7 +21,9 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser
+            getCurrentUser: getCurrentUser,
+            followStock: followStock,
+            checkIfUserFollowStock: checkIfUserFollowStock
         };
 
         return api;
@@ -63,6 +65,14 @@
         
         function updateUser(userId, user) {
             return $http.put("/api/project/user/" + userId, user);
+        }
+
+        function followStock(userId, stock){
+            return $http.post("/api/project/user/"+ userId, stock);
+        }
+        
+        function checkIfUserFollowStock(userId, symbol) {
+            return $http.get("/api/project/user/"+ userId + "/stock/"+ symbol);
         }
     }
 

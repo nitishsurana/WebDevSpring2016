@@ -7,7 +7,9 @@ module.exports = function(app,userModel){
     app.get("/api/project/search/user", findUserByUsername);
     app.get("/api/project/user", findUserByCredentials);
     app.get("/api/project/userId", findUserById);
+    app.get("/api/project/user/:userId/stock/:symbol", checkIfUserFollowStock);
     app.post("/api/project/user", createUser);
+    app.post("/api/project/user/:userId", followStock);
     app.delete("/api/project/user/:id", deleteUserById);
     app.put("/api/project/user/:id", updateUser);
 
@@ -82,4 +84,32 @@ module.exports = function(app,userModel){
             });
     }
 
+    function followStock(req, res) {
+        var userId = req.params.userId;
+        var stock = req.body;
+        //console.log([userId, symbol]);
+        userModel.followStock(userId, stock)
+            .then(function(response){
+                res.json(response);
+            }, function (error){
+                res.status(400).send(error);
+            });
+    }
+
+    function checkIfUserFollowStock(req, res) {
+        var userId = req.params.userId;
+        var symbol = req.params.symbol;
+        userModel.findUserById(userId)
+            .then(function(response){
+                //console.log(response);
+                for(var i=0; i<response.followStocks.length ; i++){
+                    if (response.followStocks[i].symbol == symbol){
+                        res.send(true);
+                    }
+                }
+                res.send(false);
+            }, function(error){
+                res.status(400).send(error);
+            })
+    }
 };

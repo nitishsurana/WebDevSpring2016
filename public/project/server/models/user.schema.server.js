@@ -12,7 +12,12 @@ module.exports = function(mongoose){
         aboutMe: String,
         interestedInvestments: [String],
         followUsers: [String],
-        followStocks: [String],
+        followStocks: [
+            {
+                name: String, 
+                symbol: String
+            }
+        ],
         roles: [String]
     }, {collection: 'projectUser'});
     return UserSchema;
