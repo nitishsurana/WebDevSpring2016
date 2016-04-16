@@ -20,9 +20,12 @@
 
         function init(){
             UserService.findAllUsers()
-                .success(function(response){
-                    vm.users = response;
-                    //console.log(response);
+                .then (function(response){
+                    //console.log(response.data);
+                    vm.users = response.data;
+                    //console.log(vm.users);
+                }, function(error){
+                    console.log("Error");
                 });
         }
 
@@ -30,23 +33,24 @@
 
         function addUser(user){
             var new_user = {
-                "_id": "",
-                "fullName": user.fullName,
-                "email": "",
                 "username": user.username,
                 "password": "",
-                "phoneNumber": 0,
+                "fullName": user.fullName,
+                "email": "",
+                "phone": "",
                 "aboutMe": "",
                 "interestedInvestments": "",
-                "roles": [user.roles]
+                "followUsers": [],
+                "followStocks": [],
+                "roles": roles(user.roles)
             };
             UserService.createUser(new_user)
-                .success(function(response){
-                    console.log(response);
+                .then(function(response){
+                    //console.log(response);
+                    vm.user = {};
                     vm.users.push(response);
-                })
-                .error(function (response){
-
+                }, function (error){
+                    console.log("Error");
                 });
             }
 
@@ -60,29 +64,31 @@
         }
 
         function updateUser(user){
-            user.roles = roles(user.roles);
+            var role = roles(user.roles);
+            user.roles = null;
+            user.roles = role;
             UserService.updateUser(user._id, user)
-                .success(function (response){
-
+                .then(function (response){
+                    vm.user = {};
+                    init();
+                }, function (error){
+                    console.log("Error");
                 });
         }
 
         function deleteUser(index){
             //console.log(vm.users[index]._id);
             UserService.deleteUserById(vm.users[index]._id)
-                .success(function(response){
-                    vm.users = response;
-                    console.log(vm.users);
+                .then (function(response){
+                    init();
+                }, function(error){
+                    console.log("Error");
                 });
         }
 
         function selectUser(index){
             console.log(vm.users[index]);
             vm.user = vm.users[index];
-            /*
-            vm.user.fullName = vm.users[index].fullName;
-            vm.user.username = vm.users[index].username;
-            vm.user.roles = vm.users[index].roles;*/
         }
     }
 }) ();
