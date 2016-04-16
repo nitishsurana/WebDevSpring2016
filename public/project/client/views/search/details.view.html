@@ -22,8 +22,9 @@
         <div ng-repeat="(key,value) in model.returnData.investor[0]">
             <div ng-if="key!= 'username' && key!='password' && key!='roles' && key!='_id' && key!= 'fullName' && key!= 'followStocks' && key!= 'followUsers' && key!= 'interestedInvestments' && key!= '__v'">{{key}} - {{value}}</div>
             <div ng-if="key == 'followStocks'">
+                <strong>Follows Stocks:</strong>
                 <div ng-repeat="stock in value">
-                    {{stock.name}}
+                    <a href="#/search/option/{{stock.symbol}}">{{stock.name}}</a>
                 </div>
             </div>
         </div>
