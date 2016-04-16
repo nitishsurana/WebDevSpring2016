@@ -22,13 +22,15 @@
         function init(){
             PortfolioService.findAllInvestmentByUserId(currentUserId)
                 .then(function(response){
-                    var portfolio = response.data[0].investment;
-                    vm.message = null;
-                    vm.portfolio = portfolio;
-                    getCurrentValue();
-                    vm.invested = PortfolioService.totalInvestmentValue(portfolio);
-                    vm.currentValuation = PortfolioService.currentValue(portfolio);
-                    vm.netGain = PortfolioService.calculateProfit(portfolio);
+                    if(response.data.length>0) {
+                        var portfolio = response.data.investment;
+                        vm.message = null;
+                        vm.portfolio = portfolio;
+                        getCurrentValue();
+                        vm.invested = PortfolioService.totalInvestmentValue(portfolio);
+                        vm.currentValuation = PortfolioService.currentValue(portfolio);
+                        vm.netGain = PortfolioService.calculateProfit(portfolio);
+                    }
                 }, function(error){
                     vm.message = "Error in loading portfolio. Please try again later.";
                 });
