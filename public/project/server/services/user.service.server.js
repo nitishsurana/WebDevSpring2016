@@ -10,7 +10,7 @@ module.exports = function (app, userModel) {
     app.get("/api/project/user/:userId/stock/:symbol", checkIfUserFollowStock);
     app.get("/api/project/user/:userId/investor/:username", checkIfUserFollowInvestor);
     app.post("/api/project/user", createUser);
-    app.post("/api/project/user/:userId", followStock);
+    app.post("/api/project/user/:userId/stock", followStock);
     app.post("/api/project/user/:userId/investor", followInvestor);
     app.delete("/api/project/user/:id", deleteUserById);
     app.put("/api/project/user/:id", updateUser);

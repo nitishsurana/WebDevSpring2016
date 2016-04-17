@@ -67,7 +67,7 @@ function UserService($http, $rootScope) {
     }
 
     function followStock(userId, stock) {
-        return $http.post("/api/project/user/" + userId, stock);
+        return $http.post("/api/project/user/" + userId + "/stock", stock);
     }
 
     function checkIfUserFollowStock(userId, symbol) {

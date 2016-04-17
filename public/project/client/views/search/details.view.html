@@ -4,9 +4,9 @@
         <div ng-hide="model.message">
             <button class="btn btn-primary"
                     ng-click="model.followStock(model.returnData.option.Symbol, model.returnData.option.Name)">
-                <span ng-show="!model.follow"
+                <span ng-show="!model.userFollowsStock"
                       class="glyphicon glyphicon-star-empty"></span>
-                <span ng-show="model.follow"
+                <span ng-show="model.userFollowsStock"
                       class="glyphicon glyphicon-star"></span>
             </button>
         </div>
@@ -15,8 +15,8 @@
         <div ng-repeat="(key,value) in model.returnData.option">
             <div ng-if="key!= 'symbol' && key!= 'Symbol' &&  key!= 'Name'">{{key}} - {{value}}</div>
         </div>
-        <strong ng-show="model.userFollowing.length>0">Other investors following this stock:</strong>
-        <div ng-repeat="user in model.userFollowing">
+        <strong ng-show="model.usersFollowingStock.length>0">Other investors following this stock:</strong>
+        <div ng-repeat="user in model.usersFollowingStock">
             <a href="#/search/investor/{{user.username}}">{{user.fullName}}</a>
         </div>
     </div>
@@ -25,9 +25,9 @@
         <div ng-hide="model.message">
             <button class="btn btn-primary"
                     ng-click="model.followInvestor(model.returnData.investor[0].username, model.returnData.investor[0].fullName)">
-                <span ng-show="!model.followUser"
+                <span ng-show="!model.userFollowsInvestor"
                       class="glyphicon glyphicon-star-empty"></span>
-                <span ng-show="model.followUser"
+                <span ng-show="model.userFollowsInvestor"
                       class="glyphicon glyphicon-star"></span>
             </button>
         </div>
