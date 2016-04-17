@@ -2,7 +2,7 @@
  * Created by Nitish on 3/24/2016.
  */
 
-module.exports = function(db, mongoose) {
+module.exports = function (db, mongoose) {
 
     var PortfolioSchema = require('./portfolio.schema.server.js')(mongoose);
     var q = require("q");
@@ -16,23 +16,20 @@ module.exports = function(db, mongoose) {
     };
 
     return api;
-    
-    function addInvestment(userId, investment){
+
+    function addInvestment(userId, investment) {
         var deferred = q.defer();
-        //console.log("Add model");
-        portfolioModel.findOne({userId: userId}, function(err, doc) {
-            if(err){
+        portfolioModel.findOne({userId: userId}, function (err, doc) {
+            if (err) {
                 deferred.reject(err);
             } else {
-                //console.log(doc);
-                if(doc) {
+                if (doc) {
                     doc.investment.push(investment);
                     portfolioModel.update({userId: doc.userId}, doc, function (err, doc) {
                         if (err) {
                             deferred.reject(err);
                         }
                         if (doc) {
-                            //console.log(doc);
                             return deferred.resolve(doc);
                         }
                     });
@@ -42,53 +39,50 @@ module.exports = function(db, mongoose) {
                         userId: userId,
                         investment: [investment]
                     };
-                    console.log("ELSE");
-                    portfolioModel.create(portfolio, function (err, doc){
+                    portfolioModel.create(portfolio, function (err, doc) {
                         if (err) {
                             deferred.reject(err);
                         }
                         if (doc) {
-                            console.log(doc);
                             deferred.resolve(userId);
                         }
                     });
-                    }
                 }
-            });
+            }
+        });
         return deferred.promise;
     }
 
     function deleteInvestment(userId, investmentId) {
         var deferred = q.defer();
-        portfolioModel.find({userId: userId}, function (err, portfolio){
-                if (err){
-                    deferred.reject(err);
-                }
-                if (portfolio) {
-                    for (var i = 0; i < portfolio[0].investment.length; i++) {
-                        if (portfolio[0].investment[i]._id == investmentId) {
-                            //console.log(i);
-                            break;
-                        }
+        portfolioModel.find({userId: userId}, function (err, portfolio) {
+            if (err) {
+                deferred.reject(err);
+            }
+            if (portfolio) {
+                for (var i = 0; i < portfolio[0].investment.length; i++) {
+                    if (portfolio[0].investment[i]._id == investmentId) {
+                        break;
                     }
-                    portfolio[0].investment.splice(i, 1);
-                    portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function(err, doc){
-                        if(err){
-                            deferred.reject(err);
-                        }
-                        if (doc){
-                            return deferred.resolve(doc);
-                        }
-                    });
                 }
-            });
+                portfolio[0].investment.splice(i, 1);
+                portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function (err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    }
+                    if (doc) {
+                        return deferred.resolve(doc);
+                    }
+                });
+            }
+        });
         return deferred.promise;
     }
 
-    function updateInvestment(userId, investment){
+    function updateInvestment(userId, investment) {
         var deferred = q.defer();
-        portfolioModel.find({userId: userId}, function (err, portfolio){
-            if (err){
+        portfolioModel.find({userId: userId}, function (err, portfolio) {
+            if (err) {
                 deferred.reject(err);
             }
             if (portfolio) {
@@ -98,12 +92,11 @@ module.exports = function(db, mongoose) {
                         break;
                     }
                 }
-                //portfolio[0].investment.splice(i, 1);
-                portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function(err, doc){
-                    if(err){
+                portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function (err, doc) {
+                    if (err) {
                         deferred.reject(err);
                     }
-                    if (doc){
+                    if (doc) {
                         return deferred.resolve(doc);
                     }
                 });
@@ -114,13 +107,11 @@ module.exports = function(db, mongoose) {
 
     function findAllInvestmentByUser(userId) {
         var deferred = q.defer();
-        //console.log(userId);
-        portfolioModel.find({userId: userId}, function (err, doc){
-            if (err){
+        portfolioModel.find({userId: userId}, function (err, doc) {
+            if (err) {
                 deferred.reject(err);
             }
-            if (doc){
-                //console.log("Users: " , doc);
+            if (doc) {
                 deferred.resolve(doc);
             }
         });

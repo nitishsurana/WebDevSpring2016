@@ -1,12 +1,12 @@
 /**
  * Created by Nitish on 4/14/2016.
  */
-module.exports = function(db, mongoose){
+module.exports = function (db, mongoose) {
 
     var stockSchema = require("./stock.schema.server.js")(mongoose);
     var stockModel = mongoose.model('stock', stockSchema);
     var q = require('q');
-    
+
     var api = {
         addStock: addStock,
         deleteStock: deleteStock,
@@ -15,41 +15,39 @@ module.exports = function(db, mongoose){
 
     return api;
 
-    function addStock(stock){
+    function addStock(stock) {
         var deferred = q.defer();
-        stockModel.create(stock, function(err, doc){
-            if(err){
+        stockModel.create(stock, function (err, doc) {
+            if (err) {
                 deferred.reject(err);
             }
-            if (doc){
+            if (doc) {
                 deferred.resolve(doc);
             }
         });
         return deferred.promise;
     }
 
-    function deleteStock(stockId){
+    function deleteStock(stockId) {
         var deferred = q.defer();
-        stockModel.remove({_id: stockId}, function(err, doc){
-            console.log("Stock Model");
-            console.log(err, doc);
-            if(err){
+        stockModel.remove({_id: stockId}, function (err, doc) {
+            if (err) {
                 deferred.reject(err);
             }
-            if (doc){
+            if (doc) {
                 deferred.resolve(doc);
             }
         });
         return deferred.promise;
     }
 
-    function updateStock(stockId, stock){
+    function updateStock(stockId, stock) {
         var deferred = q.defer();
-        stockModel.findOneAndUpdate({_id: stockId}, stock, function(err, doc){
-            if(err){
+        stockModel.findOneAndUpdate({_id: stockId}, stock, function (err, doc) {
+            if (err) {
                 deferred.reject(err);
             }
-            if (doc){
+            if (doc) {
                 deferred.resolve(doc);
             }
         });

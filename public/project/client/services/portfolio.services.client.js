@@ -6,9 +6,9 @@ angular
     .module("PortfolioManager")
     .factory("PortfolioService", PortfolioService);
 
-function PortfolioService($http){
+function PortfolioService($http) {
 
-    var portfolioServiceApi ={
+    var portfolioServiceApi = {
         addInvestment: addInvestment,
         deleteInvestment: deleteInvestment,
         updateInvestment: updateInvestment,
@@ -20,51 +20,51 @@ function PortfolioService($http){
 
     return portfolioServiceApi;
 
-    function addInvestment(userId, investment){
+    function addInvestment(userId, investment) {
         return $http.post("/api/project/" + userId + "/investment", investment);
     }
 
-    function deleteInvestment(userId, stockId){
+    function deleteInvestment(userId, stockId) {
         return $http.delete("/api/project/" + userId + "/investment/" + stockId);
     }
 
-    function updateInvestment(userId, investment){
+    function updateInvestment(userId, investment) {
         return $http.put("/api/project/" + userId + "/investment", investment);
     }
 
-    function findAllInvestmentByUserId(userId){
+    function findAllInvestmentByUserId(userId) {
         return $http.get("/api/project/" + userId + "/investment");
     }
 
-    function totalInvestmentValue(portfolio){
+    function totalInvestmentValue(portfolio) {
         //console.log("Portfolio Service client");
         //console.log(portfolio);
         var sum = 0;
-        for(var i=0; i<portfolio.length; i++){
+        for (var i = 0; i < portfolio.length; i++) {
             sum += portfolio[i].totalAmtInvested;
         }
         return sum;
     }
 
-    function currentValue(portfolio){
+    function currentValue(portfolio) {
         var sum = 0;
-        for(var i=0; i<portfolio.length; i++){
+        for (var i = 0; i < portfolio.length; i++) {
             sum += portfolio[i].currentValue;
         }
         return sum;
     }
 
-    function calculateProfit(portfolio){
+    function calculateProfit(portfolio) {
         var sum = 0;
-        for(var i=0; i<portfolio.length; i++){
+        for (var i = 0; i < portfolio.length; i++) {
             sum += portfolio[i].profit;
         }
-        if (sum<0){
+        if (sum < 0) {
             return "- $".concat(Math.abs(sum).toString());
         }
         else {
             return "$".concat(sum.toString());
         }
     }
-    
+
 }

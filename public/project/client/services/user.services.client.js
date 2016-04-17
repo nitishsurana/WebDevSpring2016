@@ -6,84 +6,81 @@
  */
 
 
-    angular
-        .module("PortfolioManager")
-        .factory('UserService', UserService);
-    
-    function UserService($http, $rootScope) {
+angular
+    .module("PortfolioManager")
+    .factory('UserService', UserService);
 
-        var api = {
-            findUserByCredentials: findUserByCredentials,
-            findAllUsers: findAllUsers,
-            findUser: findUser,
-            findUserById: findUserById,
-            createUser: createUser,
-            deleteUserById: deleteUserById,
-            updateUser: updateUser,
-            setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser,
-            followStock: followStock,
-            checkIfUserFollowStock: checkIfUserFollowStock,
-            followInvestor: followInvestor,
-            checkIfUserFollowInvestor: checkIfUserFollowInvestor
-        };
+function UserService($http, $rootScope) {
 
-        return api;
+    var api = {
+        findUserByCredentials: findUserByCredentials,
+        findAllUsers: findAllUsers,
+        findUser: findUser,
+        findUserById: findUserById,
+        createUser: createUser,
+        deleteUserById: deleteUserById,
+        updateUser: updateUser,
+        setCurrentUser: setCurrentUser,
+        getCurrentUser: getCurrentUser,
+        followStock: followStock,
+        checkIfUserFollowStock: checkIfUserFollowStock,
+        followInvestor: followInvestor,
+        checkIfUserFollowInvestor: checkIfUserFollowInvestor
+    };
 
-        function findUser(searchText){
-            return $http.get("/api/project/search/user?username=" + searchText);
-        }
+    return api;
 
-        function findUserByCredentials(username, password) {
-            return $http.get("/api/project/user?username=" + username + "&password=" + password);
-        }
-
-        function findUserById(userId){
-            return $http.get("/api/project/userId?id=" + userId);
-        }
-
-        function findAllUsers() {
-            //console.log("Find user service client");
-            return $http.get("/api/project/admin/");
-        }
-
-        function createUser (user) {
-            return $http.post("/api/project/user", user);
-        }
-
-        function deleteUserById(userId) {
-            //console.log(userId);
-            return $http.delete("/api/project/user/" + userId);
-        }
-
-        function setCurrentUser(user){
-            $rootScope.currentUser = user;
-            //console.log(user);
-        }
-        
-        function getCurrentUser(){
-            return $rootScope.currentUser;
-        }
-        
-        function updateUser(userId, user) {
-            return $http.put("/api/project/user/" + userId, user);
-        }
-
-        function followStock(userId, stock){
-            return $http.post("/api/project/user/"+ userId, stock);
-        }
-        
-        function checkIfUserFollowStock(userId, symbol) {
-            return $http.get("/api/project/user/"+ userId + "/stock/"+ symbol);
-        }
-        
-        function followInvestor(userId, investor) {
-            return $http.post("/api/project/user/"+ userId + "/investor", investor);
-        }
-        
-        function checkIfUserFollowInvestor(userId, username) {
-            return $http.get("/api/project/user/"+ userId + "/investor/"+ username);
-        }
+    function findUser(searchText) {
+        return $http.get("/api/project/search/user?username=" + searchText);
     }
+
+    function findUserByCredentials(username, password) {
+        return $http.get("/api/project/user?username=" + username + "&password=" + password);
+    }
+
+    function findUserById(userId) {
+        return $http.get("/api/project/userId?id=" + userId);
+    }
+
+    function findAllUsers() {
+        return $http.get("/api/project/admin/");
+    }
+
+    function createUser(user) {
+        return $http.post("/api/project/user", user);
+    }
+
+    function deleteUserById(userId) {
+        return $http.delete("/api/project/user/" + userId);
+    }
+
+    function setCurrentUser(user) {
+        $rootScope.currentUser = user;
+    }
+
+    function getCurrentUser() {
+        return $rootScope.currentUser;
+    }
+
+    function updateUser(userId, user) {
+        return $http.put("/api/project/user/" + userId, user);
+    }
+
+    function followStock(userId, stock) {
+        return $http.post("/api/project/user/" + userId, stock);
+    }
+
+    function checkIfUserFollowStock(userId, symbol) {
+        return $http.get("/api/project/user/" + userId + "/stock/" + symbol);
+    }
+
+    function followInvestor(userId, investor) {
+        return $http.post("/api/project/user/" + userId + "/investor", investor);
+    }
+
+    function checkIfUserFollowInvestor(userId, username) {
+        return $http.get("/api/project/user/" + userId + "/investor/" + username);
+    }
+}
 
 

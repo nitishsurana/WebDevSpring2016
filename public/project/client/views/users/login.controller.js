@@ -1,36 +1,28 @@
 /**
  * Created by Nitish on 3/2/2016.
  */
-(function (){
+(function () {
     angular
         .module("PortfolioManager")
         .controller("LoginController", LoginController);
 
     function LoginController($location, UserService) {
         var vm = this;
-        vm.login = login;/*
-        UserService.findAllUsers()
-            .success(function(response){
-                console.log(response);
-            });*/
+        vm.login = login;
+
         function login(loginCredentials) {
-            //console.log(loginCredentials);
-            if (!loginCredentials.hasOwnProperty("password")){
-                //console.log("TRUE");
+            if (!loginCredentials.hasOwnProperty("password")) {
                 loginCredentials.password = "";
             }
             UserService.findUserByCredentials(loginCredentials.username, loginCredentials.password)
-                .then(function(response){
-                    //console.log(response.data);
-                    if(response.data) {
+                .then(function (response) {
+                    if (response.data) {
                         UserService.setCurrentUser(response.data);
                         $location.url("/portfolio");
                     }
-                }, function(error){
+                }, function (error) {
                     console.log(error);
                 });
-
         }
-
     }
 })();
