@@ -20,7 +20,9 @@
                     vm.returnData.option = response.data.query.results.quote;
                     vm.follow = null;
                     vm.message = null;
+                    vm.userFollowing = [];
                     userFollows(response.data.query.results.quote.symbol);
+                    usersFollowingStock(symbol);
                     //console.log(vm.follow);
                     //console.log(response.data.query.results.quote);
                 });
@@ -74,6 +76,7 @@
                         } else {
                             vm.follow = true;
                         }
+                        usersFollowingStock(symbol);
                     }, function (error) {
                         console.log(error);
                     });
@@ -95,6 +98,23 @@
                         console.log(error);
                     });
             }
+        }
+
+        function usersFollowingStock(symbol){
+            vm.userFollowing = [];
+            UserService.findAllUsers()
+                .then(function(response){
+                    var users = response.data;
+                    for(var i=0; i<users.length; i++){
+                        for(var j=0; j<users[i].followStocks.length; j++){
+                            if (users[i].followStocks[j].symbol == symbol){
+                                vm.userFollowing.push(users[i]);
+                            }
+                        }
+                    }
+                }, function (error){
+
+                });
         }
     }
 })();

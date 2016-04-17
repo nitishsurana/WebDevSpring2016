@@ -15,6 +15,10 @@
         <div ng-repeat="(key,value) in model.returnData.option">
             <div ng-if="key!= 'symbol' && key!= 'Symbol' &&  key!= 'Name'">{{key}} - {{value}}</div>
         </div>
+        <strong ng-show="model.userFollowing.length>0">Other investors following this stock:</strong>
+        <div ng-repeat="user in model.userFollowing">
+            <a href="#/search/investor/{{user.username}}">{{user.fullName}}</a>
+        </div>
     </div>
     <div ng-show="model.returnData.investor">
         <h2>{{model.returnData.investor[0].fullName}}</h2>
