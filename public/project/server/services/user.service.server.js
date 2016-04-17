@@ -8,8 +8,10 @@ module.exports = function(app,userModel){
     app.get("/api/project/user", findUserByCredentials);
     app.get("/api/project/userId", findUserById);
     app.get("/api/project/user/:userId/stock/:symbol", checkIfUserFollowStock);
+    app.get("/api/project/user/:userId/investor/:username", checkIfUserFollowInvestor);
     app.post("/api/project/user", createUser);
     app.post("/api/project/user/:userId", followStock);
+    app.post("/api/project/user/:userId/investor", followInvestor);
     app.delete("/api/project/user/:id", deleteUserById);
     app.put("/api/project/user/:id", updateUser);
 
@@ -104,6 +106,33 @@ module.exports = function(app,userModel){
                 //console.log(response);
                 for(var i=0; i<response.followStocks.length ; i++){
                     if (response.followStocks[i].symbol == symbol){
+                        res.send(true);
+                    }
+                }
+                res.send(false);
+            }, function(error){
+                res.status(400).send(error);
+            })
+    }
+
+    function followInvestor(req, res){
+        var userId = req.params.userId;
+        var investor = req.body;
+        userModel.followInvestor(userId, investor)
+            .then(function(response){
+                res.json(response);
+            }, function(error){
+                res.status(400).send(error);
+            })
+    }
+    
+    function checkIfUserFollowInvestor(req, res) {
+        var userId = req.params.userId;
+        var username = req.params.username;
+        userModel.findUserById(userId)
+            .then(function(response){
+                for(var i=0; i<response.followUsers.length ; i++){
+                    if (response.followUsers[i].username == username){
                         res.send(true);
                     }
                 }

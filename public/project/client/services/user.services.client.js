@@ -23,7 +23,9 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             followStock: followStock,
-            checkIfUserFollowStock: checkIfUserFollowStock
+            checkIfUserFollowStock: checkIfUserFollowStock,
+            followInvestor: followInvestor,
+            checkIfUserFollowInvestor: checkIfUserFollowInvestor
         };
 
         return api;
@@ -73,6 +75,14 @@
         
         function checkIfUserFollowStock(userId, symbol) {
             return $http.get("/api/project/user/"+ userId + "/stock/"+ symbol);
+        }
+        
+        function followInvestor(userId, investor) {
+            return $http.post("/api/project/user/"+ userId + "/investor", investor);
+        }
+        
+        function checkIfUserFollowInvestor(userId, username) {
+            return $http.get("/api/project/user/"+ userId + "/investor/"+ username);
         }
     }
 

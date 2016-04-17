@@ -13,6 +13,8 @@
         //console.log(symbol, id);
         vm.followStock = followStock;
         vm.userFollows = userFollows;
+        vm.followInvestor = followInvestor;
+        
         if (symbol) {
             SearchService.searchYahoo(symbol)
                 .then(function (response) {
@@ -32,7 +34,14 @@
             SearchService.searchInvestorById(username)
                 .then(function (response) {
                     vm.returnData = {};
+                    vm.userFollowingInvestor = [];
+                    vm.userFollowStocks = [];
+                    vm.message = null;
+                    vm.followUser = null;
                     vm.returnData.investor = response.data;
+                    userFollowInvestor(username);
+                    userFollowingStocks(username);
+                    usersFollowingInvestor(username);
                     //console.log(response.data);
                 });
         }
@@ -115,6 +124,66 @@
                 }, function (error){
 
                 });
+        }
+        
+        function followInvestor(username, fullName){
+            var investor = {
+                username: username,
+                fullName: fullName
+            };
+            if ($rootScope.currentUser) {
+                UserService.followInvestor($rootScope.currentUser._id, investor)
+                    .then(function (response) {
+                        if (vm.followUser) {
+                            vm.followUser = false;
+                        } else {
+                            vm.followUser = true;
+                        }
+                        usersFollowingInvestor(username);
+                        userFollowingStocks();
+                    }, function (error) {
+                        console.log(error);
+                    });
+            }
+            else{
+                vm.message = "Please login to follow";
+            }
+        }
+
+        function usersFollowingInvestor(username){
+            vm.userFollowingInvestor = [];
+            UserService.findAllUsers()
+                .then(function(response){
+                    var users = response.data;
+                    for(var i=0; i<users.length; i++){
+                        for(var j=0; j<users[i].followUsers.length; j++){
+                            if (users[i].followUsers[j].username == username){
+                                vm.userFollowingInvestor.push(users[i]);
+                            }
+                        }
+                    }
+                }, function (error){
+
+                });
+        }
+
+        function userFollowInvestor(username) {
+            if($rootScope.currentUser) {
+                UserService.checkIfUserFollowInvestor($rootScope.currentUser._id, username)
+                    .then(function (response) {
+                        if (response.data == true) {
+                            vm.followUser = true;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+
+        function userFollowingStocks() {
+            if($rootScope.currentUser) {
+                vm.userFollowStocks = $rootScope.currentUser.followStocks;
+            }
         }
     }
 })();

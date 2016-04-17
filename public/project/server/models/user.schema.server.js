@@ -11,7 +11,12 @@ module.exports = function(mongoose){
         phone: String,
         aboutMe: String,
         interestedInvestments: [String],
-        followUsers: [String],
+        followUsers: [
+            {
+                username: String,
+                fullName: String
+            }
+        ],
         followStocks: [
             {
                 name: String, 
