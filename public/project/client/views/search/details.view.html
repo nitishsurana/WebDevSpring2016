@@ -1,51 +1,101 @@
-<div id="results">
+<div ng-show="!model.dataLoaded">
+    <h3>Loading Data . . .</h3>
+</div>
+<div id="results" ng-show="model.dataLoaded">
     <div ng-show="model.returnData.option">
         <h2>{{model.returnData.option.Name}}</h2>
-        <div ng-hide="model.message">
-            <button class="btn btn-primary"
-                    ng-click="model.followStock(model.returnData.option.Symbol, model.returnData.option.Name)">
-                <span ng-show="!model.userFollowsStock"
-                      class="glyphicon glyphicon-star-empty"></span>
-                <span ng-show="model.userFollowsStock"
-                      class="glyphicon glyphicon-star"></span>
-            </button>
+        <h3>
+            <div ng-if="model.positive" class="positive">
+                {{model.returnData.option.LastTradePriceOnly}}
+                <span class="glyphicon glyphicon-arrow-up"></span>
+                {{model.returnData.option.Change}}
+            </div>
+            <div ng-if="model.negative" class="negative">
+                {{model.returnData.option.LastTradePriceOnly}}
+                <span class="glyphicon glyphicon-arrow-down"></span>
+                {{model.returnData.option.Change}}
+            </div>
+        </h3>
+        <div id="chartSpace" class="col-xs-12 col-md-8"></div>
+        <div class="col-xs-12 col-md-4">
+            <div ng-hide="model.message">
+                <button class="btn btn-primary btn-spacing"
+                        ng-click="model.followStock(model.returnData.option.Symbol, model.returnData.option.Name)">
+                    <span ng-show="!model.userFollowsStock"
+                          class="glyphicon glyphicon-star-empty"></span>
+                    <span ng-show="model.userFollowsStock"
+                          class="glyphicon glyphicon-star"></span>
+                </button>
+                <table class="table table-hover">
+                    <tr ng-repeat="(key, value) in model.tableData">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                </table>
+                <!--
+                <div class="table-font" ng-repeat="(key,value) in model.returnData.option">
+                    <!--<div ng-show="key == 'DaysHigh'">
+                        <div class="col-xs-6">Day's High</div>
+                        <div class="col-xs-6">{{value}}</div>
+                    </div>
+                    <div ng-show="key == 'DaysLow'">
+                        <div class="col-xs-6">Day's Low</div>
+                        <div class="col-xs-6">{{value}}</div>
+                    </div>
+                    <div ng-show="key == 'DaysRange'">
+                        <div class="col-xs-6">Day's Range</div>
+                        <div class="col-xs-6">{{value}}</div>
+                    </div>
+                    <div ng-show="key == 'YearHigh'">
+                        <div class="col-xs-6">Year High</div>
+                        <div class="col-xs-6">{{value}}</div>
+                    </div>
+                    <div ng-if="key == 'YearLow'">
+                        <div class="col-xs-6">Year Low</div>
+                        <div class="col-xs-6">{{value}}</div>
+                    </div>
+                    <div ng-if="key == 'MarketCapitalization'">
+                        <div class="col-xs-6">Market Capitalization</div>
+                        <div class="col-xs-6">{{value}}</div>
+                    </div>
+                </div>
+            </div>-->
+            <h3><strong ng-show="model.usersFollowingStock.length>0">Other investors following this stock:</strong></h3>
+            <div ng-repeat="user in model.usersFollowingStock" class="bottom-pad">
+                <a href="#/search/investor/{{user.username}}">{{user.fullName}}</a>
+            </div>
         </div>
-        <h3>{{model.message}}</h3>
-
-        <div ng-repeat="(key,value) in model.returnData.option">
-            <div ng-if="key!= 'symbol' && key!= 'Symbol' &&  key!= 'Name'">{{key}} - {{value}}</div>
-        </div>
-        <strong ng-show="model.usersFollowingStock.length>0">Other investors following this stock:</strong>
-        <div ng-repeat="user in model.usersFollowingStock">
-            <a href="#/search/investor/{{user.username}}">{{user.fullName}}</a>
-        </div>
+        <h4 class="negative">{{model.message}}</h4>
     </div>
-    <div ng-show="model.returnData.investor">
-        <h2>{{model.returnData.investor[0].fullName}}</h2>
-        <div ng-hide="model.message">
-            <button class="btn btn-primary"
-                    ng-click="model.followInvestor(model.returnData.investor[0].username, model.returnData.investor[0].fullName)">
+</div>
+<div ng-show="model.returnData.investor">
+    <h2>{{model.returnData.investor[0].fullName}}</h2>
+    <div ng-hide="model.message">
+        <button class="btn btn-primary"
+                ng-click="model.followInvestor(model.returnData.investor[0].username, model.returnData.investor[0].fullName)">
                 <span ng-show="!model.userFollowsInvestor"
                       class="glyphicon glyphicon-star-empty"></span>
                 <span ng-show="model.userFollowsInvestor"
                       class="glyphicon glyphicon-star"></span>
-            </button>
-        </div>
-        <h3>{{model.message}}</h3>
-        <div ng-repeat="(key,value) in model.returnData.investor[0]">
-            <div ng-if="key!= 'username' && key!='password' && key!='roles' && key!='_id' && key!= 'fullName' && key!= 'followStocks' && key!= 'followUsers' && key!= 'interestedInvestments' && key!= '__v'">{{key}} - {{value}}</div>
-        </div>
-        <div ng-if="model.userFollowStocks.length>0">
-            <strong>Follows Stocks:</strong>
-            <div ng-repeat="stock in model.userFollowStocks">
-                <a href="#/search/option/{{stock.symbol}}">{{stock.name}}</a>
-            </div>
-        </div>
-        <div ng-if="model.userFollowingInvestor.length>0">
-            <strong>Followed by Investors:</strong>
-            <div ng-repeat="investor in model.userFollowingInvestor">
-                <a href="#/search/investor/{{investor.username}}">{{investor.fullName}}</a>
-            </div>
+        </button>
+    </div>
+    <h3 class="negative">{{model.message}}</h3>
+    <div ng-repeat="(key,value) in model.returnData.investor[0]">
+        <div ng-if="key!= 'username' && key!='password' && key!='roles' && key!='_id' && key!= 'fullName' && key!= 'followStocks' && key!= 'followUsers' && key!= 'interestedInvestments' && key!= '__v'">
+            {{key}} - {{value}}
         </div>
     </div>
+    <div ng-if="model.userFollowStocks.length>0">
+        <strong>Follows Stocks:</strong>
+        <div ng-repeat="stock in model.userFollowStocks">
+            <a href="#/search/option/{{stock.symbol}}">{{stock.name}}</a>
+        </div>
+    </div>
+    <div ng-if="model.userFollowingInvestor.length>0">
+        <strong>Followed by Investors:</strong>
+        <div ng-repeat="investor in model.userFollowingInvestor">
+            <a href="#/search/investor/{{investor.username}}">{{investor.fullName}}</a>
+        </div>
+    </div>
+</div>
 </div>

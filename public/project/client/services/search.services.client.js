@@ -18,7 +18,8 @@
             search: search,
             searchYahoo: searchYahoo,
             searchInvestorById: searchInvestorById,
-            getStockValue: getStockValue
+            getCurrentValueOfStocks: getCurrentValueOfStocks,
+            searchYahooIndex: searchYahooIndex
         };
         return api;
 
@@ -48,7 +49,7 @@
         function searchCompanySymbol(query){
             //console.log("Search service client");
             //console.log(query);
-            //$location.url('/search');
+            $location.url('/search');
             return $http.get("/api/project/search-option/"+ query);
             //console.log(result);
 
@@ -58,18 +59,14 @@
             //console.log(symbol);
             return $http.get("/api/project/search-yahoo/"+symbol);
         }
-
-        function getStockValue(stockName) {
-            searchCompanySymbol(stockName)
-                .success(function(response){
-                    var symbol = response[0].symbol;
-                    var a = searchYahoo(symbol);
-                    console.log(a);
-                    return a;
-                })
-                .error(function(error){
-                    
-                });
+        
+        function searchYahooIndex(symbol){
+            return $http.get("/api/project/search-yahoo/index/"+symbol);
+        }
+        function getCurrentValueOfStocks(stocks) {
+            for(var i=0; i<stocks.length; i++){
+                console.log($http.get("/api/project/search-yahoo/"+stocks[i].symbol));
+            }
         }
     }
 })();

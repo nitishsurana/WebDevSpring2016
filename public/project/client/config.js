@@ -11,11 +11,6 @@
                     controller: "HomeController",
                     controllerAs: "model"
                 })
-                .when("/search", {
-                    templateUrl: "views/search/search.view.html",
-                    controller: "SearchController",
-                    controllerAs: "model"
-                })
                 .when("/search/option/:symbol", {
                     templateUrl: "views/search/details.view.html",
                     controller: "DetailsController",

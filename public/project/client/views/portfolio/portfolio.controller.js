@@ -23,10 +23,10 @@
             PortfolioService.findAllInvestmentByUserId(currentUserId)
                 .then(function (response) {
                     if (response.data.length > 0) {
-                        var portfolio = response.data.investment;
+                        var portfolio = response.data[0].investment;
                         vm.message = null;
                         vm.portfolio = portfolio;
-                        getCurrentValue();
+                        getCurrentValueOfStocks();
                         vm.invested = PortfolioService.totalInvestmentValue(portfolio);
                         vm.currentValuation = PortfolioService.currentValue(portfolio);
                         vm.netGain = PortfolioService.calculateProfit(portfolio);
@@ -38,11 +38,26 @@
 
         init();
 
-        function getCurrentValue() {
+        function getCurrentValueOfStocks() {
+            var currentValue = [];
+            console.log(vm.portfolio[0]);
             for (var i = 0; i < vm.portfolio.length; i++) {
-                var a = SearchService.getStockValue("Yahoo");
-                console.log(a);
+                //var investment = vm.portfolio[i];
+                SearchService.searchYahoo(investment.stockName)
+                    .then(function(response){
+                        //console.log(i);
+                        //console.log(response.data.query.results.quote);
+                        //console.log(vm.portfolio[0]);
+                        //vm.portfolio[i].currentValueOfInvestment = vm.portfolio[i].qty * response.data.query.results.quote.LastTradePriceOnly
+                        currentValue.push(response.data.query.results.quote.LastTradePriceOnly);
+                    }, function(error){
+
+                    });
+                //console.log(a);
+                //vm.portfolio[i].currentValueOfInvestment = a
             }
+            //console.log(vm.portfolio);
+            return currentValue;
         }
 
         function addInvestment(investment) {

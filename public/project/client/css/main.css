@@ -36,3 +36,24 @@ th{
 .padding{
     padding-top: 1%;
 }
+
+.positive{
+    color: #0c1eff;
+}
+
+.negative{
+    color: #ff1120;
+}
+.table-font{
+    font-size: large;
+    text-wrap: none;
+    white-space: nowrap;
+}
+
+.bottom-pad{
+    padding-bottom: 18%;
+}
+
+.btn-spacing{
+    margin: 3%;
+}
