@@ -10,13 +10,11 @@
 
         var vm = this;
         vm.stock = null;
+        vm.error = null;
         vm.search = search;
-        var xxx = 0;
         init();
 
         function init(){
-            xxx++;
-            console.log(xxx);
             SearchService.searchYahooIndex("ixic")
                 .then(function(response){
                     //console.log(response.data);
@@ -62,27 +60,23 @@
         }
 
         function search(query){
-            xxx++;
-            console.log(xxx);
             SearchService.search(query.queryType, query.queryText)
                 .then(function(response){
                     $rootScope.queryType = query.queryType;
+                    if (response.data.length<1){
+                        vm.error = "Could not find '" + query.queryText + "'.";
+                    }
                     if (query.queryType == 'Investment Option')
                     {
-                        console.log("TRue");
                         vm.stock = true;
                         vm.stocks = response.data;
                     }
                     else{
-                        console.log("False");
                         vm.investor = false;
                         vm.investors = response.data;
                     }
-                    console.log(vm.stocks);
-                    console.log(vm.investors);
-                    console.log(vm.stock);
-                }, function(response){
-
+                }, function(error){
+                    vm.error = "Could not find " + query.queryText + ".";
                 });
         }
     }

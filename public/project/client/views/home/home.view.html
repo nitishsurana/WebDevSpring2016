@@ -14,22 +14,18 @@
             <button type="submit" ng-click="model.search(model.query)" class="btn btn-primary">Search</button>
         </form>
     </form>
-    {{model.returnData}}
     <div ng-show="model.stock">
-        HERE
         <div ng-repeat="stk in model.stocks">
-            {{stk}}
             <div ng-if="stk">
                 <h3>
                     <a href="#/search/option/{{stk.symbol}}">
-                        {{option.company}}
+                        {{stk.company}}
                     </a>
                 </h3>
             </div>
         </div>
     </div>
     <div ng-hide="model.stock">
-        THERE
         <div ng-repeat="investor in model.investors">
             <div ng-if="investor">
                 <h3>
@@ -39,9 +35,10 @@
                 </h3>
             </div>
         </div>
-        <div ng-show="model.returnData.err">
-            <h4>Oops, the searched investor "{{model.query.queryText}}" does not exist.</h4>
-        </div>
+    </div>
+    <div ng-show="model.error">
+        &nbsp;
+        <h4>{{model.error}}</h4>
     </div>
 </div>
 <div id="chartSpace" class="col-md-6 col-xs-12"></div>
