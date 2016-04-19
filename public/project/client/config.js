@@ -34,20 +34,46 @@
                 .when("/portfolio", {
                     templateUrl: "views/portfolio/portfolio.view.html",
                     controller: "PortfolioController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedIn: checkLoggedIn
+                    }
                 })
                 .when("/profile", {
                     templateUrl: "views/users/profile.view.html",
                     controller: "ProfileController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedIn: checkLoggedIn
+                    }
                 })
                 .when("/admin", {
                     templateUrl: "views/admin/admin.view.html",
                     controller: "AdminController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedIn: checkLoggedIn
+                    }
                 })
                 .otherwise({
                     redirectTo: "/"
                 });
         });
+
+    function checkLoggedIn($q, $rootScope, $location, $http){
+        var deferred = $q.defer();
+
+        $http.get("/api/project/loggedin")
+            .success(function(user){
+                $rootScope.errorMessage = null;
+                if(user != '0'){
+                    $rootScope.currentUser = user;
+                    deferred.resolve();
+                }
+                else{
+                    $location.url("/login");
+                }
+            });
+        return deferred.promise;
+    }
 })();

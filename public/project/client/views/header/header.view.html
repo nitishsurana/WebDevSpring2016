@@ -12,20 +12,20 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse ">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-class="{'active': $location.url()=='/register'}">
-                        <a href="#/register" ng-hide="currentUser">
+                    <li ng-class="{'active': $location.url()=='/register'}" ng-hide="currentUser">
+                        <a href="#/register">
                             <span class="glyphicon glyphicon-user"></span> Register
                         </a>
                     </li>
-                    <li ng-class="{'active': $location.url()=='/login'}">
-                        <a href="#/login" ng-hide="currentUser">
+                    <li ng-class="{'active': $location.url()=='/login'}" ng-hide="currentUser">
+                        <a href="#/login">
                             <span class="glyphicon glyphicon-log-in"></span> Login
                         </a>
                     </li>
                     <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url()=='/admin'}">
                         <a href="#/admin">Admin</a></li>
                     <li ng-class="{'active': $location.url()=='/profile'}">
-                        <a href="#/profile" ng-show="currentUser">Profile</a>
+                        <a href="#/profile" ng-show="currentUser">{{currentUser.fullName}}</a>
                     </li>
                     <li ng-class="{'active': $location.url()=='/portfolio'}">
                         <a href="#/portfolio" ng-show="currentUser">Portfolio</a>

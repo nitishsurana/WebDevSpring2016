@@ -3,6 +3,8 @@
  */
 
 module.exports = function (app, userModel) {
+    app.get("/api/project/loggedin", loggedIn);
+    app.get("/api/project/logout", logOut);
     app.get("/api/project/admin", findAllUsers);
     app.get("/api/project/search/user", findUserByUsername);
     app.get("/api/project/user", findUserByCredentials);
@@ -15,10 +17,20 @@ module.exports = function (app, userModel) {
     app.delete("/api/project/user/:id", deleteUserById);
     app.put("/api/project/user/:id", updateUser);
 
+    function loggedIn(req, res) {
+        res.send(req.session.user);
+    }
+
+    function logOut(req, res) {
+        req.session.destroy();
+        res.send(200);
+    }
+
     function findUserByUsername(req, res) {
         var username = req.query.username;
         userModel.findUserByUsername(username)
             .then(function (user) {
+                req.session.user = user;
                 res.json(user);
             }, function (error) {
                 res.status(400).send(error);
@@ -30,6 +42,7 @@ module.exports = function (app, userModel) {
         var password = req.query.password;
         userModel.findUserByCredentials(username, password)
             .then(function (user) {
+                req.session.user = user;
                 res.json(user);
             }, function (error) {
                 res.status(400).send(error);
@@ -59,6 +72,7 @@ module.exports = function (app, userModel) {
         var new_user = req.body;
         userModel.createUser(new_user)
             .then(function (user) {
+                req.session.user = user;
                 res.json(user);
             }, function (error) {
                 res.status(400).send(error);

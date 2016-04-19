@@ -6,11 +6,16 @@
         .module("PortfolioManager")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, UserService){
+    function HeaderController($scope, UserService, $location){
         $scope.logout = logout;
         
         function logout(){
-            UserService.setCurrentUser(null);
+            UserService.logOut()
+                .then(function(response){
+                    $location.url("/home");
+                }, function(error){
+
+                });
         }
 
     }
