@@ -1,6 +1,9 @@
 <div ng-show="!model.dataLoaded">
     <h3>Loading Data . . .</h3>
 </div>
+<div ng-show="model.error">
+    <h3>{{model.error}}</h3>
+</div>
 <div id="results" ng-show="model.dataLoaded">
     <div ng-show="model.returnData.option">
         <h2>{{model.returnData.option.Name}}</h2>

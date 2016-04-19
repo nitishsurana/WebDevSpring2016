@@ -19,69 +19,75 @@
         if (symbol) {
             SearchService.searchYahoo(symbol)
                 .then(function (response) {
-                    var a = response.data[1].query.results.quote;
-                    //console.log();
-                    vm.returnData = {};
-                    vm.returnData.option = response.data[0].query.results.quote;
-                    vm.tableData ={
-                        "Day's Range": vm.returnData.option.DaysRange,
-                        "Market Capitalization": vm.returnData.option.MarketCapitalization,
-                        "Year Low": vm.returnData.option.YearLow,
-                        "Year High": vm.returnData.option.YearHigh
-                    };
-                    console.log(vm.returnData.option);  
-                    var prices =[];
-                    var dates = [];
-                    for (var i=0; i<a.length; i++){
-                        dates.push(a[i].Date);
-                        prices.push(parseInt(a[i].Close));
-                    }
-                    if(vm.returnData.option.Change<0){
-                        vm.negative = true;
-                        vm.positive = false;
-                    } else if(vm.returnData.option.Change>0){
-                        vm.negative = false;
-                        vm.positive = true;
-                    }
-                    //console.log(dates);
-                    //console.log(prices);
-                    Highcharts.chart('chartSpace', {
-                        chart: {
-                            zoomType: 'x'
-                        },
-                        title: {
-                            text: null
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        xAxis: {
-                            title:{
-                                text: 'Dates'
+                    console.log(response);
+                    if (response.data.length == 2 && response.data[1].query.results != null) {
+                        var a = response.data[1].query.results.quote;
+                        //console.log();
+                        vm.returnData = {};
+                        vm.returnData.option = response.data[0].query.results.quote;
+                        vm.tableData = {
+                            "Day's Range": vm.returnData.option.DaysRange,
+                            "Market Capitalization": vm.returnData.option.MarketCapitalization,
+                            "Year Low": vm.returnData.option.YearLow,
+                            "Year High": vm.returnData.option.YearHigh
+                        };
+                        console.log(vm.returnData.option);
+                        var prices = [];
+                        var dates = [];
+                        for (var i = 0; i < a.length; i++) {
+                            dates.push(a[i].Date);
+                            prices.push(parseInt(a[i].Close));
+                        }
+                        if (vm.returnData.option.Change < 0) {
+                            vm.negative = true;
+                            vm.positive = false;
+                        } else if (vm.returnData.option.Change > 0) {
+                            vm.negative = false;
+                            vm.positive = true;
+                        }
+                        //console.log(dates);
+                        //console.log(prices);
+                        Highcharts.chart('chartSpace', {
+                            chart: {
+                                zoomType: 'x'
                             },
-                            type: 'datetime',
-                            categories: dates.reverse()
-                        },
-                        yAxis: {
-                            range: 100,
                             title: {
-                                text: 'Stock Price'
-                            }
-                        },
-                        series: [{
-                            type: 'area',
-                            name: 'Close Price ',
-                            data: prices.reverse(),
-                            tooltip: {
-                                valueDecimals: 2
-                            }
-                        }]
-                    });
-                    vm.userFollowsStock = null;
-                    vm.usersFollowingStock = [];
-                    userFollows(response.data[0].query.results.quote.symbol);
-                    usersFollowingStock(symbol);
-                    vm.dataLoaded = true;
+                                text: null
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            xAxis: {
+                                title: {
+                                    text: 'Dates'
+                                },
+                                type: 'datetime',
+                                categories: dates.reverse()
+                            },
+                            yAxis: {
+                                range: 100,
+                                title: {
+                                    text: 'Stock Price'
+                                }
+                            },
+                            series: [{
+                                type: 'area',
+                                name: 'Close Price ',
+                                data: prices.reverse(),
+                                tooltip: {
+                                    valueDecimals: 2
+                                }
+                            }]
+                        });
+                        vm.userFollowsStock = null;
+                        vm.usersFollowingStock = [];
+                        userFollows(response.data[0].query.results.quote.symbol);
+                        usersFollowingStock(symbol);
+                        vm.dataLoaded = true;
+                    } else {
+                        vm.dataLoaded = true;
+                        vm.error = "Sorry! Requested Data is unavailable. Please check if the company is still traded.";
+                    }
                 });
         }
         else {
