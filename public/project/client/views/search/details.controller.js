@@ -9,7 +9,7 @@
     function DetailsController($rootScope, $routeParams, SearchService, UserService) {
         var vm = this;
         var symbol = $routeParams.symbol;
-        var username = $routeParams.id;
+        var searchedUsername = $routeParams.id;
         vm.message = null;
         vm.dataLoaded = false;
         vm.followStock = followStock;
@@ -91,17 +91,37 @@
                 });
         }
         else {
-            SearchService.searchInvestorById(username)
+            SearchService.searchInvestorById(searchedUsername)
                 .then(function (response) {
-                    vm.returnData = {};
                     vm.userFollowingInvestor = [];
                     vm.userFollowStocks = [];
                     vm.userFollowsInvestor = null;
-                    vm.returnData.investor = response.data;
-                    userFollowInvestor(username);
-                    userFollowingStocks(username);
-                    usersFollowingInvestor(username);
+                    userFollowInvestor(searchedUsername);
+                    userFollowingStocks(searchedUsername);
+                    usersFollowingInvestor(searchedUsername);
                     vm.dataLoaded = true;
+                    vm.userSignedIn = false;
+                    UserService.getCurrentUser()
+                        .then(function(user) {
+                            if (user) {
+                                vm.investor = {
+                                    "username": response.data[0].username,
+                                    "fullName": response.data[0].fullName,
+                                    "Contact Information": response.data[0].email,
+                                    "About Me": response.data[0].aboutMe,
+                                    "Interested Investments": response.data[0].interestedInvestments[0].split(",")
+                                };
+                                vm.userSignedIn = true;
+                            } else {
+                                vm.investor = {
+                                    "username": response.data[0].username,
+                                    "fullName": response.data[0].fullName,
+                                    "Interested Investments": response.data[0].interestedInvestments
+                                };
+                                vm.requestToLogin = "Please login to see the stocks and other investors they follow.";
+                                vm.userSignedIn = false;
+                            }
+                        });
                 });
         }
 
@@ -158,11 +178,12 @@
                 });
         }
 
-        function followInvestor(username, fullName) {
+        function followInvestor(investorUsername, fullName) {
             var investor = {
-                username: username,
+                username: investorUsername,
                 fullName: fullName
             };
+            console.log(investor);
             if ($rootScope.currentUser) {
                 UserService.followInvestor($rootScope.currentUser._id, investor)
                     .then(function (response) {
@@ -171,8 +192,8 @@
                         } else {
                             vm.userFollowsInvestor = true;
                         }
-                        usersFollowingInvestor(username);
-                        userFollowingStocks(username);
+                        usersFollowingInvestor(investorUsername);
+                        userFollowingStocks(investorUsername);
                     }, function (error) {
                         console.log(error);
                     });
