@@ -9,7 +9,10 @@
     function ProfileController(UserService) {
         var vm = this;
         vm.update = update;
-        vm.user = UserService.getCurrentUser();
+        UserService.getCurrentUser()
+            .then(function(response){
+                vm.user = response.data[0];
+            });
         function update(user) {
             UserService.setCurrentUser(user);
             UserService.updateUser(user._id, user)
