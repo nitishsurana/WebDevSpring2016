@@ -9,7 +9,13 @@ module.exports = function (app, userModel) {
     app.get("/api/project/search-yahoo/:symbol", searchYahoo);
     app.get("/api/project/search-investor/:query", searchInvestor);
     app.get("/api/project/search-yahoo/index/:symbol", searchYahooIndex);
+    app.get("/api/project/search-yahoo/symbol/:symbol", searchYahooSymbol);
 
+    var api ={
+        portfolioRequest: portfolioRequest
+    };
+    return api;
+    
     function searchOption(req, res) {
         var searchQuery = req.params.query;
         var request = {
@@ -108,6 +114,45 @@ module.exports = function (app, userModel) {
                 var weekData = JSON.parse(body);
                 //console.log(parsed);
                 res.send(weekData);
+            });
+
+        });
+    }
+
+    function searchYahooSymbol(req, res){
+        var symbol = req.params.symbol;
+        var request = {
+            host: 'query.yahooapis.com',
+            path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20%3D%20%22' + symbol + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
+        };
+        var result = [];
+        http.get(request, function (response) {
+            var body = '';
+            response.on('data', function (d) {
+                body += d;
+            });
+            response.on('end', function () {
+                var parsed = JSON.parse(body);
+                //console.log(parsed);
+                res.send(parsed);
+            });
+
+        });
+    }
+    function portfolioRequest(symbol) {
+        var request = {
+            host: 'query.yahooapis.com',
+            path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20%3D%20%22' + symbol + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
+        };
+        http.get(request, function (response) {
+            var body = '';
+            response.on('data', function (d) {
+                body += d;
+            });
+            response.on('end', function () {
+                var parsed = JSON.parse(body);
+                //console.log(parsed);
+                return parsed       ;
             });
 
         });

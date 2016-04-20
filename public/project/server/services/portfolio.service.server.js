@@ -7,7 +7,7 @@ module.exports = function (app, portfolioModel) {
     app.post("/api/project/:id/investment", addInvestment);
     app.delete("/api/project/:id/investment/:stockId", deleteInvestment);
     app.put("/api/project/:id/investment", updateInvestment);
-
+    
     function findAllInvestmentByUserId(req, res) {
         var userId = req.params.id;
         portfolioModel.findAllInvestmentByUser(userId)
@@ -50,4 +50,5 @@ module.exports = function (app, portfolioModel) {
                 res.status(400).send(error);
             });
     }
+    
 };

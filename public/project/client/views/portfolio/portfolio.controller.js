@@ -6,7 +6,7 @@
         .module("PortfolioManager")
         .controller("PortfolioController", PortfolioController);
 
-    function PortfolioController(PortfolioService, UserService, SearchService) {
+    function PortfolioController(PortfolioService, UserService, $timeout) {
 
         var vm = this;
 
@@ -15,9 +15,12 @@
         vm.deleteInvestment = deleteInvestment;
         vm.selectInvestment = selectInvestment;
 
-        var currentUser = UserService.getCurrentUser();
-        //console.log(currentUser);
-        var currentUserId = currentUser._id;
+        var currentUserId = '';
+        UserService.getCurrentUser()
+            .then(function (response) {
+                currentUserId = response.data._id;
+                init();
+            });
 
         function init() {
             PortfolioService.findAllInvestmentByUserId(currentUserId)
@@ -28,36 +31,41 @@
                         vm.portfolio = portfolio;
                         getCurrentValueOfStocks();
                         vm.invested = PortfolioService.totalInvestmentValue(portfolio);
-                        vm.currentValuation = PortfolioService.currentValue(portfolio);
-                        vm.netGain = PortfolioService.calculateProfit(portfolio);
                     }
                 }, function (error) {
                     vm.message = "Error in loading portfolio. Please try again later.";
                 });
         }
 
-        init();
-
         function getCurrentValueOfStocks() {
-            var currentValue = [];
-            console.log(vm.portfolio[0]);
-            for (var i = 0; i < vm.portfolio.length; i++) {
-                //var investment = vm.portfolio[i];
-                SearchService.searchYahoo(investment.stockName)
-                    .then(function(response){
-                        //console.log(i);
-                        //console.log(response.data.query.results.quote);
-                        //console.log(vm.portfolio[0]);
-                        //vm.portfolio[i].currentValueOfInvestment = vm.portfolio[i].qty * response.data.query.results.quote.LastTradePriceOnly
-                        currentValue.push(response.data.query.results.quote.LastTradePriceOnly);
-                    }, function(error){
-
-                    });
-                //console.log(a);
-                //vm.portfolio[i].currentValueOfInvestment = a
-            }
-            //console.log(vm.portfolio);
-            return currentValue;
+            var a = PortfolioService.currentValueOfStocks(vm.portfolio);
+            $timeout(1000)
+                .then(function (response) {
+                    if (a.$$state.status != 0) {
+                        var currentValues = a.$$state.value;
+                        for (var i = 0; i < currentValues.length; i++) {
+                            vm.portfolio[currentValues[i].position].currentValueOfInvestment = currentValues[i].value;
+                            vm.portfolio[currentValues[i].position].profit = vm.portfolio[currentValues[i].position].currentValueOfInvestment - vm.portfolio[currentValues[i].position].totalAmtInvested;
+                            if (vm.portfolio[currentValues[i].position].profit >= 0) {
+                                vm.portfolio[currentValues[i].position].positive = true;
+                            } else {
+                                vm.portfolio[currentValues[i].position].positive = false;
+                            }
+                        }
+                        vm.currentValuation = PortfolioService.currentValue(vm.portfolio);
+                        vm.netGain = PortfolioService.calculateProfit(vm.portfolio);
+                        if (vm.netGain.indexOf("-") == 0) {
+                            vm.overallProfit = false;
+                        }
+                        else {
+                            vm.overallProfit = true;
+                        }
+                    }
+                    else {
+                        vm.currentValuation = 0;
+                        vm.netGain = "$0";
+                    }
+                });
         }
 
         function addInvestment(investment) {

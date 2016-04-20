@@ -6,7 +6,10 @@ angular
     .module("PortfolioManager")
     .factory("PortfolioService", PortfolioService);
 
-function PortfolioService($http) {
+function PortfolioService($q, $http, SearchService) {
+
+    var values = [];
+    var count = 0;
 
     var portfolioServiceApi = {
         addInvestment: addInvestment,
@@ -15,7 +18,9 @@ function PortfolioService($http) {
         totalInvestmentValue: totalInvestmentValue,
         currentValue: currentValue,
         calculateProfit: calculateProfit,
-        findAllInvestmentByUserId: findAllInvestmentByUserId
+        findAllInvestmentByUserId: findAllInvestmentByUserId,
+        currentValueOfStocks: currentValueOfStocks,
+        currentValueOfStock: currentValueOfStock
     };
 
     return portfolioServiceApi;
@@ -49,7 +54,7 @@ function PortfolioService($http) {
     function currentValue(portfolio) {
         var sum = 0;
         for (var i = 0; i < portfolio.length; i++) {
-            sum += portfolio[i].currentValue;
+            sum += portfolio[i].currentValueOfInvestment;
         }
         return sum;
     }
@@ -67,4 +72,37 @@ function PortfolioService($http) {
         }
     }
 
+    function currentValueOfStocks(stocks){
+        count = 0;
+        var deferred = $q.defer();
+        for(var i=0; i<stocks.length; i++){
+            currentValueOfStock(stocks[i].stockName, stocks[i].qty, i)
+                .then(function(response){
+                    count++;
+                    if(count>= stocks.length){
+                        deferred.resolve(values);
+                    }
+                }, function(error){
+                    deferred.reject(error);
+                });
+        }
+        return deferred.promise;
+    }
+
+    function currentValueOfStock(symbol, qty, pos){
+        values = [];
+        var deferred = $q.defer();
+        SearchService.searchYahooSymbol(symbol)
+            .then(function(response){
+                var a = response.data.query.results.quote.LastTradePriceOnly * qty;
+                values.push({
+                    "position": pos,
+                    "value": a
+                });
+                deferred.resolve();
+            }, function(error){
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    }
 }
