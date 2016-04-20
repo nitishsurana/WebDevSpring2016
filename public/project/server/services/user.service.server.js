@@ -11,6 +11,7 @@ module.exports = function (app, userModel) {
     app.get("/api/project/userId", findUserById);
     app.get("/api/project/user/:userId/stock/:symbol", checkIfUserFollowStock);
     app.get("/api/project/user/:userId/investor/:username", checkIfUserFollowInvestor);
+    app.get("/api/project/user/:username/stock", stocksFollowedByUser);
     app.post("/api/project/user", createUser);
     app.post("/api/project/user/:userId/stock", followStock);
     app.post("/api/project/user/:userId/investor", followInvestor);
@@ -150,6 +151,16 @@ module.exports = function (app, userModel) {
                 }
                 res.send(false);
             }, function (error) {
+                res.status(400).send(error);
+            })
+    }
+    
+    function stocksFollowedByUser(req, res) {
+        var username = req.params.username;
+        userModel.findUserByUsername(username)
+            .then(function(response){
+                res.json(response);
+            }, function(error){
                 res.status(400).send(error);
             })
     }

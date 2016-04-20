@@ -172,7 +172,7 @@
                             vm.userFollowsInvestor = true;
                         }
                         usersFollowingInvestor(username);
-                        userFollowingStocks();
+                        userFollowingStocks(username);
                     }, function (error) {
                         console.log(error);
                     });
@@ -212,9 +212,14 @@
             }
         }
 
-        function userFollowingStocks() {
+        function userFollowingStocks(username) {
             if ($rootScope.currentUser) {
-                vm.userFollowStocks = $rootScope.currentUser.followStocks;
+                UserService.stocksFollowedByUser(username)
+                    .then(function(response){
+                        vm.userFollowStocks = response.data[0].followStocks;
+                    }, function(error){
+
+                    });
             }
         }
     }
