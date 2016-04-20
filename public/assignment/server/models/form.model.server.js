@@ -75,7 +75,6 @@ module.exports = function (db, mongoose) {
 
     function updateFormById(formId, newForm){
         var deferred = q.defer();
-        delete newForm._id;
         FormModel.findOneAndUpdate({_id: formId},newForm, function (err, doc) {
             if (err) {
                 deferred.reject(err);
