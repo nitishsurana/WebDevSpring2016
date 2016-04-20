@@ -9,6 +9,7 @@
     function RegisterController($location, UserService) {
         var vm = this;
         vm.register = register;
+        vm.errorMessage = null;
 
         function register(user) {
             UserService.createUser(user)
@@ -17,8 +18,11 @@
                     UserService.setCurrentUser(response);
                     $location.url("/profile");
                 }, function (error) {
-                    alert("Unable to Register. Please try again.");
-                    console.log(error);
+                    if(error.status == 401){
+                        vm.errorMessage = error.data;
+                    } else {
+                        alert("Unable to Register. Please try again.");
+                    }
                 });
         }
     }

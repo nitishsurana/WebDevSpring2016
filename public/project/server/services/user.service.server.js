@@ -70,11 +70,19 @@ module.exports = function (app, userModel) {
     }
 
     function createUser(req, res) {
-        var new_user = req.body;
-        userModel.createUser(new_user)
-            .then(function (user) {
-                req.session.user = user;
-                res.json(user);
+        var newUser = req.body;
+        userModel.findUserByUsername(newUser.username)
+            .then(function (response) {
+                if(response.length == 0) {
+                    userModel.createUser(newUser)
+                        .then(function(user){
+                            req.session.user = user;
+                            res.json(user);
+                        }, function(error){
+                            res.status(400).send(error);
+                        });
+                }
+                res.status(401).send("Username already exists!");
             }, function (error) {
                 res.status(400).send(error);
             });
