@@ -6,20 +6,28 @@
             <table class="table table-striped">
                 <tr class="admin-alignment">
                     <th class="col-no-wrap">
-                        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                        Username
+                        <a href="" ng-click="model.sortType = 'model.user.username'; model.sortReverse = !model.sortReverse">
+                            <span ng-show="model.sortType == 'model.user.username' && !model.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="model.sortType == 'model.user.username' && model.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                            Username
+                        </a>
                     </th>
                     <th> Password</th>
                     <th class="col-no-wrap">
-                        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                        First Name
+                        <a href="" ng-click="model.sortType = 'model.user.firstName'; model.sortReverse = !model.sortReverse">
+                            <span ng-show="model.sortType == 'model.user.firstName' && !model.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="model.sortType == 'model.user.firstName' && model.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                            First Name
+                        </a>
+
                     </th>
                     <th class="col-no-wrap">
-                        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                        Last Name
+                        <a href="" ng-click="model.sortType = 'model.user.lastName'; model.sortReverse = !model.sortReverse">
+                            <span ng-show="model.sortType == 'model.user.lastName' && !model.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="model.sortType == 'model.user.lastName' && model.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                            Last Name
+                        </a>
+
                     </th>
                     <th class="col-no-wrap"> Roles</th>
                     <th class="col-no-wrap" colspan="2"> Actions</th>
@@ -45,7 +53,7 @@
                         </div>
                     </div>
                 </tr>
-                <tr class="admin-alignment" ng-repeat="user in model.users">
+                <tr class="admin-alignment" ng-repeat="user in model.users | orderBy:model.sortType:model.sortReverse">
                     <td>{{user.username}}</td>
                     <td></td>
                     <td>{{user.firstName}}</td>

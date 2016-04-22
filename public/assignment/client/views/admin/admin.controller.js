@@ -13,7 +13,9 @@
         a.updateUser = updateUser;
         a.selectUser = selectUser;
         a.deleteUser = deleteUser;
-
+        //a.sortType = 'a.user.username';
+        a.sortReverse = false;
+        
         init();
 
         function init(){

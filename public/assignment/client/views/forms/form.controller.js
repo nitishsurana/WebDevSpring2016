@@ -14,6 +14,8 @@
         a.deleteForm = deleteForm;
         a.selectForm = selectForm;
         a.goToField = goToField;
+        a.sortType = 'a.form.title';
+        a.sortReverse = false;
         var selectedIndex = -1;
 
         immediate();

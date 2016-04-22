@@ -13,8 +13,14 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tr>
-                            <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Form Name</th>
-                            <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action</th>
+                            <th>
+                                <a href="" ng-click="model.sortType = 'model.form.title'; model.sortReverse = !model.sortReverse">
+                                <span ng-show="model.sortType == 'model.form.title' && !model.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                                <span ng-show="model.sortType == 'model.form.title' && model.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                                Form Name
+                            </a>
+                            </th>
+                            <th>Action</th>
                         </tr>
                         <tr>
                             <div class="form-group">
@@ -32,7 +38,7 @@
                                 </div>
                             </div>
                         </tr>
-                        <tr ng-repeat="form in model.forms" ng-class="{'success' : $index == selectedFormIndex}">
+                        <tr ng-repeat="form in model.forms | orderBy:model.sortType:model.sortReverse" ng-class="{'success' : $index == selectedFormIndex}">
                             <td><a ng-click="model.goToField($index)" role="button"> {{form.title}} </a></td>
                             <td>
                                 <a ng-click="model.deleteForm($index)" role="button" class="btn btn-default">

@@ -62,11 +62,6 @@ module.exports = function (app, formModel, fieldModel) {
         formModel.findFormById(formId)
             .then(function (doc) {
                 doc.fields.push(fields);
-                delete doc._id;
-                console.log(doc);
-                for(var i=0;  i<doc.fields.length; i++){
-                    delete doc.fields[i]._id;
-                }
                 formModel.updateFormById(formId, doc)
                     .then(function (doc) {
                         res.json(doc);
