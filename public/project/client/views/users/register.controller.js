@@ -15,8 +15,7 @@
             UserService.createUser(user)
                 .then(function (response) {
                     vm.user = response.data;
-                    UserService.setCurrentUser(response);
-                    $location.url("/profile");
+                    $location.url("/login");
                 }, function (error) {
                     if(error.status == 401){
                         vm.errorMessage = error.data;
