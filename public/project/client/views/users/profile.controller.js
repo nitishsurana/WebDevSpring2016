@@ -11,7 +11,7 @@
         vm.update = update;
         UserService.getCurrentUser()
             .then(function(response){
-                vm.user = response.data[0];
+                vm.user = response.data;
             });
         function update(user) {
             UserService.setCurrentUser(user);

@@ -12,8 +12,8 @@
         function init(){
             UserService.getCurrentUser()
                 .then(function (response) {
-                    if (response.data.length == 1) {
-                        $rootScope.currentUser = response.data[0];
+                    if (response.data && response.data!= '0') {
+                        $rootScope.currentUser = response.data;
                     }
                 }, function(error){
 

@@ -14,7 +14,7 @@
             if (!loginCredentials.hasOwnProperty("password")) {
                 loginCredentials.password = "";
             }
-            UserService.findUserByCredentials(loginCredentials.username, loginCredentials.password)
+            UserService.login(loginCredentials)
                 .then(function (response) {
                     if (response.data) {
                         UserService.setCurrentUser(response.data);

@@ -8,19 +8,19 @@ module.exports = function (app, userModel) {
     var LocalStrategy = require('passport-local').Strategy;
 
     var bcrypt = require('bcrypt-nodejs');
-    var auth = function (req, res, next) {
+    /*var auth = function (req, res, next) {
         if (!req.isAuthenticated()) {
             res.send(401);
         } else {
             next();
         }
-    };
+    };*/
 
     app.get("/api/assignment/loggedIn", loggedIn);
     app.get("/api/assignment/logout", logout);
     app.get("/api/assignment/user", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
-    app.post("/api/assignment/login", passport.authenticate('local'), login);
+    //app.post("/api/assignment/login", passport.authenticate('local'), login);
     app.get("/api/assignment/admin/user", isAdmin, findAllUsers);
     app.get("/api/assignment/admin/user/:id", isAdmin, findUserById);
     app.get("/api/assignment/user", findUserByUsername);
@@ -29,7 +29,7 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/admin/user/:id", isAdmin, deleteUser);
     app.post("/api/assignment/admin/user", isAdmin, adminCreateUser);
     app.put("/api/assignment/admin/user/:userId", isAdmin, adminUpdateUser);
-
+/*
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -68,7 +68,7 @@ module.exports = function (app, userModel) {
         var user = req.user;
         res.json(user);
     }
-
+*/
     function loggedIn(req, res) {
         res.send(req.isAuthenticated() ? req.user : '0');
     }

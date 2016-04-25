@@ -3,6 +3,18 @@
  */
 
 module.exports = function (app, userModel) {
+
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+
+    var auth = function(req, res, next){
+        if(!req.isAuthenticated()){
+            res.send(401);
+        } else {
+            next();
+        }
+    };
+
     app.get("/api/project/loggedin", loggedIn);
     app.get("/api/project/logout", logOut);
     app.get("/api/project/admin", findAllUsers);
@@ -12,18 +24,54 @@ module.exports = function (app, userModel) {
     app.get("/api/project/user/:userId/stock/:symbol", checkIfUserFollowStock);
     app.get("/api/project/user/:userId/investor/:username", checkIfUserFollowInvestor);
     app.get("/api/project/user/:username/stock", stocksFollowedByUser);
+    app.post("/api/project/user/login", passport.authenticate('local'), login);
     app.post("/api/project/user", createUser);
     app.post("/api/project/user/:userId/stock", followStock);
     app.post("/api/project/user/:userId/investor", followInvestor);
     app.delete("/api/project/user/:id", deleteUserById);
     app.put("/api/project/user/:id", updateUser);
 
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done){
+        userModel.findUserByUsername(username)
+            .then(function(user){
+                if(user[0].password == password){
+                    return done(null, user[0]);
+                } else {
+                    return done(null, false);
+                }
+            }, function(error){
+                return done(error);
+            });
+    }
+
+    function serializeUser(user, done){
+        done(null, user);
+    }
+
+    function deserializeUser(user, done){
+        userModel.findUserById(user._id)
+            .then(function(response){
+                return done(null, response);
+            }, function(error){
+                done(error, null);
+            });
+    }
+
+    function login(req, res){
+        var user = req.user;
+        res.json(user);
+    }
+
     function loggedIn(req, res) {
-        res.send(req.session.user);
+        res.send(req.isAuthenticated()? req.user: '0');
     }
 
     function logOut(req, res) {
-        req.session.destroy();
+        req.logOut();
         res.send(200);
     }
 

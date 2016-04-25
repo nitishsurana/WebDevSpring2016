@@ -27,6 +27,7 @@ function UserService($http, $rootScope) {
         followInvestor: followInvestor,
         checkIfUserFollowInvestor: checkIfUserFollowInvestor,
         logOut: logOut,
+        login: login,
         stocksFollowedByUser: stocksFollowedByUser
     };
 
@@ -91,6 +92,10 @@ function UserService($http, $rootScope) {
     
     function stocksFollowedByUser(username) {
         return $http.get("/api/project/user/" + username + "/stock");
+    }
+
+    function login(user){
+        return $http.post("/api/project/user/login", user);
     }
 }
 
