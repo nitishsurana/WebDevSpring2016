@@ -19,10 +19,8 @@
         if (symbol) {
             SearchService.searchYahoo(symbol)
                 .then(function (response) {
-                    console.log(response);
                     if (response.data.length == 2 && response.data[1].query.results != null) {
                         var a = response.data[1].query.results.quote;
-                        //console.log();
                         vm.returnData = {};
                         vm.returnData.option = response.data[0].query.results.quote;
                         vm.tableData = {
@@ -31,7 +29,6 @@
                             "Year Low": vm.returnData.option.YearLow,
                             "Year High": vm.returnData.option.YearHigh
                         };
-                        console.log(vm.returnData.option);
                         var prices = [];
                         var dates = [];
                         for (var i = 0; i < a.length; i++) {
@@ -45,8 +42,6 @@
                             vm.negative = false;
                             vm.positive = true;
                         }
-                        //console.log(dates);
-                        //console.log(prices);
                         Highcharts.chart('chartSpace', {
                             chart: {
                                 zoomType: 'x'
@@ -183,7 +178,6 @@
                 username: investorUsername,
                 fullName: fullName
             };
-            console.log(investor);
             if ($rootScope.currentUser) {
                 UserService.followInvestor($rootScope.currentUser._id, investor)
                     .then(function (response) {
