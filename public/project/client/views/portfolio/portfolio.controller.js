@@ -91,7 +91,6 @@
         }
 
         function deleteInvestment(index) {
-            console.log(index);
             PortfolioService.deleteInvestment(currentUserId, vm.portfolio[index]._id)
                 .then(function (response) {
                     vm.message = null;

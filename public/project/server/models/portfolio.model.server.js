@@ -25,6 +25,10 @@ module.exports = function (db, mongoose) {
             } else {
                 if (doc) {
                     doc.investment.push(investment);
+                    doc.save();
+                    deferred.resolve(doc);
+                    //delete doc._id;
+                    /*
                     portfolioModel.update({userId: doc.userId}, doc, function (err, doc) {
                         if (err) {
                             deferred.reject(err);
@@ -32,7 +36,7 @@ module.exports = function (db, mongoose) {
                         if (doc) {
                             return deferred.resolve(doc);
                         }
-                    });
+                    });*/
                 }
                 else {
                     var portfolio = {
@@ -66,6 +70,9 @@ module.exports = function (db, mongoose) {
                     }
                 }
                 portfolio[0].investment.splice(i, 1);
+                portfolio[0].save();
+                deferred.resolve(true);/*
+                delete portfolio[0]._id;
                 portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function (err, doc) {
                     if (err) {
                         deferred.reject(err);
@@ -73,7 +80,7 @@ module.exports = function (db, mongoose) {
                     if (doc) {
                         return deferred.resolve(doc);
                     }
-                });
+                });*/
             }
         });
         return deferred.promise;
@@ -81,17 +88,23 @@ module.exports = function (db, mongoose) {
 
     function updateInvestment(userId, investment) {
         var deferred = q.defer();
-        portfolioModel.find({userId: userId}, function (err, portfolio) {
+        portfolioModel.findOne({userId: userId}, function (err, portfolio) {
             if (err) {
                 deferred.reject(err);
             }
             if (portfolio) {
-                for (var i = 0; i < portfolio[0].investment.length; i++) {
-                    if (portfolio[0].investment[i]._id == investment._id) {
-                        portfolio[0].investment[i] = investment;
+                for (var i = 0; i < portfolio.investment.length; i++) {
+                    if (portfolio.investment[i]._id == investment._id) {
+                        portfolio.investment[i].stockName = investment.stockName;
+                        portfolio.investment[i].pricePerQty = investment.pricePerQty;
+                        portfolio.investment[i].qty = investment.qty;
+                        portfolio.investment[i].totalAmtInvested = investment.totalAmtInvested;
+                        portfolio.save();
                         break;
                     }
                 }
+                deferred.resolve(true);
+/*
                 portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function (err, doc) {
                     if (err) {
                         deferred.reject(err);
@@ -99,7 +112,7 @@ module.exports = function (db, mongoose) {
                     if (doc) {
                         return deferred.resolve(doc);
                     }
-                });
+                });*/
             }
         });
         return deferred.promise;
