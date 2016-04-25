@@ -28,15 +28,9 @@
                             <td>
                                 <input type="number" ng-model="model.investment.qty" class="form-control" placeholder="Quantity">
                             </td>
-                            <td>
-                                <!--<input type="number" ng-model="model.investment.totalInvestment" class="form-control" placeholder="Total Investment">-->
-                            </td>
-                            <td>
-                                <!--<input type="number" ng-model="model.investment.currentValue" class="form-control" placeholder="Current Value">-->
-                            </td>
-                            <td>
-                                <!--<input type="number" ng-model="model.investment.profit" class="form-control" placeholder="Profit">-->
-                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <a ng-click="model.addInvestment(model.investment)" role="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -50,15 +44,15 @@
                 </tr>
                 <tr ng-repeat="investment in model.portfolio" ng-class="{'success' : $index ==  selectedFormIndex}">
                     <td>{{investment.stockName}} </td>
-                    <td>{{investment.pricePerQty}} </td>
+                    <td>{{investment.pricePerQty | currency: "$" : 2}} </td>
                     <td>{{investment.qty}} </td>
-                    <td>{{investment.totalAmtInvested}} </td>
-                    <td>{{investment.currentValueOfInvestment}} </td>
+                    <td>{{investment.totalAmtInvested | currency: "$" : 2}} </td>
+                    <td>{{investment.currentValueOfInvestment | currency: "$" : 2}} </td>
                     <td ng-show="investment.positive" class="positive">
-                        {{investment.profit}}
+                        {{investment.profit | currency: "$" : 2}}
                     </td>
                     <td ng-hide="investment.positive" class="negative">
-                        {{investment.profit}}
+                        {{investment.profit | currency: "$" : 2}}
                     </td>
                     <td>
                         <a ng-click="model.deleteInvestment($index)" role="button" class="btn btn-default">
@@ -71,13 +65,13 @@
                 </tr>
                 <tr>
                     <td colspan="3">Total Value</td>
-                    <td>${{model.invested}}</td>
-                    <td>${{model.currentValuation}}</td>
+                    <td>{{model.invested | currency: "$" : 2}}</td>
+                    <td>{{model.currentValuation | currency: "$" : 2}}</td>
                     <td ng-show="model.overallProfit" class="positive">
-                        {{model.netGain}}
+                        {{model.netGain  | currency: "$" : 2}}
                     </td>
                     <td ng-hide="model.overallProfit" class="negative">
-                        {{model.netGain}}
+                        {{model.netGain  | currency: "$" : 2}}
                     </td>
                 </tr>
             </table>

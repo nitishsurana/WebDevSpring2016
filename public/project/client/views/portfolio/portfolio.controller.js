@@ -54,7 +54,7 @@
                         }
                         vm.currentValuation = PortfolioService.currentValue(vm.portfolio);
                         vm.netGain = PortfolioService.calculateProfit(vm.portfolio);
-                        if (vm.netGain.indexOf("-") == 0) {
+                        if (vm.netGain < 0) {
                             vm.overallProfit = false;
                         }
                         else {
@@ -63,20 +63,16 @@
                     }
                     else {
                         vm.currentValuation = 0;
-                        vm.netGain = "$0";
+                        vm.netGain = 0;
                     }
                 });
         }
 
         function addInvestment(investment) {
-            //console.log(investment);
-            //console.log(currentUserId);
             investment.totalAmtInvested = investment.qty * investment.pricePerQty;
             PortfolioService.addInvestment(currentUserId, investment)
                 .then(function (response) {
-                    //console.log(response);
                     vm.message = null;
-                    //console.log(response.data);
                     init();
                 }, function (error) {
                     vm.message = "Error in adding Investment. Please try again later.";
@@ -84,11 +80,9 @@
         }
 
         function updateInvestment(investment) {
-            //console.log(investment);
             investment.totalAmtInvested = investment.qty * investment.pricePerQty;
             PortfolioService.updateInvestment(currentUserId, investment)
                 .then(function (response) {
-                    //console.log(response);
                     vm.message = null;
                     init();
                 }, function (error) {
@@ -100,7 +94,6 @@
             console.log(index);
             PortfolioService.deleteInvestment(currentUserId, vm.portfolio[index]._id)
                 .then(function (response) {
-                    //console.log(response);
                     vm.message = null;
                     init();
                 }, function (error) {
@@ -109,7 +102,6 @@
         }
 
         function selectInvestment(index) {
-            //console.log(vm.portfolio[index]);
             vm.investment = vm.portfolio[index];
         }
     }
