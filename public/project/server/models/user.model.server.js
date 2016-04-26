@@ -129,15 +129,8 @@ module.exports = function (db, mongoose) {
                 else if (flag == 0) {
                     investor[0].followStocks.splice(i, 1);
                 }
-
-                UserModel.update({_id: userId}, investor[0], function (err, doc) {
-                    if (err) {
-                        deferred.reject(err);
-                    }
-                    if (doc) {
-                        deferred.resolve(doc);
-                    }
-                });
+                investor[0].save();
+                deferred.resolve(investor[0]);
             }
         });
         return deferred.promise;
@@ -163,14 +156,8 @@ module.exports = function (db, mongoose) {
                 else if (flag == 0) {
                     user[0].followUsers.splice(i, 1);
                 }
-                UserModel.update({_id: userId}, user[0], function (err, doc) {
-                    if (err) {
-                        deferred.reject(err);
-                    }
-                    if (doc) {
-                        deferred.resolve(doc);
-                    }
-                });
+                investor[0].save();
+                deferred.resolve(investor[0]);
             }
         });
         return deferred.promise;

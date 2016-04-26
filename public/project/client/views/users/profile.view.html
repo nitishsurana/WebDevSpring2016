@@ -63,13 +63,13 @@
                 <div ng-if="model.user.followStocks.length>0">
                     <strong>Stocks Followed:</strong>
                     <div ng-repeat="company in model.user.followStocks">
-                        <a href="/search/{{company.symbol}}">{{company.name}}</a>
+                        <a href="#/search/option/{{company.symbol}}">{{company.name}}</a>
                     </div>
                 </div>
                 <div ng-if="model.user.followUsers.length>0">
                     <strong>Investors Followed:</strong>
                     <div ng-repeat="investor in model.user.followUsers">
-                        <a href="/search/{{investor.username}}">{{investor.fullName}}</a>
+                        <a href="#/search/investor/{{investor.username}}">{{investor.fullName}}</a>
                     </div>
                 </div>
             </div>

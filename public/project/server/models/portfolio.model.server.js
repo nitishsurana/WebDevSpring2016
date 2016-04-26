@@ -71,7 +71,7 @@ module.exports = function (db, mongoose) {
                 }
                 portfolio[0].investment.splice(i, 1);
                 portfolio[0].save();
-                deferred.resolve(true);/*
+                deferred.resolve(portfolio[0]);/*
                 delete portfolio[0]._id;
                 portfolioModel.findOneAndUpdate({userId: userId}, portfolio[0], function (err, doc) {
                     if (err) {
