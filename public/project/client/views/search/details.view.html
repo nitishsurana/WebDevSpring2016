@@ -58,7 +58,7 @@
         </div>
         <h3 class="negative">{{model.message}}</h3>
         <div ng-repeat="(key,value) in model.investor">
-            <div ng-if="key!= 'fullName' && key!='Interested Investments'">
+            <div ng-if="key!= 'fullName' && key!='Interested Investments' && key!='username'">
                 {{key}} - {{value}}
             </div>
         </div>

@@ -103,9 +103,13 @@
                                     "username": response.data[0].username,
                                     "fullName": response.data[0].fullName,
                                     "Contact Information": response.data[0].email,
-                                    "About Me": response.data[0].aboutMe,
-                                    "Interested Investments": response.data[0].interestedInvestments[0].split(",")
+                                    "About Me": response.data[0].aboutMe
                                 };
+                                if (response.data[0].interestedInvestments.length>0 && response.data[0].interestedInvestments[0].indexOf(",")>=0){
+                                    vm.investor["Interested Investments"] = response.data[0].interestedInvestments[0].split(",");
+                                } else if (response.data[0].interestedInvestments.length>0){
+                                    vm.investor["Interested Investments"] = response.data[0].interestedInvestments[0][0];
+                                }
                                 vm.userSignedIn = true;
                             } else {
                                 vm.investor = {

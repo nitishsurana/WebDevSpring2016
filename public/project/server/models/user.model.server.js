@@ -156,8 +156,8 @@ module.exports = function (db, mongoose) {
                 else if (flag == 0) {
                     user[0].followUsers.splice(i, 1);
                 }
-                investor[0].save();
-                deferred.resolve(investor[0]);
+                user[0].save();
+                deferred.resolve(user[0]);
             }
         });
         return deferred.promise;
