@@ -73,7 +73,7 @@ module.exports = function (db, mongoose) {
     function createUser(user) {
         user.followUsers = [];
         user.followStocks = [];
-        user.roles = ["admin"];
+        user.roles = ["investor"];
         var deferred = q.defer();
         UserModel.create(user, function (err, doc) {
             if (err) {

@@ -1,9 +1,9 @@
-
 <div class="container">
     <div class="text-center">
         <h1 class="page-header">Profile</h1>
         <h3>{{model.message}}</h3>
         <form class="form-horizontal">
+            <div class="col-sm-6 col-xs-12">
             <div class="form-group">
                 <label class="col-sm-2 control-label">Full Name</label>
                 <div class="col-sm-10">
@@ -58,6 +58,22 @@
                     <textarea ng-model="model.user.interestedInvestments" class="form-control" placeholder="Interested Investments"></textarea>
                 </div>
             </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-">
+                <div ng-if="model.user.followStocks.length>0">
+                    <strong>Stocks Followed:</strong>
+                    <div ng-repeat="company in model.user.followStocks">
+                        <a href="/search/{{company.symbol}}">{{company.name}}</a>
+                    </div>
+                </div>
+                <div ng-if="model.user.followUsers.length>0">
+                    <strong>Investors Followed:</strong>
+                    <div ng-repeat="investor in model.user.followUsers">
+                        <a href="/search/{{investor.username}}">{{investor.fullName}}</a>
+                    </div>
+                </div>
+            </div>
+            &nbsp;
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" ng-click="model.update(model.user)" class="btn btn-primary btn-lg btn-block">Update</button>
