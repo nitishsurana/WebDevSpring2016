@@ -99,6 +99,7 @@ module.exports = function (db, mongoose) {
 
     function updateUser(userId, user) {
         var deferred = q.defer();
+        delete user._id;
         UserModel.findOneAndUpdate({_id: userId}, user, function (err, doc) {
             if (err) {
                 deferred.reject(err);

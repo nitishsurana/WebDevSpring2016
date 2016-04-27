@@ -12,6 +12,7 @@
         UserService.getCurrentUser()
             .then(function(response){
                 vm.user = response.data;
+                vm.user.verifyPassword = response.data.password;
             });
         function update(user) {
             UserService.setCurrentUser(user);
