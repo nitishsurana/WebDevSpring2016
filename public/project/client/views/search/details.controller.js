@@ -108,7 +108,7 @@
                                 if (response.data[0].interestedInvestments.length>0 && response.data[0].interestedInvestments[0].indexOf(",")>=0){
                                     vm.investor["Interested Investments"] = response.data[0].interestedInvestments[0].split(",");
                                 } else if (response.data[0].interestedInvestments.length>0){
-                                    vm.investor["Interested Investments"] = response.data[0].interestedInvestments[0][0];
+                                    vm.investor["Interested Investments"] = response.data[0].interestedInvestments;
                                 }
                                 vm.userSignedIn = true;
                             } else {
